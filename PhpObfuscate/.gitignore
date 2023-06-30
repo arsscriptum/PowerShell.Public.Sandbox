@@ -1,0 +1,8 @@
+scripts/test
+scripts/test/**
+
+obfuscated/coded.php
+obfuscated
+obfuscated/**
+coded.php
+index.php
