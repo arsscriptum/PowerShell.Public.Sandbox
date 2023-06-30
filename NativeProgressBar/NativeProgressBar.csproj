@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Guillaume Plante &lt;guillaumeplante.qc@gmail.com&gt;</Authors>
+    <Company>https://arsscriptum.github.io/</Company>
+    <Copyright>2022 guillaumeplante.qc@gmail.com</Copyright>
+    <PackageProjectUrl>https://arsscriptum.github.io/blog/powershell-save-reddit-video/</PackageProjectUrl>
+    <RepositoryType>https://github.com/arsscriptum/PowerShell.SaveRedditVideo</RepositoryType>
+    <SignAssembly>false</SignAssembly>
+    <Version>2.2.5</Version>
+    <Description>NativeProgressBar</Description>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <ApplicationIcon>info.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <COMReference Include="MMC20">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>8e80422b-cac4-472b-b272-9635f1dfef3b</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="pwsh -nop -noni -File &quot;$(ProjectDir)scripts\Deploy.ps1&quot; -Path $(OutDir)" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="pwsh -nop -noni -File &quot;$(ProjectDir)scripts\PreBuild.ps1&quot;" />
+  </Target>
+
+</Project>

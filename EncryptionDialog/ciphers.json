@@ -1,0 +1,26 @@
+[
+  {
+    "Cipher": "Caesar Encrypt",
+    "File": "CaesarEncrypt.ps1"
+  },
+  {
+    "Cipher": "Caesar Decrypt",
+    "File": "CaesarDecrypt.ps1"
+  },
+  {
+    "Cipher": "DES_Encrypt",
+    "File": "DES_Encrypt.ps1"
+  },
+  {
+    "Cipher": "DES_Decrypt",
+    "File": "DES_Decrypt.ps1"
+  },
+  {
+    "Cipher": "AES_Encrypt",
+    "File": "AesEncrypt.ps1"
+  },
+  {
+    "Cipher": "AES_Decrypt",
+    "File": "AesDecrypt.ps1"
+  }
+]

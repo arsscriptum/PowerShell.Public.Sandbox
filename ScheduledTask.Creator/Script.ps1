@@ -1,0 +1,1 @@
+&"C:\Windows\system32\bitsadmin.exe" "/RESUME" "QT"
