@@ -1,0 +1,92 @@
+[
+  {
+    "Port": 22,
+    "Protocol": "tcp",
+    "State": "open",
+    "Service": "ssh"
+  },
+  {
+    "Port": 64,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "covia"
+  },
+  {
+    "Port": 80,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "http"
+  },
+  {
+    "Port": 443,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "https"
+  },
+  {
+    "Port": 1194,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "openvpn"
+  },
+  {
+    "Port": 8087,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "simplifymedia"
+  },
+  {
+    "Port": 8088,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "radan-http"
+  },
+  {
+    "Port": 8089,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  },
+  {
+    "Port": 8090,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "opsmessaging"
+  },
+  {
+    "Port": 20020,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  },
+  {
+    "Port": 20021,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  },
+  {
+    "Port": 20022,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  },
+  {
+    "Port": 20023,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  },
+  {
+    "Port": 20024,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  },
+  {
+    "Port": 20025,
+    "Protocol": "tcp",
+    "State": "closed",
+    "Service": "unknown"
+  }
+]
