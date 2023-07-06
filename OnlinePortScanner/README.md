@@ -81,7 +81,11 @@ Upon getting an error in the request, you may have been rate-limited by the serv
 ---------------------------------------------------------------------------------------------------------
 
 
-![scanner](scanner/scanner.jpg)
+
+<center>
+<img src="https://arsscriptum.github.io/assets/img/posts/scanner/scanner.jpg" alt="scanner" />
+</center>
+
 
 ### Other Online Port Scanners
 
@@ -98,4 +102,4 @@ Upon getting an error in the request, you may have been rate-limited by the serv
 
 ## Get the code 
 
-[OnlinePortScanner on GitHub](https://github.com/arsscriptum/PowerShell.Public.Sandbox/OnlinePortScanner)
+[OnlinePortScanner on GitHub](https://github.com/arsscriptum/PowerShell.Public.Sandbox/tree/master/OnlinePortScanner)
