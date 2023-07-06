@@ -1,3 +1,9 @@
+
+<center>
+<img src="https://arsscriptum.github.io/assets/img/posts/scanner/main.jpg" alt="scanner" />
+</center>
+
+
 # Leveraging Online Port Scanners using PowerShell
 
 Firewall Testing is the only way to accurately confirm whether the firewall is working as expected. Complicated firewall rules, poor management interfaces, and other factors often make it difficult to determine the status of a firewall. By using an external port scanner it is possible to accurately determine the firewall status. Personally, I needed a way to detect unauthorized changes in my config. Also, this is usefull when troubleshoting network access problems or detecting potential mishaps before they become a security castatrophe.
