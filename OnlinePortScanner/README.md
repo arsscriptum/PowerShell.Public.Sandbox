@@ -20,7 +20,7 @@ Here are some reasons you may want to use this script with an ***online port sca
 
 Pretty Straighforward. It uses an ***online port scanner*** , in this case [https://www.speedguide.net/portscan.php](https://www.speedguide.net/portscan.php) parses the replies using [HtmlAgilityPack](https://html-agility-pack.net/) . 
 
-For your convienience, a function to install [HtmlAgilityPack](https://html-agility-pack.net/) is provided in [Install-HtmlAgilityPack.ps1](Install-HtmlAgilityPack.ps1).
+For your convienience, a function to install [HtmlAgilityPack](https://html-agility-pack.net/) is provided in [Install-HtmlAgilityPack.ps1](Install-HtmlAgilityPack.ps1). You can also checkout my [Install-NugetPackage.ps1](https://github.com/arsscriptum/PowerShell.Public.Sandbox/tree/master/InstallNugetPackage) script.  
 
 
 ### Possible States for Ports
