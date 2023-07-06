@@ -3,9 +3,22 @@
 #̷𝓍   🇵​​​​​🇴​​​​​🇼​​​​​🇪​​​​​🇷​​​​​🇸​​​​​🇭​​​​​🇪​​​​​🇱​​​​​🇱​​​​​ 🇸​​​​​🇨​​​​​🇷​​​​​🇮​​​​​🇵​​​​​🇹​​​​​ 🇧​​​​​🇾​​​​​ 🇬​​​​​🇺​​​​​🇮​​​​​🇱​​​​​🇱​​​​​🇦​​​​​🇺​​​​​🇲​​​​​🇪​​​​​🇵​​​​​🇱​​​​​🇦​​​​​🇳​​​​​🇹​​​​​🇪​​​​​.🇶​​​​​🇨​​​​​@🇬​​​​​🇲​​​​​🇦​​​​​🇮​​​​​🇱​​​​​.🇨​​​​​🇴​​​​​🇲​​​​​
 #>
 
+function Get-CurrentDisplayResolution{
+   [CmdletBinding(SupportsShouldProcess)]
+   param()
+
+    Add-Type -AssemblyName  System.Windows.Forms
+    $CurrentRes=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+    $Resolution = [PsCustomObject]@{
+         Width = $CurrentRes.Width
+         Height = $CurrentRes.Height
+       
+    }
+    $Resolution
+}
 
 
-function Get-CurrentResolution{
+function Get-DisplayResolutionList{
    [CmdletBinding(SupportsShouldProcess)]
    param()
 
@@ -41,35 +54,85 @@ function Get-CurrentResolution{
    $ResolutionList
 }
 
-function Get-PositionValueFromResolution{
-       [CmdletBinding(SupportsShouldProcess)]
-       param()
 
-       $MaxResHor = (Get-CurrentResolution | Select -ExpandProperty Horizontal | Measure-Object -Maximum).Maximum
-       $MaxResVer = (Get-CurrentResolution | Select -ExpandProperty Vertical | Measure-Object -Maximum).Maximum
-       Write-Verbose "From Resolution: ResHor $MaxResHor"
-       Write-Verbose "From Resolution: ResVer $MaxResVer"
-       $MaxResHor = $MaxResHor - 4 
-       $MaxResVer = $MaxResVer - 4
-       $HexHor = ([System.Convert]::ToString($MaxResHor,16).PadLeft(4,'0'))
-       $HexVer = ([System.Convert]::ToString($MaxResVer,16).PadLeft(4,'0'))
-       Write-Verbose "MaxResHor $MaxResHor. $HexHor"
-       Write-Verbose "MaxResVer $MaxResVer. $HexVer"
 
-       $FinalHexVal = '0x{0}{1}' -f $HexVer,$HexHor
+function Get-ConvertedCoordValue{
+    [CmdletBinding(SupportsShouldProcess)]
+    param (
+        [Parameter(Mandatory=$True, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$PosX,
+        [Parameter(Mandatory=$True, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$PosY,
+        [Parameter(Mandatory=$false)]
+        [switch]$Hex
+    )
+
+       $HexWidth = ([System.Convert]::ToString($PosX,16).PadLeft(4,'0'))
+       $HexHeight = ([System.Convert]::ToString($PosY,16).PadLeft(4,'0'))
+
+       $FinalHexVal = '0x{0}{1}' -f $HexHeight,$HexWidth
        Write-Verbose "Final Hex Value   $FinalHexVal"
        
+       if($Hex){
+          return $FinalHexVal
+       }
        $NumValue = [Int32]"$FinalHexVal"
-       Write-Verbose "Decimal Value     $NumValue"
-       $NumValue
+       
+       return $NumValue
 }
+
 
 function Set-AppConsoleProperties {
     [CmdletBinding(SupportsShouldProcess)]
     param (
         [Parameter(Mandatory=$True, Position = 0)]
         [ValidateNotNullOrEmpty()]
-        [string]$Path
+        [string]$Path,
+        [Parameter(Mandatory=$True, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$PosX,
+        [Parameter(Mandatory=$True, Position = 2)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$PosY,
+        [Parameter(Mandatory=$True, Position = 3)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$SizeX,
+        [Parameter(Mandatory=$True, Position = 4)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$SizeY
+    )
+    try{
+        if(-not(Test-Path "$Path")){ throw "no such file"}
+        $ModPath = $Path.Replace("\","_")
+        $RegPath = "HKCU:\Console\{0}" -f $ModPath
+        $Null = New-Item -Path "$RegPath" -Force -ErrorAction Ignore
+
+        [int32]$SizeValue = Get-ConvertedCoordValue $SizeX $SizeY
+        $Null = New-ItemProperty -Path "$RegPath" -Name "WindowSize" -PropertyType DWORD -Value $SizeValue
+
+        [int32]$PositionValue = Get-ConvertedCoordValue $PosX $PosY
+        $Null = New-ItemProperty -Path "$RegPath" -Name "WindowPosition" -PropertyType DWORD -Value $PositionValue
+    }catch{
+        Write-Error "$_"
+    }
+}
+
+
+
+function Set-AppConsoleProperties {
+    [CmdletBinding(SupportsShouldProcess)]
+    param (
+        [Parameter(Mandatory=$True, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Path,
+        [Parameter(Mandatory=$True, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$PosX,
+        [Parameter(Mandatory=$True, Position = 2)]
+        [ValidateNotNullOrEmpty()]
+        [int32]$PosY,
     )
     try{
         if(-not(Test-Path "$Path")){ throw "no such file"}
@@ -86,6 +149,32 @@ function Set-AppConsoleProperties {
         Write-Error "$_"
     }
 }
+
+
+
+function Get-FarPositionValueFromResolution{
+       [CmdletBinding(SupportsShouldProcess)]
+       param()
+
+       $Width = (Get-CurrentDisplayResolution).Width
+       $Height = (Get-CurrentDisplayResolution).Height
+       Write-Verbose "From Resolution: Width $Width"
+       Write-Verbose "From Resolution: Height $Height"
+       $Width = $Width - 4 
+       $Height = $Height - 4
+       $HexWidth = ([System.Convert]::ToString($Width,16).PadLeft(4,'0'))
+       $HexHeight = ([System.Convert]::ToString($Height,16).PadLeft(4,'0'))
+       Write-Verbose "Width $Width. $HexWidth"
+       Write-Verbose "Height $Height. $HexHeight"
+
+       $FinalHexVal = '0x{0}{1}' -f $HexHeight,$HexWidth
+       Write-Verbose "Final Hex Value   $FinalHexVal"
+       
+       $NumValue = [Int32]"$FinalHexVal"
+       Write-Verbose "Decimal Value     $NumValue"
+       $NumValue
+}
+
 
 
 
