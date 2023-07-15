@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Runtime.CompilerServices;
 using System.CodeDom.Compiler;
@@ -1699,6 +1700,136 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 				}
 			}
 			
+		}
+	}
+
+	public static class CompressionHelper
+	{
+	    public static byte[] CompressBytes(byte[] data)
+	    {
+	        byte[] compressArray = null;
+	        try
+	        {
+	            using (MemoryStream memoryStream = new MemoryStream())
+	            {
+	                using (DeflateStream deflateStream = new DeflateStream(memoryStream, CompressionMode.Compress))
+	                {
+	                    deflateStream.Write(data, 0, data.Length);
+	                }
+	                compressArray = memoryStream.ToArray();
+	            }
+	        }
+	        catch (Exception e)
+	        {
+	            Console.WriteLine($"[CompressBytes] failure on compression {e.Message} ");
+	            throw e;
+	        }
+	        return compressArray;
+	    }
+
+	    public static byte[] DecompressBytes(byte[] data)
+	    {
+	        byte[] decompressedArray = null;
+	        try
+	        {
+	            using (MemoryStream decompressedStream = new MemoryStream())
+	            {
+	                using (MemoryStream compressStream = new MemoryStream(data))
+	                {
+	                    using (DeflateStream deflateStream = new DeflateStream(compressStream, CompressionMode.Decompress))
+	                    {
+	                        deflateStream.CopyTo(decompressedStream);
+	                    }
+	                }
+	                decompressedArray = decompressedStream.ToArray();
+	            }
+	        }
+	        catch (Exception e)
+	        {
+	        	Console.WriteLine($"[CompressBytes] failure on Decompression {e.Message} ");
+	            throw e;
+	        }
+
+	        return decompressedArray;
+	    }
+
+	    public static void TestFileCompress()
+	    {
+	    	int fileSize = 4096;
+	    	string folder = @"C:\Temp\";
+			// Filename
+			string fileName = "BigTextFile.txt";
+			string fileNameDecompressed = "BigTextFile-Decompressed.txt";
+			// Fullpath. You can direct hardcode it if you like.
+			string fullPath = folder + fileName;
+			char c = 'z';
+	    	string bigData = new string(c,fileSize);
+
+	    	File.WriteAllText(fullPath, bigData);
+	    	Console.WriteLine($"[TestFileCompression] Generated a Text file to be compressed { fullPath } . Size   { fileSize } bytes");
+
+	    	Console.WriteLine($"[TestFileCompression] Compressing { fullPath } ...");
+	    	string compressedFilePath  = CompressFile(fullPath);
+	    	FileInfo compressedFileInfo = new FileInfo(compressedFilePath);
+	    	long compressedFileSize = compressedFileInfo.Length;
+	    	Console.WriteLine($"[TestFileCompression] Compression Completed. Output File { compressedFilePath } . New Size {compressedFileSize} . Diff {(fileSize-compressedFileSize)}");
+
+	    	Console.WriteLine($"[TestFileCompression] Decompressing { compressedFilePath } ...");
+	    	string decompresedFilePath = folder + fileNameDecompressed;
+	    	DecompressFile(compressedFilePath,decompresedFilePath);
+	    	FileInfo deCompressedFileInfo = new FileInfo(decompresedFilePath);
+	    	long deCompressedFileSize = deCompressedFileInfo.Length;
+	    	Console.WriteLine($"[TestFileCompression] Decompression Completed. Output File { decompresedFilePath } . New Size {deCompressedFileSize} . Diff {(deCompressedFileSize-compressedFileSize)}");
+
+	    }
+
+	    public static string CompressFile(string inputFile)
+	    {
+			FileInfo fileToBeDeflateZipped = new FileInfo(inputFile);
+			string outFile = string.Concat(fileToBeDeflateZipped.FullName, ".cmp");
+			FileInfo deflateZipFileName = new FileInfo(outFile);
+			 
+			using (FileStream fileToBeZippedAsStream = fileToBeDeflateZipped.OpenRead())
+			{
+			    using (FileStream deflateZipTargetAsStream = deflateZipFileName.Create())
+			    {
+			        using (DeflateStream deflateZipStream = new DeflateStream(deflateZipTargetAsStream, CompressionMode.Compress))
+			        {
+			            try
+			            {
+			                fileToBeZippedAsStream.CopyTo(deflateZipStream);
+			            }
+			            catch (Exception ex)
+			            {
+			                Console.WriteLine(ex.Message);
+			            }
+			        }
+			    }
+			}
+			return outFile;
+	    } 	
+	    public static string DecompressFile(string inputFile, string outFile)
+	    {
+	    	FileInfo deflateZipFileName = new FileInfo(inputFile);
+	    	//string outFile = inputFile.Replace(".cmp", "").Replace(".zip", "").Replace(".7z", "")
+			using (FileStream fileToDecompressAsStream = deflateZipFileName.OpenRead())
+			{
+			    using (FileStream decompressedStream = File.Create(outFile))
+			    {
+			        using (DeflateStream decompressionStream = new DeflateStream(fileToDecompressAsStream, CompressionMode.Decompress))
+			        {
+			            try
+			            {
+			                decompressionStream.CopyTo(decompressedStream);
+			            }
+			            catch (Exception ex)
+			            {
+			                Console.WriteLine(ex.Message);
+			            }
+			        }
+			    }
+			}
+			return outFile;
 		}
 	}
 }
