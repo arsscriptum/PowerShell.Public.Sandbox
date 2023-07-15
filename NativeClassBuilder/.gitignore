@@ -1,6 +1,16 @@
 
+.vs
+.vs/**
+
+**/.vs/**
+
+**/obj/**
+
 PsExtendedTypes/obj
 PsExtendedTypes/obj/**
 
 bin
 bin/**
+
+PsExtendedTypes/.vs
+PsExtendedTypes/.vs/**
