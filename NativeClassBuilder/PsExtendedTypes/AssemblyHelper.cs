@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Management.Automation.Host;
 using System.Security;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Security.Cryptography;
@@ -663,19 +664,7 @@ namespace AssemblyResourcesCore_57
 				ushort num = (ushort)opCode.Value;
 				if (num < 256)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
+		
 					lastSession[num] = opCode;
 				}
 				else
@@ -684,28 +673,11 @@ namespace AssemblyResourcesCore_57
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					
 					valuesHandle[num & 0xFF] = opCode;
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			
 		}
 
 		public QueueResolver(MethodBase P_0, byte[] P_1, DynamicILInfo P_2)
@@ -717,19 +689,7 @@ namespace AssemblyResourcesCore_57
 			object obj;
 			if (!(P_0 is ConstructorInfo))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
+		
 				obj = P_0.GetGenericArguments();
 			}
 			else
@@ -740,15 +700,7 @@ namespace AssemblyResourcesCore_57
 			object obj2;
 			if ((object)P_0.DeclaringType != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+		
 				obj2 = P_0.DeclaringType.GetGenericArguments();
 			}
 			else
@@ -766,15 +718,7 @@ namespace AssemblyResourcesCore_57
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
+		
 				return;
 			}
 		}
@@ -787,19 +731,7 @@ namespace AssemblyResourcesCore_57
 			byte b = ConnectDevice();
 			if (b != 254)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
+	
 				nop = lastSession[b];
 			}
 			else
@@ -889,15 +821,7 @@ namespace AssemblyResourcesCore_57
 							}
 							goto IL_0351;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						
 					}
 					MethodBase methodBase = memberInfo as MethodBase;
 					num2 = colorList.GetTokenFor(methodBase.MethodHandle, methodBase.DeclaringType.TypeHandle);
