@@ -33,11 +33,9 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 		public static void TestLoad(){
 			
 			Initialize();
-			LoadAssemblyResourceBytes(psprotek_path,"nnPsXwcexH8vnLncj4u7Bw==");
+			LoadAssemblyResourceBytes(psprotek_path,"PSProtector$");
 			TestAssistantLoadedData();
-			LoadAssemblyResourceBytes(psprotek_path,"TpAs1FHUFLVymbv5vtmXvA==");
-			TestAssistantLoadedData();
-			LoadAssemblyResourceBytes(psprotek_path,"BdwlxOzxj6f2Bt1L/u3SyA==");
+			LoadAssemblyResourceBytes(psprotek_path,"PSProtector%");
 			TestAssistantLoadedData();
 		}
 		public static void TestGetResourceInfos(){
@@ -247,8 +245,18 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 						using (BinaryReader binReader = new BinaryReader(manifestResourceStream))
 						{
 							byte[] res_bytes = BinaryReaderHelper.ReadAllBytes(binReader);
-							//Console.WriteLine($"[GetAssemblyResourceBytes] returning Resource Data for {res_name}");
-							return res_bytes;
+
+							byte[] key = new byte[8];
+							byte[] salt = new byte[8];
+
+							byte[] decrypted_bytes = DesCryptoHelper.DecryptBytesFromMemory(res_bytes,key,salt);
+							long decrypted_bytes_size = decrypted_bytes.Length;
+							Console.WriteLine($"[GetAssemblyResourceBytes] decrypted bytes. new size {decrypted_bytes_size}");
+							byte[] decrypted_decompressed_bytes = CompressionHelper.DecompressBytes(decrypted_bytes);
+							
+							long decrypted_decompressed_bytes_size = decrypted_decompressed_bytes.Length;
+							Console.WriteLine($"[GetAssemblyResourceBytes] decompressed bytes. new size {decrypted_decompressed_bytes_size}");
+							return decrypted_decompressed_bytes;
 						}
 					}
 	            }
@@ -552,17 +560,52 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 	            byte[] encrypted = EncryptTextToMemory(original, key, iv);
 
 	            // Decrypt the buffer back to a string.
-	            string decrypted = DecryptTextFromMemory(encrypted, key, iv);
+	            byte[] decrypted_bytes = DecryptBytesFromMemory(encrypted, key, iv);
+
+	            string decrypted_string = Encoding.UTF8.GetString(decrypted_bytes, 0, 0);
 
 	            // Display the decrypted string to the console.
-	            Console.WriteLine(decrypted);
+	            Console.WriteLine(decrypted_string);
 	        }
 	        catch (Exception e)
 	        {
 	            Console.WriteLine(e.Message);
 	        }
 	    }
+		public static byte[] EncryptBytesToMemory(byte[] clearBytes, byte[] key, byte[] iv)
+	    {
+	        try
+	        {
+	            // Create a MemoryStream.
+	            using (MemoryStream mStream = new MemoryStream())
+	            {
+	                // Create a new DES object.
+	                using (DES des = DES.Create())
+	                // Create a DES encryptor from the key and IV
+	                using (ICryptoTransform encryptor = des.CreateEncryptor(key, iv))
+	                // Create a CryptoStream using the MemoryStream and encryptor
+	                using (var cStream = new CryptoStream(mStream, encryptor, CryptoStreamMode.Write))
+	                {
+	                  
+	                    // Write the byte array to the crypto stream and flush it.
+	                    cStream.Write(clearBytes, 0, clearBytes.Length);
 
+	                    // Ending the using statement for the CryptoStream completes the encryption.
+	                }
+
+	                // Get an array of bytes from the MemoryStream that holds the encrypted data.
+	                byte[] ret = mStream.ToArray();
+
+	                // Return the encrypted buffer.
+	                return ret;
+	            }
+	        }
+	        catch (CryptographicException e)
+	        {
+	            Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
+	            throw;
+	        }
+	    }
 	    public static byte[] EncryptTextToMemory(string text, byte[] key, byte[] iv)
 	    {
 	        try
@@ -600,10 +643,51 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 	        }
 	    }
 
-	    public static string DecryptTextFromMemory(byte[] encrypted, byte[] key, byte[] iv)
+	    public static byte[] DecryptBytesFromMemory(byte[] encrypted, byte[] key, byte[] iv)
 	    {
 	        try
 	        {
+	            // Create a buffer to hold the decrypted data.
+	            // DES-encrypted data will always be slightly bigger than the decrypted data.
+	            byte[] decrypted = new byte[encrypted.Length];
+	            int offset = 0;
+
+	            // Create a new MemoryStream using the provided array of encrypted data.
+	            using (MemoryStream mStream = new MemoryStream(encrypted))
+	            {
+	                // Create a new DES object.
+	                using (DES des = DES.Create())
+	                // Create a DES decryptor from the key and IV
+	                using (ICryptoTransform decryptor = des.CreateDecryptor(key, iv))
+	                // Create a CryptoStream using the MemoryStream and decryptor
+	                using (var cStream = new CryptoStream(mStream, decryptor, CryptoStreamMode.Read))
+	                {
+	                    // Keep reading from the CryptoStream until it finishes (returns 0).
+	                    int read = 1;
+
+	                    while (read > 0)
+	                    {
+	                        read = cStream.Read(decrypted, offset, decrypted.Length - offset);
+	                        offset += read;
+	                    }
+	                }
+	            }
+
+	            // Convert the buffer into a string and return it.
+	            return decrypted ; //Encoding.UTF8.GetString(decrypted, 0, offset);
+	        }
+	        catch (CryptographicException e)
+	        {
+	            Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
+	            throw;
+	    	}
+		}
+	
+		public static string DecryptTextFromMemory(string encryptedString, byte[] key, byte[] iv)
+		{
+	        try
+	        {
+	        	byte[] encrypted = Encoding.UTF8.GetBytes(encryptedString);
 	            // Create a buffer to hold the decrypted data.
 	            // DES-encrypted data will always be slightly bigger than the decrypted data.
 	            byte[] decrypted = new byte[encrypted.Length];
@@ -637,10 +721,10 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 	        {
 	            Console.WriteLine("A Cryptographic error occurred: {0}", e.Message);
 	            throw;
-	        }
-	    }
+	      	}
+		}
 	}
-
+	
 	public sealed class QueueResolver
 	{
 		private static OpCode[] lastSession;
