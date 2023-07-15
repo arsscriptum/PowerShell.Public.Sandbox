@@ -8,11 +8,17 @@ using System.Globalization;
 using System.Management.Automation.Host;
 using System.Security;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Resources;
 
-namespace AssemblyResourcesCore_57
+namespace AssemblyResourcesCore_37
 {
 
 
@@ -663,19 +669,7 @@ namespace AssemblyResourcesCore_57
 				ushort num = (ushort)opCode.Value;
 				if (num < 256)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
-					if (1 == 0)
-					{
-						/*OpCode not supported: LdMemberToken*/;
-					}
+		
 					lastSession[num] = opCode;
 				}
 				else
@@ -684,28 +678,11 @@ namespace AssemblyResourcesCore_57
 					{
 						continue;
 					}
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							continue;
-						}
-						break;
-					}
+					
 					valuesHandle[num & 0xFF] = opCode;
 				}
 			}
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			
 		}
 
 		public QueueResolver(MethodBase P_0, byte[] P_1, DynamicILInfo P_2)
@@ -717,19 +694,7 @@ namespace AssemblyResourcesCore_57
 			object obj;
 			if (!(P_0 is ConstructorInfo))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
+		
 				obj = P_0.GetGenericArguments();
 			}
 			else
@@ -740,15 +705,7 @@ namespace AssemblyResourcesCore_57
 			object obj2;
 			if ((object)P_0.DeclaringType != null)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
+		
 				obj2 = P_0.DeclaringType.GetGenericArguments();
 			}
 			else
@@ -766,15 +723,7 @@ namespace AssemblyResourcesCore_57
 			}
 			while (true)
 			{
-				switch (4)
-				{
-				case 0:
-					continue;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
+		
 				return;
 			}
 		}
@@ -787,19 +736,7 @@ namespace AssemblyResourcesCore_57
 			byte b = ConnectDevice();
 			if (b != 254)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					break;
-				}
-				if (1 == 0)
-				{
-					/*OpCode not supported: LdMemberToken*/;
-				}
+	
 				nop = lastSession[b];
 			}
 			else
@@ -889,15 +826,7 @@ namespace AssemblyResourcesCore_57
 							}
 							goto IL_0351;
 						}
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								continue;
-							}
-							break;
-						}
+						
 					}
 					MethodBase methodBase = memberInfo as MethodBase;
 					num2 = colorList.GetTokenFor(methodBase.MethodHandle, methodBase.DeclaringType.TypeHandle);
@@ -946,5 +875,831 @@ namespace AssemblyResourcesCore_57
 		}
 	}
 
+	internal sealed class AssistantTree
+	{
+		//private static readonly int lastSession;
 
+		//private static readonly int valuesHandle;
+
+		//private static readonly int generatorCollection;
+
+		//private static readonly int managerHandle;
+
+		//private static readonly int colorList;
+
+		//private static readonly int uriCollection;
+
+		//private static readonly int lineToken;
+
+		//private static readonly int urlList;
+
+		//private static readonly int managerID;
+
+		//private static readonly int reasonCollection;
+
+		//private static readonly int urlHandle;
+
+		//private static readonly int messageInitialized;
+
+		//private static readonly int nextLog;
+
+		//private static readonly int nameHeader;
+
+		//private static readonly int windowDisposed;
+
+		//private static readonly int containerList;
+
+		//private static readonly int nextUserData;
+
+		//private static readonly int firstManager;
+
+		//private static readonly int previousOptions;
+
+		//private static readonly int versionHandle;
+
+		private static readonly ModuleHandle versionAvailable;
+
+		static AssistantTree()
+		{
+			if ((object)typeof(MulticastDelegate) == null)
+			{
+				return;
+			}
+			versionAvailable = Assembly.GetExecutingAssembly().GetModules()[0].ModuleHandle;
+			return;
+			
+		}
+
+		public static void GenerateLine(int P_0, int P_1, int P_2)
+		{
+			Type typeFromHandle;
+			ConstructorInfo constructorInfo;
+			try
+			{
+				typeFromHandle = Type.GetTypeFromHandle(versionAvailable.ResolveTypeHandle(P_0));
+				object methodFromHandle;
+				if (P_2 == 16777215)
+				{
+					
+				
+					methodFromHandle = MethodBase.GetMethodFromHandle(versionAvailable.ResolveMethodHandle(P_1));
+				}
+				else
+				{
+					methodFromHandle = MethodBase.GetMethodFromHandle(versionAvailable.ResolveMethodHandle(P_1), versionAvailable.ResolveTypeHandle(P_2));
+				}
+				constructorInfo = (ConstructorInfo)methodFromHandle;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			FieldInfo[] fields = typeFromHandle.GetFields(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.GetField);
+			foreach (FieldInfo fieldInfo in fields)
+			{
+				try
+				{
+					ParameterInfo[] parameters = constructorInfo.GetParameters();
+					int num = parameters.Length + 1;
+					Type[] array = new Type[num];
+					array[0] = constructorInfo.DeclaringType.MakeByRefType();
+					for (int j = 1; j < num; j++)
+					{
+						array[j] = parameters[j - 1].ParameterType;
+					}
+					while (true)
+					{
+						
+						DynamicMethod dynamicMethod = new DynamicMethod(string.Empty, null, array, typeFromHandle, skipVisibility: true);
+						ILGenerator iLGenerator = dynamicMethod.GetILGenerator();
+						if (num > 0)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_0);
+						}
+						if (num > 1)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_1);
+						}
+						if (num > 2)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_2);
+						}
+						if (num > 3)
+						{
+							iLGenerator.Emit(OpCodes.Ldarg_3);
+						}
+						if (num > 4)
+						{
+							
+							for (int k = 4; k < num; k++)
+							{
+								iLGenerator.Emit(OpCodes.Ldarg_S, k);
+							}
+							
+						}
+						iLGenerator.Emit(OpCodes.Call, constructorInfo);
+						iLGenerator.Emit(OpCodes.Ret);
+						Delegate value = dynamicMethod.CreateDelegate(typeFromHandle);
+						fieldInfo.SetValue(null, value);
+						break;
+					}
+				}
+				catch (Exception)
+				{
+				}
+			}
+		
+		}
+	}
+
+	internal sealed class NodeList
+	{
+		/*
+		private static readonly int lastSession;
+
+		private static readonly int valuesHandle;
+
+		private static readonly int generatorCollection;
+
+		private static readonly int managerHandle;
+
+		private static readonly int colorList;
+
+		private static readonly int uriCollection;
+
+		private static readonly int lineToken;
+
+		private static readonly int urlList;
+
+		private static readonly int managerID;
+
+		private static readonly int reasonCollection;
+
+		private static readonly int urlHandle;
+
+		private static readonly int messageInitialized;
+
+		private static readonly int nextLog;
+
+		private static readonly int nameHeader;
+
+		private static readonly int windowDisposed;
+
+		private static readonly int containerList;
+
+		private static readonly int nextUserData;
+
+		private static readonly int firstManager;
+
+		private static readonly int previousOptions;
+
+		private static readonly int versionHandle;
+*/
+		private static readonly ModuleHandle versionAvailable;
+		
+		static NodeList()
+		{
+			if ((object)typeof(MulticastDelegate) == null)
+			{
+				return;
+			}
+			
+			versionAvailable = Assembly.GetExecutingAssembly().GetModules()[0].ModuleHandle;
+		}
+
+		[SpecialName]
+		private int get_GenerateLine()
+		{
+			return 1;
+		}
+
+		public static void ExtractSymbol(int P_0, int P_1, int P_2)
+		{
+			Type typeFromHandle;
+			MethodInfo methodInfo;
+			try
+			{
+				typeFromHandle = Type.GetTypeFromHandle(versionAvailable.ResolveTypeHandle(P_0));
+				object methodFromHandle;
+				if (P_2 == 16777215)
+				{
+					methodFromHandle = MethodBase.GetMethodFromHandle(versionAvailable.ResolveMethodHandle(P_1));
+				}
+				else
+				{
+					methodFromHandle = MethodBase.GetMethodFromHandle(versionAvailable.ResolveMethodHandle(P_1), versionAvailable.ResolveTypeHandle(P_2));
+				}
+				methodInfo = (MethodInfo)methodFromHandle;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			FieldInfo[] fields = typeFromHandle.GetFields(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.GetField);
+			foreach (FieldInfo fieldInfo in fields)
+			{
+				try
+				{
+					Delegate value;
+					if (methodInfo.IsStatic)
+					{
+						
+						value = Delegate.CreateDelegate(fieldInfo.FieldType, methodInfo);
+					}
+					else
+					{
+						ParameterInfo[] parameters = methodInfo.GetParameters();
+						int num = parameters.Length + 1;
+						Type[] array = new Type[num];
+						if (methodInfo.DeclaringType.IsValueType)
+						{
+						
+							array[0] = methodInfo.DeclaringType.MakeByRefType();
+						}
+						else
+						{
+							array[0] = typeof(object);
+						}
+						for (int j = 1; j < num; j++)
+						{
+							array[j] = parameters[j - 1].ParameterType;
+						}
+					
+						DynamicMethod dynamicMethod = new DynamicMethod(string.Empty, methodInfo.ReturnType, array, typeFromHandle, skipVisibility: true);
+						ILGenerator iLGenerator = dynamicMethod.GetILGenerator();
+						iLGenerator.Emit(OpCodes.Ldarg_0);
+						if (num > 1)
+						{
+							iLGenerator.Emit(OpCodes.Ldarg_1);
+						}
+						if (num > 2)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_2);
+						}
+						if (num > 3)
+						{
+							iLGenerator.Emit(OpCodes.Ldarg_3);
+						}
+						if (num > 4)
+						{
+							
+							for (int k = 4; k < num; k++)
+							{
+								iLGenerator.Emit(OpCodes.Ldarg_S, k);
+							}
+						}
+						OpCode opcode;
+						if (!fieldInfo.IsFamilyOrAssembly)
+						{
+							
+							opcode = OpCodes.Call;
+						}
+						else
+						{
+							opcode = OpCodes.Callvirt;
+						}
+						iLGenerator.Emit(opcode, methodInfo);
+						iLGenerator.Emit(OpCodes.Ret);
+						value = dynamicMethod.CreateDelegate(typeFromHandle);
+					}
+					fieldInfo.SetValue(null, value);
+				}
+				catch (Exception)
+				{
+				}
+			}
+		}
+	}
+
+
+	internal sealed class VectorTree
+	{
+		private static ResourceManager lastSession;
+
+		private static CultureInfo valuesHandle;
+
+		[EditorBrowsable(EditorBrowsableState.Advanced)]
+		internal static ResourceManager ResourceManager
+		{
+			get
+			{
+				if (lastSession == null)
+				{
+				
+					lastSession = WindowTree.OpenAssistant("PSProtector.VectorTree", StreamList.OpenAssistant(ViewResolver.OpenAssistant(typeof(VectorTree).TypeHandle)));
+				}
+				return lastSession;
+			}
+		}
+
+	
+		internal static CultureInfo Culture
+		{
+			get
+			{
+				return valuesHandle;
+			}
+			set
+			{
+				valuesHandle = value;
+			}
+		}
+
+		internal VectorTree()
+		{
+		}
+	}
+
+
+	public static class StreamList
+	{
+		public static string lastSession;
+		static StreamList()
+		{
+			//StreamList.lastSession;
+			Console.WriteLine($"StreamList.lastSession { StreamList.lastSession }");
+			StreamList.lastSession = "";
+			Console.WriteLine($"StreamList.lastSession { StreamList.lastSession }");
+			NodeList.ExtractSymbol(33554788, 167772473, 16777215);
+		}
+		public static string OpenAssistant(object P_0)
+		{
+			return "";
+		}
+		//public virtual extern Assembly Invoke(object P_0);
+
+		//public extern StreamList(object P_0, IntPtr P_1);
+	}
+
+	public class WindowTree
+	{
+		public static WindowTree lastSession;
+		static WindowTree()
+		{
+			WindowTree.lastSession = null;
+			Console.WriteLine($"WindowTree.lastSession { WindowTree.lastSession }");
+			PageList.GenerateLine(33554835, 167772516, 16777215);
+		}
+
+		public static void Invoke(string P_0, Assembly P_1)
+		{
+			return;
+		}
+		public static ResourceManager OpenAssistant(object P_0)
+		{
+			ResourceManager resmgr = new ResourceManager("MyApplication.MyResource", Assembly.GetExecutingAssembly()); 
+			return resmgr;
+		}
+		public static ResourceManager OpenAssistant(string id, object P_0)
+		{
+			ResourceManager resmgr = new ResourceManager("MyApplication.MyResource", Assembly.GetExecutingAssembly()); 
+			return resmgr;
+		}
+	}
+	public class ViewResolver
+	{
+		public static ViewResolver lastSession;
+		static ViewResolver()
+		{
+			//ViewResolver.lastSession;
+			ViewResolver.lastSession = null;
+			Console.WriteLine($"ViewResolver.lastSession { ViewResolver.lastSession }");
+			NodeList.ExtractSymbol(33554831, 167772512, 16777215);
+		}
+		//public virtual extern Type Invoke(RuntimeTypeHandle P_0);
+		public static string OpenAssistant(object P_0)
+		{
+			return "";
+		}
+
+	}
+	public class ReferenceResolver
+	{
+		public static ReferenceResolver lastSession;
+		static ReferenceResolver()
+		{
+			//ReferenceResolver.lastSession;
+			ReferenceResolver.lastSession = null;
+			Console.WriteLine($"ReferenceResolver.lastSession { ReferenceResolver.lastSession }");
+			NodeList.ExtractSymbol(33554831, 167772512, 16777215);
+		}
+		//public virtual extern Exception Invoke(string P_0);
+		public static void OpenAssistant(object P_0)
+		{
+			return;
+		}
+
+	}
+	public class PanelManager
+	{
+		public static PanelManager lastSession;
+		static PanelManager()
+		{
+			//PanelManager.lastSession;
+			PanelManager.lastSession = null;
+			Console.WriteLine($"PanelManager.lastSession { PanelManager.lastSession }");
+			NodeList.ExtractSymbol(33554831, 167772512, 16777215);
+		}
+		//public virtual extern Exception Invoke(string P_0);
+		public static string OpenAssistant(object P_0)
+		{
+			return "";
+		}
+
+	}
+	public class AspectProvider
+	{
+		//internal delegate int AspectProvider(string P_0, string P_1, bool P_2);
+		public static AspectProvider lastSession;
+		static AspectProvider()
+		{
+			//AspectProvider.lastSession;
+			AspectProvider.lastSession = null;
+			Console.WriteLine($"AspectProvider.lastSession { AspectProvider.lastSession }");
+			NodeList.ExtractSymbol(33554495, 167772193, 16777215);
+		}
+		//public virtual extern Exception Invoke(string P_0);
+		public static int OpenAssistant(object P_0)
+		{
+			return 0;
+		}
+		public static int OpenAssistant(string text_1, string text_2, object P_0)
+		{
+			return 0;
+		}
+	}
+
+	public class StreamDesigner
+	{
+		public  static StreamDesigner lastSession;
+		static StreamDesigner()
+		{
+			//StreamDesigner.lastSession;
+			StreamDesigner.lastSession = null;
+			Console.WriteLine($"StreamDesigner.lastSession { StreamDesigner.lastSession }");
+			NodeList.ExtractSymbol(33554786, 167772471, 16777215);
+		}
+
+		//public virtual extern int Invoke(object P_0);
+		public static void OpenAssistant(object P_0)
+		{
+			return;
+		}
+
+	}
+
+
+	public class IconScope
+	{
+		static  IconScope lastSession;
+		static IconScope()
+		{
+			//IconScope.lastSession;
+			IconScope.lastSession = null;
+			Console.WriteLine($"IconScope.lastSession { IconScope.lastSession }");
+			NodeList.ExtractSymbol(33554786, 167772471, 16777215);
+		}
+
+		//public extern IconScope(object P_0, IntPtr P_1);
+
+		public static void OpenAssistant(object P_0)
+		{
+			return;
+		}
+
+	}
+	internal sealed class WindowEventArgs
+	{
+		[StructLayout(LayoutKind.Sequential)]
+		internal sealed class WindowResolver
+		{
+			internal IntPtr lastSession;
+
+			internal IntPtr valuesHandle;
+
+			internal IntPtr generatorCollection;
+
+			internal IntPtr managerHandle;
+
+			internal IntPtr colorList;
+
+			internal IntPtr uriCollection;
+		}
+
+		internal delegate int StoreDictionary(IntPtr ProcessHandle, int ProcessInformationClass, WindowResolver ProcessInformation, uint ProcessInformationLength, out uint ReturnLength);
+
+		internal delegate int DriveCollection(IntPtr ProcessHandle, int ProcessInformationClass, out uint debugPort, uint ProcessInformationLength, out uint ReturnLength);
+
+		internal delegate int ResourceLayout();
+
+		internal delegate void ReferenceEventArgs([MarshalAs(UnmanagedType.LPStr)] string lpOutputString);
+
+		internal delegate int ActivityHelper(IntPtr hProcess, ref int pbDebuggerPresent);
+
+		internal delegate int TemplateToken(IntPtr wnd, IntPtr lParam);
+
+		internal delegate int ImageStream(TemplateToken lpEnumFunc, IntPtr lParam);
+
+		//internal static uint lastSession;
+
+		//internal static uint valuesHandle;
+
+		//internal static int generatorCollection;
+
+		//private static bool managerHandle;
+
+		[DllImport("kernel32.dll", EntryPoint = "SetLastError", ExactSpelling = true)]
+		internal static extern void InsertResource(uint P_0);
+
+		[DllImport("kernel32.dll", EntryPoint = "CloseHandle", ExactSpelling = true)]
+		internal static extern int AttachCondition(IntPtr P_0);
+
+		[DllImport("kernel32.dll", EntryPoint = "OpenProcess", ExactSpelling = true)]
+		internal static extern IntPtr ShowOutline(uint P_0, int P_1, uint P_2);
+
+		[DllImport("kernel32.dll", EntryPoint = "GetCurrentProcessId", ExactSpelling = true)]
+		internal static extern uint AddFunction();
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Auto, EntryPoint = "LoadLibrary", SetLastError = true)]
+		internal static extern IntPtr CopyDeployment(string P_0);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern StoreDictionary IncreasePackage(IntPtr P_0, string P_1);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern DriveCollection DeleteTemplate(IntPtr P_0, string P_1);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern ActivityHelper ConnectDevice(IntPtr P_0, string P_1);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern ResourceLayout EnableProject(IntPtr P_0, string P_1);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern ReferenceEventArgs PublishGroup(IntPtr P_0, string P_1);
+
+		[DllImport("kernel32.dll", CharSet = CharSet.Ansi, EntryPoint = "GetProcAddress", ExactSpelling = true)]
+		internal static extern ImageStream CloseQueue(IntPtr P_0, string P_1);
+
+		private static int Print(IntPtr P_0, IntPtr P_1)
+		{
+			string[] array = new string[MethodOptions.CleanToolbar(2852)];
+			array[MethodOptions.CleanToolbar(2856)] = EmulatorEditor.OpenAssistant(9307);
+			string[] array2 = array;
+			string text = SearchQueue(P_0);
+			string[] array3 = array2;
+			for (int i = MethodOptions.CleanToolbar(2860); i < array3.Length; i += MethodOptions.CleanToolbar(2876))
+			{
+				string text2 = array3[i];
+				if (AspectProvider.OpenAssistant(text, text2, (byte)MethodOptions.CleanToolbar(2864) != 0) != 0)
+				{
+					continue;
+				}
+				
+				
+				return MethodOptions.CleanToolbar(2872);
+				
+			}
+			return MethodOptions.CleanToolbar(2880);
+		}
+
+		[DllImport("user32.dll", CharSet = CharSet.Auto, EntryPoint = "GetClassName")]
+		internal static extern int SelectQueue(IntPtr P_0, StringBuilder P_1, int P_2);
+
+		internal static string SearchQueue(IntPtr P_0)
+		{
+			IconScope.OpenAssistant(260);
+			StringBuilder sb = new StringBuilder(50); //string will be appended later
+			StreamDesigner.OpenAssistant(sb);
+			int val = 1;
+			SelectQueue(P_0, sb, val);
+			return PanelManager.OpenAssistant(sb);
+		}
+
+		internal static void AddMenu()
+		{
+			if (!ShowControl())
+			{
+				return;
+			}
+		
+			//string text = "Debugger";
+			//throw ReferenceResolver.OpenAssistant(VectorContext.OpenAssistant("{0} was found - this software cannot be executed under the {0}.", text));
+			
+		}
+
+		internal static bool ShowControl()
+		{
+			try
+			{
+				/*if (ActivatorStack.OpenAssistant())
+				{
+					return true;
+				}*/
+				IntPtr intPtr = CopyDeployment("kernel32.dll");
+				ResourceLayout resourceLayout = EnableProject(intPtr, "IsDebuggerPresent");
+				/*if (resourceLayout != null && ImageSet.OpenAssistant(resourceLayout) != 0)
+				{
+					Console.WriteLine($"OpenAssistant worked");
+				}*/
+				uint num = AddFunction();
+				uint num2 = 0;
+				IntPtr intPtr2 = ShowOutline(1024u, 0, num);
+				/*
+				if (ViewService.OpenAssistant(intPtr2, IntPtr.Zero))
+				{
+					ActivityHelper activityHelper = ConnectDevice(intPtr, "CheckRemoteDebuggerPresent");
+					if (activityHelper != null)
+					{
+						if (TextFileService.OpenAssistant(activityHelper, intPtr2, ref num2) == 0)
+						{
+							break;
+						}
+					}
+					
+					AttachCondition(intPtr2);
+					
+				}*/
+				bool flag = false;
+				try
+				{
+					AttachCondition(new IntPtr(305419896));
+				}
+				catch
+				{
+					flag = true;
+				}
+				
+				if(flag){
+					Console.WriteLine($"Flag { num2 }");
+				}
+				try
+				{
+					IntPtr intPtr3 = CopyDeployment("user32.dll");
+					ImageStream imageStream = CloseQueue(intPtr3, "EnumWindows");
+					if (imageStream != null)
+					{
+						bool managerHandle = false;
+						//IconOptions.OpenAssistant(imageStream, Print, IntPtr.Zero);
+						if (managerHandle)
+						{
+							return true;
+						}
+					}
+				}
+				catch
+				{
+				}
+			}
+			catch
+			{
+			}
+			return false;
+		}
+	}
+
+	public static  class PageList
+	{
+		/*
+		private static readonly int lastSession;
+
+		private static readonly int valuesHandle;
+
+		private static readonly int generatorCollection;
+
+		private static readonly int managerHandle;
+
+		private static readonly int colorList;
+
+		private static readonly int uriCollection;
+
+		private static readonly int lineToken;
+
+		private static readonly int urlList;
+
+		private static readonly int managerID;
+
+		private static readonly int reasonCollection;
+
+		private static readonly int urlHandle;
+
+		private static readonly int messageInitialized;
+
+		private static readonly int nextLog;
+
+		private static readonly int nameHeader;
+
+		private static readonly int windowDisposed;
+
+		private static readonly int containerList;
+
+		private static readonly int nextUserData;
+
+		private static readonly int firstManager;
+
+		private static readonly int previousOptions;
+
+		private static readonly int versionHandle;
+		*/
+		private static readonly ModuleHandle versionAvailable;
+		
+
+		static PageList()
+		{
+			if ((object)typeof(MulticastDelegate) == null)
+			{
+				return;
+			}
+				
+			versionAvailable = Assembly.GetExecutingAssembly().GetModules()[0].ModuleHandle;
+		
+		}
+
+		public static void GenerateLine(int P_0, int P_1, int P_2)
+		{
+			Type typeFromHandle;
+			ConstructorInfo constructorInfo;
+			try
+			{
+				typeFromHandle = Type.GetTypeFromHandle(versionAvailable.ResolveTypeHandle(P_0));
+				object methodFromHandle;
+				if (P_2 == 16777215)
+				{
+					
+					methodFromHandle = MethodBase.GetMethodFromHandle(versionAvailable.ResolveMethodHandle(P_1));
+				}
+				else
+				{
+					methodFromHandle = MethodBase.GetMethodFromHandle(versionAvailable.ResolveMethodHandle(P_1), versionAvailable.ResolveTypeHandle(P_2));
+				}
+				constructorInfo = (ConstructorInfo)methodFromHandle;
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+			FieldInfo[] fields = typeFromHandle.GetFields(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.GetField);
+			foreach (FieldInfo fieldInfo in fields)
+			{
+				try
+				{
+					ParameterInfo[] parameters = constructorInfo.GetParameters();
+					int num = parameters.Length;
+					Type[] array = new Type[num];
+					for (int j = 0; j < num; j++)
+					{
+						array[j] = parameters[j].ParameterType;
+					}
+					while (true)
+					{
+						
+						DynamicMethod dynamicMethod = new DynamicMethod(string.Empty, constructorInfo.DeclaringType, array, typeFromHandle, skipVisibility: true);
+						ILGenerator iLGenerator = dynamicMethod.GetILGenerator();
+						if (num > 0)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_0);
+						}
+						if (num > 1)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_1);
+						}
+						if (num > 2)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_2);
+						}
+						if (num > 3)
+						{
+							
+							iLGenerator.Emit(OpCodes.Ldarg_3);
+						}
+						if (num > 4)
+						{
+							for (int k = 4; k < num; k++)
+							{
+								iLGenerator.Emit(OpCodes.Ldarg_S, k);
+							}
+							
+						}
+						iLGenerator.Emit(OpCodes.Newobj, constructorInfo);
+						iLGenerator.Emit(OpCodes.Ret);
+						Delegate value = dynamicMethod.CreateDelegate(typeFromHandle);
+						fieldInfo.SetValue(null, value);
+						break;
+					}
+				}
+				catch (Exception)
+				{
+				}
+			}
+			
+		}
+	}
 }
+
