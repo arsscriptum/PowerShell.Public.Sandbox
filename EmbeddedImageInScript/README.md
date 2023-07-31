@@ -8,6 +8,7 @@
 ## How To Use
 
 ```
+    .\Set-ImageDefinitions.ps1
     .\Show-DemoDialog.ps1
 ```
 
