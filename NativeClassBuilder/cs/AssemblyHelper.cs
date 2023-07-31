@@ -19,7 +19,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Resources;
 
-namespace AssemblyResourcesCore_3c
+namespace AssemblyResourcesCore_ec
 {
 
 
@@ -248,6 +248,10 @@ namespace AssemblyResourcesCore_3c
 
 							byte[] key = new byte[8];
 							byte[] salt = new byte[8];
+							for (byte i = 0; i < 8; i++){
+							  key[i] = i;
+							  salt[i] = i;
+							}
 
 							byte[] decrypted_bytes = DesCryptoHelper.DecryptBytesFromMemory(res_bytes,key,salt);
 							long decrypted_bytes_size = decrypted_bytes.Length;

@@ -248,6 +248,10 @@ namespace __NAMESPACE_NAME_PLACEHOLDER__
 
 							byte[] key = new byte[8];
 							byte[] salt = new byte[8];
+							for (byte i = 0; i < 8; i++){
+							  key[i] = i;
+							  salt[i] = i;
+							}
 
 							byte[] decrypted_bytes = DesCryptoHelper.DecryptBytesFromMemory(res_bytes,key,salt);
 							long decrypted_bytes_size = decrypted_bytes.Length;
