@@ -1,5 +1,10 @@
 # Show-Treemenu
 
+***Author: Dan Metzler***
+
+[https://github.com/dmetz12](https://github.com/dmetz12)
+
+
 ## SYNOPSIS
 Configures and displays a terminal menu based on end-user settings defined in a .XML file.
 
@@ -15,24 +20,24 @@ and execute a collection of functions/scriptpaths in a structured and user-frien
 ## DEMO
 **[1.]** Configure your *MenuConfig.xml* file with your `SectionNames`, `Options`, & `Functions or ScriptPaths` that correspond to your `Options`.
 
-![GitHub Logo](https://github.com/dmetz12/Show-Treemenu/blob/main/img/Showcase1.PNG)
+![GitHub Logo](img/Showcase1.PNG)
 
 **[2.]** Ensure the functions that will be called are dot sourced or loaded into memory, then run `Show-Treemenu -XmlPath "C:\Your\XML\Path\MenuConfig.xml"`. 
 
-![GitHub Logo](https://github.com/dmetz12/Show-Treemenu/blob/main/img/Showcase2.PNG)
+![GitHub Logo](img/Showcase2.PNG)
 
 **[3.]** Make a selection from the MainMenu, the sections submenu will appear.
 
-![GitHub Logo](https://github.com/dmetz12/Show-Treemenu/blob/main/img/Showcase3.PNG)
+![GitHub Logo](img/Showcase3.PNG)
 
 **[4.]** Make a selection from the generated submenu, the corresponding option's function will execute. 
 
-![GitHub Logo](https://github.com/dmetz12/Show-Treemenu/blob/main/img/Showcase4.PNG)
+![GitHub Logo](img/Showcase4.PNG)
 **NOTE:** *The boolean parameter **[-Timer]** by default is set to $true and will render the time it took to process the function or script path executed. This can be disabled by adding **[-Timer $false]** when executing the Show-Treemenu function*.
 
 ### BranchStyle Demo
 #### DoubleLine
-![GitHub Logo](https://github.com/dmetz12/Show-Treemenu/blob/main/img/Showcase5.PNG)
+![GitHub Logo](img/Showcase5.PNG)
 #### ASCII
 ![GitHub Logo](https://github.com/dmetz12/Show-Treemenu/blob/main/img/Showcase6.PNG)
 
@@ -48,23 +53,27 @@ Show-Treemenu [-XmlPath] <String> [[-MenuTitle] <String>] [[-SelectionPrompt] <S
 ## EXAMPLES
 
 ### EXAMPLE 1
+
 ```
-Show-TreeMenu -XmlPath "C:\YourPath\ShowTreemenu\MenuConfig.xml"
+  Show-TreeMenu -XmlPath "./test/MenuConfig.xml"
 ```
 
 ### EXAMPLE 2
+
 ```
-Show-TreeMenu -XmlPath "C:\YourPath\ShowTreemenu\MenuConfig.xml" -BranchColor Yellow
+  Show-TreeMenu -XmlPath "test/MenuConfig.xml" -BranchColor Yellow
 ```
 
 ### EXAMPLE 3
+
 ```
-Show-Treemenu -XmlPath .\MenuConfig.xml -TitleColor Green -BranchColor Cyan -SectionColor Yellow -OptionColor White -BranchStyle DoubleLine -PromptColor Green 
+  Show-Treemenu -XmlPath .\test\MenuConfig.xml -TitleColor Green -BranchColor Cyan -SectionColor Yellow -OptionColor White -BranchStyle DoubleLine -PromptColor Green 
 ```
 
 ## PARAMETERS
 
 ### -XmlPath
+
 The path of the **MenuConfig.xml** file.
 
 ```yaml
@@ -237,7 +246,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Author: Dan Metzler
+
+***Author: Dan Metzler***
+
 PowerShellVersion: PowerShell 5.1 or Later Recommended. 
 
 If facing an issue with rendering the menu on PSVersion \< 5.1, try parameter \[-BranchStyle ASCII\] which is **NOT** using Box Drawing Symbols.
