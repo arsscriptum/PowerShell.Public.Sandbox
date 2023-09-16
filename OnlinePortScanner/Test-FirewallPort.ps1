@@ -12,7 +12,7 @@ function Register-HtmlAgilityPack{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory=$False)]
-        [string]$Path = "$PSScriptRoot\lib\HtmlAgilityPack.dll"
+        [string]$Path = "$PSScriptRoot\lib\Core\HtmlAgilityPack.dll"
     )
    try{
         if (!("HtmlAgilityPack.HtmlDocument" -as [type])) {
@@ -62,7 +62,7 @@ function Test-FirewallPort{
    try{
         Add-Type -AssemblyName System.Web  
 
-        $Null = Register-HtmlAgilityPack "$Script:AssembliesPath"
+        $Null = Register-HtmlAgilityPack 
         $TestTCP = 0
         $TestUDP = 0
         $NumScans = 0
@@ -174,5 +174,3 @@ function RunTest{
     Write-Host "Testing Port 64 UDP"
     Test-FirewallPort -Port 64 -Protocol UDP
 }
-
-RunTest
