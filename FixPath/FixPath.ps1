@@ -141,8 +141,11 @@ function Invoke-CleanUpPathValues{
             $NewValue = $_
             $NewValue = $NewValue.Trim('\').Trim()  # remove unwanted characters
 
+            if( ($NewValue.Contains('Users\') -eq $True) -And ($NewValue.Contains("Users\$ENV:USERNAME") -eq $False) ){
+                Write-Host "[WRONG USER] " -f DarkRed -n
+                Write-Host "Value for other USER: `"$NewValue`"" -f DarkYellow
             # Make sure the path values in USER are not already in he MACHINE Scope array
-            if($NewPathValues_MachineScope.Contains($NewValue) -eq $False){
+            }elseif($NewPathValues_MachineScope.Contains($NewValue) -eq $False){
                 if($False -eq [string]::IsNullOrEmpty($NewValue)){ $NewPathValues_UserScope += $NewValue } 
             }else{
                 Write-Host "[DUPLICATE] " -f DarkRed -n
