@@ -20,3 +20,7 @@ So I created a function to clean the PATH values (current user and machine).
 ***function Invoke-CleanUpPathValues***
 
 [https://github.com/arsscriptum/PowerShell.Public.Sandbox/blob/master/FixPath/FixPath.ps1](https://github.com/arsscriptum/PowerShell.Public.Sandbox/blob/master/FixPath/FixPath.ps1)
+
+
+
+![path](img/test.png)
