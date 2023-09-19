@@ -69,4 +69,3 @@ Start a dummy job with ASCII progress bar
 ![Progress Wheel Demo](https://arsscriptum.github.io/assets/img/posts/custom-progressbar/ProgressWheelDemo.gif)
 
 
-***Important Note*** Do You have Issues accessing the core repository? **Don't be shy and send me an** [EMAIL](mailto:guillaumeplante.qc@gmail.com) **and I will fix access for you**
