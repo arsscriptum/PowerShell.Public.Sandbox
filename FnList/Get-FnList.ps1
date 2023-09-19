@@ -4,7 +4,7 @@
 #̷𝓍   🇵​​​​​🇴​​​​​🇼​​​​​🇪​​​​​🇷​​​​​🇸​​​​​🇭​​​​​🇪​​​​​🇱​​​​​🇱​​​​​ 🇸​​​​​🇨​​​​​🇷​​​​​🇮​​​​​🇵​​​​​🇹​​​​​ 🇧​​​​​🇾​​​​​ 🇬​​​​​🇺​​​​​🇮​​​​​🇱​​​​​🇱​​​​​🇦​​​​​🇺​​​​​🇲​​​​​🇪​​​​​🇵​​​​​🇱​​​​​🇦​​​​​🇳​​​​​🇹​​​​​🇪​​​​​.🇶​​​​​🇨​​​​​@🇬​​​​​🇲​​​​​🇦​​​​​🇮​​​​​🇱​​​​​.🇨​​​​​🇴​​​​​🇲​​​​​
 #>
 
-function Get-WritableModulePath_V2{
+function Get-WritableModulePath{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory=$false, ValueFromPipeline=$true, HelpMessage="Permissions")]
@@ -41,7 +41,7 @@ function Get-WritableModulePath_V2{
 }
 
 
-function Get-ModulePath_V2{
+function Get-ModulePath{
     $VarModPath=$env:PSModulePath
     $Paths=$VarModPath.Split(';').ToLower()
     $WritablePaths=(Get-WritableModulePath).Path.ToLower()
@@ -61,7 +61,7 @@ function Get-ModulePath_V2{
 
 
 
-function Get-FunctionList_V2 {
+function Get-FunctionList {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [ValidateScript({
@@ -97,8 +97,6 @@ function Get-FunctionList_V2 {
             $FnBase = (Get-Item -Path $Path).Basename 
         }
 
-        # Use RegEx instead of Select-FunctionName
-        # $StrFunctionName = Select-FunctionName $FnName
         if($FnName -imatch $FunctionPattern){
             $StrFunctionName = $Matches.FunctionName
             $FunctionInfoObject = [PSCustomObject]@{
