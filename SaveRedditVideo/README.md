@@ -6,6 +6,6 @@ A simple function to save Reddit videos you wish to keep. Pass the URL of the Re
 
 You need [html-agility-pack](https://html-agility-pack.net/) installed and loaded... I put them in the ```lib``` folder for your convenience...
 
-You also need **NativeProgressModule** which is included...
+You also need **NativeProgressModule** which is included... [NativeProgressBar source](https://github.com/arsscriptum/PowerShell.Public.Sandbox/tree/master/NativeProgressBar)
 
 ![Demo](img/demo.gif)

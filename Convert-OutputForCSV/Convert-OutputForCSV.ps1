@@ -5,7 +5,7 @@
 #>
 
 
-﻿Function Convert-OutputForCSV {
+Function Convert-OutputForCSV{
     <#
         .SYNOPSIS
             Provides a way to expand collections in an object property prior
