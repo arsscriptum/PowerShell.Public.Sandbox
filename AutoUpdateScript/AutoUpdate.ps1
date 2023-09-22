@@ -14,6 +14,8 @@ function Invoke-AutoUpdate{
         $GitCmd = (Get-Command "git.exe")
         if($Null -eq $GitCmd){ throw "git.exe not found" }
         $GitExe = $GitCmd.Source
+        $ScriptPath = "$PSCommandPAth"
+        if(-not(Test-Path -Path "$ScriptPath")){ throw "file not found" }
       }catch{
         write-error "$_"
       }
@@ -21,11 +23,12 @@ function Invoke-AutoUpdate{
     process{
       try{
 
-        $HeadRev = & "$GitExe" 'log' '--format=%h' '-1' | select -Last 1
-        $LastRev = & "$GitExe" 'log' '--format=%h' '-1' | select -Last 1
+        
+        $HeadRev = & "$GitExe" 'log' '--format=%H' '-1' | select -Last 1
+        $LastRev = & "$GitExe" 'log' '--format=%H' '-2' | select -Last 1
 
-        $PSCommandPAth
-
+        Write-Host "Head Rev: `"$HeadRev`""
+        Write-Host "Last Rev: `"$LastRev`""
       }catch{
         write-error "$_"
       }
