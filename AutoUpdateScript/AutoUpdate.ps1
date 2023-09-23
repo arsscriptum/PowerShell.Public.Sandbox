@@ -90,4 +90,4 @@ if($NewVersionAvailable){
 }
 
 
-Write-Host "Hello World" -f DArkYellow
+Write-Host "Hello World" -f DArkBlue
