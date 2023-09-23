@@ -24,7 +24,7 @@ function Test-NewScriptVersion{
     }
     process{
       try{
-        $RemoteBranch = & "$GitExe" 'for-each-ref' "--format='%(upstream:short)'" '"$(git symbolic-ref -q HEAD)"'
+        $RemoteBranch = & "$GitExe" 'for-each-ref' '--format=%(upstream:short)' "`"$(git symbolic-ref -q HEAD)`""
         $LocalBranch  = & "$GitExe" 'branch' '--show-current'
         Write-Verbose "Remote Branch: `"$RemoteBranch`""
         Write-Verbose "Local  Branch: `"$LocalBranch`""
