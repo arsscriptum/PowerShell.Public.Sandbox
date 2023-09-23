@@ -80,8 +80,8 @@ if($NewVersionAvailable){
 
     Write-Host "This script was updated and will restart."
     Start-Sleep 1
-    
-    Start-Process pwsh.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath)
+    . "$ScriptPath"
+    # Start-Process pwsh.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath)
     Exit
 }
 
