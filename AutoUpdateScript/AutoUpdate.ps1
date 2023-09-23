@@ -20,14 +20,11 @@ function Invoke-AutoUpdate{
     }
     process{
       try{
-        $HeadRev1 = & "$GitExe" 'log' '-n' '1' '--pretty=format:%H' '--' "$ScriptPath"
-        $HeadRev2 = & "$GitExe"  'rev-parse' '@{u}'
-        $HeadRev3 = & "$GitExe" 'log' '--format=%H' '-1' | select -Last 1
-        $LastRev = & "$GitExe" 'log' '--format=%H' '-2' | select -Last 1
-
-        Write-Host "Head Rev1: `"$HeadRev1`""
-        Write-Host "Head Rev2: `"$HeadRev2`""
-        Write-Host "Head Rev3: `"$HeadRev3`""
+        & "$GitExe" 'fetch'
+        $LastRev = & "$GitExe" 'log' '-n' '1' '--pretty=format:%H' '--' "$ScriptPath"
+        $HeadRev = & "$GitExe"  'rev-parse' '@{u}'
+        
+        Write-Host "Head Rev: `"$HeadRev`""
         Write-Host "Last Rev: `"$LastRev`""
       }catch{
         write-error "$_"
