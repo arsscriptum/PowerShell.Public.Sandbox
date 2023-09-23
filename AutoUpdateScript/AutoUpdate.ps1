@@ -4,7 +4,7 @@
 #>
 
 
-$test=0
+
 function Invoke-AutoUpdate{
     [CmdletBinding(SupportsShouldProcess)]
     param() 
@@ -22,12 +22,14 @@ function Invoke-AutoUpdate{
     }
     process{
       try{
+         & "$GitExe" 'fetch'
+        [uint32]$NewVers = & "$GitExe" 'diff' 'remotes/origin/master..master'  "$ScriptPath" | Measure-Object -Line | Select -ExpandProperty Lines
+        if($NewVers -gt 0){
+            Write-Host "A new version is available for `"$ScriptPath`""
+        }
+        #$HeadRev = & "$GitExe"  'log' '-n' '1' '--no-decorate' '--pretty=format:%H'  "$ScriptPath"
+        #Write-Host "Head Rev: `"$HeadRev`""
 
-        $LastRev = & "$GitExe" 'rev-list' '--count' 'HEAD' "$ScriptPath"
-        $HeadRev = & "$GitExe" 'rev-list' '--full-history' '--all'  "$ScriptPath" | Measure-Object -Line | Select -ExpandProperty Lines
-        
-        Write-Host "Head Rev: `"$HeadRev`""
-        Write-Host "Last Rev: `"$LastRev`""
       }catch{
         write-error "$_"
       }
