@@ -86,4 +86,4 @@ if($NewVersionAvailable){
 }
 
 
-Write-Host "Hello World" -f DarkRed
+Write-Host "Hello World" -f DarkMagenta
