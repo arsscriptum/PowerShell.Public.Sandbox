@@ -5,7 +5,6 @@
 
 
 
-
 function Invoke-AutoUpdate{
     [CmdletBinding(SupportsShouldProcess)]
     param() 
@@ -23,10 +22,10 @@ function Invoke-AutoUpdate{
     }
     process{
       try{
-        & "$GitExe" 'fetch'
-        $LastRev = & "$GitExe" 'log' '-n' '1' '--pretty=format:%H' '--' "$ScriptPath"
-        $HeadRev = & "$GitExe"  'rev-parse' '@{u}' '--' "$ScriptPath"
-        $HeadRev2 = & "$GitExe"  'log' '-n' '1' '--no-decorate' '--pretty=format:%H'  "$ScriptPath"
+
+        $LastRev = & "$GitExe" 'rev-list' '--count' 'HEAD' "$ScriptPath"
+        $HeadRev = & "$GitExe" 'rev-list' '--full-history' '--all'  "$ScriptPath" | Measure-Object -Line | Select -ExpandProperty Lines
+        
         Write-Host "Head Rev: `"$HeadRev`""
         Write-Host "Last Rev: `"$LastRev`""
       }catch{
