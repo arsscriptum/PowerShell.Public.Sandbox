@@ -6,7 +6,7 @@
 [CmdletBinding(SupportsShouldProcess)]
 param() 
 
-
+$test=0
 function Test-NewScriptVersion{
     [CmdletBinding(SupportsShouldProcess)]
     param() 
@@ -76,7 +76,7 @@ function Update-ScriptVersion{
 
 $NewVersionAvailable = Test-NewScriptVersion
 if($NewVersionAvailable){
-     Update-ScriptVersion
+    Update-ScriptVersion
 
     Write-Host "This script was updated and will restart."
     Start-Sleep 1
