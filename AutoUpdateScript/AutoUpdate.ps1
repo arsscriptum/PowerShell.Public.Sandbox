@@ -31,7 +31,7 @@ function Test-NewScriptVersion{
         $Output = & "$GitExe" 'fetch' *> "$ENV:Temp\gitout.txt" | Out-Null
         $HeadRev = & "$GitExe"  'log' '-n' '1' '--no-decorate' '--pretty=format:%H'  "$ScriptPath"
         $Ret = $False
-        [uint32]$NewVers = & "$GitExe" 'diff' "RemoteBranch..$LocalBranch"  "$ScriptPath" | Measure-Object -Line | Select -ExpandProperty Lines
+        [uint32]$NewVers = & "$GitExe" 'diff' "$RemoteBranch..$LocalBranch"  "$ScriptPath" | Measure-Object -Line | Select -ExpandProperty Lines
         if($NewVers -gt 0){
             Write-Verbose "A new version is available for `"$ScriptPath`"" 
             Write-Verbose "Head Rev: `"$HeadRev`""
