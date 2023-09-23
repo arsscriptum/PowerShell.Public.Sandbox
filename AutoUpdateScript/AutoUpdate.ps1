@@ -6,6 +6,7 @@
 [CmdletBinding(SupportsShouldProcess)]
 param() 
 
+
 function Test-NewScriptVersion{
     [CmdletBinding(SupportsShouldProcess)]
     param() 
@@ -85,4 +86,4 @@ if($NewVersionAvailable){
 }
 
 
-Write-Host "Hello World" -f DarkCyan
+Write-Host "Hello World" -f DarkRed
