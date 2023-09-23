@@ -1,7 +1,7 @@
 [CmdletBinding(SupportsShouldProcess)]
 param()
 
-
+$test=0
 
 function Get-ChildItemFiltered{
     [CmdletBinding(SupportsShouldProcess)]
