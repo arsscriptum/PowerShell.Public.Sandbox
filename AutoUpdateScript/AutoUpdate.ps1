@@ -6,7 +6,7 @@
 [CmdletBinding(SupportsShouldProcess)]
 param() 
 
-$test=0
+
 function Test-NewScriptVersion{
     [CmdletBinding(SupportsShouldProcess)]
     param() 
