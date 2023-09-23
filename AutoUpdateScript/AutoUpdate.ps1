@@ -4,7 +4,7 @@
 #>
 
 
-$new=0
+
 
 function Invoke-AutoUpdate{
     [CmdletBinding(SupportsShouldProcess)]
@@ -25,8 +25,8 @@ function Invoke-AutoUpdate{
       try{
         & "$GitExe" 'fetch'
         $LastRev = & "$GitExe" 'log' '-n' '1' '--pretty=format:%H' '--' "$ScriptPath"
-        $HeadRev = & "$GitExe"  'rev-parse' '@{u}'
-        
+        $HeadRev = & "$GitExe"  'rev-parse' '@{u}' '--' "$ScriptPath"
+        $HeadRev2 = & "$GitExe"  'log' '-n' '1' '--no-decorate' '--pretty=format:%H'  "$ScriptPath"
         Write-Host "Head Rev: `"$HeadRev`""
         Write-Host "Last Rev: `"$LastRev`""
       }catch{
