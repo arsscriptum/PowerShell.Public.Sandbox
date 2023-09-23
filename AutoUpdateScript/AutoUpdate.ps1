@@ -24,7 +24,7 @@ function Test-NewScriptVersion{
     }
     process{
       try{
-        $Output = & "$GitExe" 'fetch' > "$ENV:Temp\gitout.txt" | Out-Null
+        $Output = & "$GitExe" 'fetch' *> "$ENV:Temp\gitout.txt" | Out-Null
         $HeadRev = & "$GitExe"  'log' '-n' '1' '--no-decorate' '--pretty=format:%H'  "$ScriptPath"
         $Ret = $False
         [uint32]$NewVers = & "$GitExe" 'diff' 'remotes/origin/master..master'  "$ScriptPath" | Measure-Object -Line | Select -ExpandProperty Lines
