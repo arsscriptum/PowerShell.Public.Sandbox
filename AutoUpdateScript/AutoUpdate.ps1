@@ -4,7 +4,7 @@
 #>
 
 
-
+$new = 0
 function Invoke-AutoUpdate{
     [CmdletBinding(SupportsShouldProcess)]
     param() 
