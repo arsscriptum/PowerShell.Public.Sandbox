@@ -12,17 +12,25 @@ function Register-HtmlAgilityPack{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory=$False)]
-        [string]$Path = "$PSScriptRoot\lib\Core\HtmlAgilityPack.dll"
+        [string]$Path
     )
-   try{
+    begin{
+        if([string]::IsNullOrEmpty($Path)){
+            $Path = "{0}\lib\{1}\HtmlAgilityPack.dll" -f "$PSScriptRoot", "$($PSVersionTable.PSEdition)"
+        }
+    }
+    process{
+      try{
+        if(-not(Test-Path -Path "$Path" -PathType Leaf)){ throw "no such file `"$Path`"" }
         if (!("HtmlAgilityPack.HtmlDocument" -as [type])) {
             Write-Verbose "Registering HtmlAgilityPack... " 
             add-type -Path "$Path"
         }else{
             Write-Verbose "HtmlAgilityPack already registered " 
         }
-    }catch{
+      }catch{
         throw $_
+      }
     }
 }
 

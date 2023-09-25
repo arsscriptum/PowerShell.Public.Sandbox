@@ -26,7 +26,7 @@ $JsonData = $Args[1]
 "First argument is " + $Hostname
 "Second argument is " + $JsonData
 
-return
+
 
     [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms")|Out-Null
 
