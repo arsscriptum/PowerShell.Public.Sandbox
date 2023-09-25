@@ -1,5 +1,11 @@
 # Where-Object - Complex Filters using ScriptBlocks
 
+
+[Blog Post : PowerShell - Where-Object Complex Filters](https://arsscriptum.github.io/blog/whereobject-filters/)
+
+
+
+
 People are often not aware of the extensibility of the ```Where-Object``` cmdlet and how you can leverage it's power to create complex filters.
 
 I'm talking about creating a ```scriptblock``` containing the filtering logic and using it in your command
@@ -11,13 +17,13 @@ For Example: here, let's create a **scriptblock** named ```$custom_gcifilter```;
 
 This line checks if the current instance has a name included in the ```$a``` array and if the instance was created more than 10 minutes ago. if so, it sets the ```$valid``` to ```$True```
 
-```
+```powershell
   if(($($ts.Minutes) -gt 10) -and ($a.Contains($name))) { $valid=$True }
 ```
 
 Complete filer script block
 
-```
+```powershell
   $custom_gcifilter = {
 	$a = @('microsoft.com','google.com','videotron.com','bell.ca','military.com','panasonic.com')
     $valid=$False;$name=$_.Name;[DateTime]$dt=$_.CreationTime;[timespan]$ts = [datetime]::now - $dt;
@@ -28,7 +34,7 @@ Complete filer script block
 
 Now, we use it like so:
 
-```
+```powershell
   Get-ChildItem -Path "." -Recurse | Where $custom_gcifilter
 ```
 
@@ -44,7 +50,7 @@ Let's crank the level a bit. We need to filter directories based on the permissi
 
 Here's the code:
 
-```
+```powershell
 	[string[]]$Permissions=@('Modify','FullControl','Write')
 
     $aclfilter_perm = {
@@ -63,7 +69,7 @@ Here's the code:
 Here's a pratical example: listing the ```PSModule``` folders and checking the ones we have access to:
 
 
-```
+```powershell
 
   function Get-WritableModulePath{
     [CmdletBinding(SupportsShouldProcess)]
@@ -106,7 +112,7 @@ Here's a pratical example: listing the ```PSModule``` folders and checking the o
 
 In the command below
 
-```
+```powershell
    $perm = (Get-Acl $p).Access | Where $aclfilter_perm | Select `
       @{n="Path";e={$p}},
       @{n="IdentityReference";e={$ir}},

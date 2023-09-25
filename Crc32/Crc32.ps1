@@ -109,6 +109,7 @@ public static class ModRTU_CRC
 '@
 
 
+
 function Convert-BytesToHumanReadable{
     [CmdletBinding(SupportsShouldProcess)]
     param (
