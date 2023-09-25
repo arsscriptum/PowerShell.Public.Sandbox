@@ -9,6 +9,8 @@
 
     # CRC stands for Cyclic Redundancy check. It is two bytes added to the end of every modbus message for error detection. Every byte in the message is used to calculate the CRC. 
     # The receiving device also calculates the CRC and compares it to the CRC from the sending device. If even one bit in the message is received incorrectly, the CRCs will be different and an error will result.
+
+    # GP: This section is used by the ModBus integration in my board comms scripts.
 #>
 
 $Script:CsSource =  @'
@@ -47,7 +49,7 @@ public static class ModRTU_CRC
     };
  
     //==========================================================================//
-    // 
+    //  gplante: added the byte[] return version below
     //==========================================================================//
     public static int GetCrc_Fast(byte[] buf, int len)
     {
@@ -59,6 +61,20 @@ public static class ModRTU_CRC
             return icrc;
     }
 
+    //==========================================================================//
+    //  gplante: required for the ModBus Network script (on rcv crc checks)
+    //           Ref file: Update-BoardCommunications.ps1 
+    //==========================================================================//
+    public static byte[] GetCrcBytes_Fast(byte[] buf, int len)
+    {
+            int icrc = GetCrc_Fast(buf,len);
+            byte[] crc_bytes = BitConverter.GetBytes(icrc);  
+            return crc_bytes;
+    }
+
+    //==========================================================================//
+    //  gplante: added the byte[] return version below
+    //==========================================================================//
     // Compute the MODBUS RTU CRC, version 1. 
     public static int GetCRC(byte[] buf, int len)
     {
@@ -76,8 +92,18 @@ public static class ModRTU_CRC
             crc >>= 1;                    // Just shift right
         }
       }
-      //byte[] crc_bytes = BitConverter.GetBytes(crc);  
       return crc;
+    }
+
+    //==========================================================================//
+    //  gplante: required for the ModBus Network script (on rcv crc checks)
+    //           Ref file: Update-BoardCommunications.ps1 
+    //==========================================================================//
+    public static byte[] GetCrcBytes(byte[] buf, int len)
+    {
+        int icrc = GetCrc(buf,len);
+        byte[] crc_bytes = BitConverter.GetBytes(icrc);  
+        return crc_bytes;
     }
 }
 '@
