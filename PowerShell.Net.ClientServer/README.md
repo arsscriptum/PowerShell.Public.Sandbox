@@ -22,21 +22,6 @@ The PowerShell script is easy to use, pretty straighforward...
 	    }
 	}
 
-
-	function Register-NetCli{
-	    [CmdletBinding(SupportsShouldProcess)]
-	    param()
-
-	    $CsSource = (Join-Path "$PSScriptRoot" "clnt.cs")  
-	    
-	    if (!("SimpleNet.NetServ" -as [type])) {
-	        Write-Verbose "Registering $CsSource... " 
-	        Add-Type -Path "$CsSource"
-	    }else{
-	        Write-Verbose "SimpleNet.NetServ already registered: $CsSource... " 
-	    }
-	}
-
 ```
 
 **Register-NetClient**
@@ -55,6 +40,16 @@ The PowerShell script is easy to use, pretty straighforward...
 	}
 
 
+
+```
+
+
+## Start Client and Server Scripts
+
+**Start-NetServer**
+
+```powershell
+
 	function Start-NetServer{
 	    [CmdletBinding(SupportsShouldProcess)]
 	    param(
@@ -65,9 +60,6 @@ The PowerShell script is easy to use, pretty straighforward...
 	    [SimpleNet.NetServ]::StartServer("127.0.0.1",$Port)
 	}
 ```
-
-
-## Start Client and Server Scripts
 
 **Start-NetClient**
 
@@ -83,23 +75,6 @@ The PowerShell script is easy to use, pretty straighforward...
 	    )
 	    Register-NetCli
 	    [SimpleNet.NetServ]::StartCli($IpAddress,$Port)
-	}
-```
-
-
-
-**Start-NetServer**
-
-```powershell
-
-	function Start-NetServer{
-	    [CmdletBinding(SupportsShouldProcess)]
-	    param(
-	        [Parameter(Position = 0, Mandatory = $True)]
-	        [uint32]$Port 
-	    )
-	    Register-NetServ
-	    [SimpleNet.NetServ]::StartServer("127.0.0.1",$Port)
 	}
 
 ```
