@@ -126,7 +126,7 @@ function Install-XamppServer {
 
         $u = "https://psychz.dl.sourceforge.net/project/xampp/XAMPP%20Windows/{0}/xampp-portable-windows-x64-{0}-0-VS16.zip?viasf=1" -f $VersionToGet
                 
-        $o = "d:\Tmp\xampp-portable-windows-x64-{0}-0-VS16.zip" -f $VersionToGet 
+        $o = "$ENV:Temp\xampp-portable-windows-x64-{0}-0-VS16.zip" -f $VersionToGet 
         $hdrs = @{
             "Accept"="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
             "Accept-Encoding"="gzip, deflate, br, zstd"
