@@ -120,26 +120,9 @@ function Get-MD5Hash($filePath) {
 
 
 
-$f1 = "D:\tmp\DejaInsight.zip"
-$f2 = "D:\tmp\DejaInsight_Copy.zip"
-$o = "d:\out"
+$f1 = "D:\___CURRENT_WORK\Music.wav"
+$o = "D:\Scripts\PowerShell.Public.Sandbox\ConvertBytes\out"
 
 New-Item -Path "$o" -ItemType Directory -Force -ErrorAction Ignore | Out-Null
 
 Convert-BinToTxts $f1 $o
-
-Convert-TxtsToBin $o $f2
-
-# Compute the MD5 hashes of the two files
-$hash1 = Get-MD5Hash $f1
-$hash2 = Get-MD5Hash $f2
-
-# Compare the hashes
-if ($hash1 -eq $hash2) {
-    Write-Output "The files are identical."
-} else {
-    Write-Output "The files are different."
-}
-
-Write-Output "Hash of file 1: $hash1"
-Write-Output "Hash of file 2: $hash2"
