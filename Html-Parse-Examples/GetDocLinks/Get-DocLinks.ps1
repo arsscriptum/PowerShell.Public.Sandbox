@@ -82,11 +82,13 @@ function Get-DocLinks{
         $HtmlDoc.LoadHtml($HtmlContent)
         
         $HtmlNode = $HtmlDoc.DocumentNode
-        $XNodeAddr1 = "//*[@id=`"resultMembre`"]/div[3]"
+        
         $MassoHashTable = @{}
         For($i=1;$i -lt 20;$i++){
-            $XNodeAddr2 = "//*[@id=`"resultMembre`"]/div[{0}]/p/a" -f $i
+            $XNodeAddr2 = "/html[1]/body[1]/div[1]/div[5]/div[1]/div[1]/div[12]/div[1]/div[1]/div[2]/div[2]/ul[1]/li[{0}]/#text[3]" -f $i
+            $XNodeAddr2 = "/html/body/div[1]/div[5]/div/div/div[12]/div[1]/div/div[2]/div[2]/ul/li[{0}]" -f $i
             try{
+                $Text = $HtmlNode.SelectNodes($XNodeAddr2).OuterHtml
                 $ResultNode = $HtmlNode.SelectNodes($XNodeAddr2)
                 [string]$Link = $ResultNode.Attributes[0].Value
                 [string]$Name = $ResultNode.Attributes[1].Value
@@ -109,55 +111,3 @@ function Get-DocLinks{
     return $Null
 }
 
-
-
-function Search-Masso{
-    [CmdletBinding(SupportsShouldProcess)]
-    param(
-        [Parameter(Mandatory=$True,Position=0)]
-        [string]$Name
-    )
-
-    process{
-      try{
-        $AllResults = @{}
-        $PageId = 1
-        $Succeeded = $True
-        while($Succeeded){
-            $r = Get-MassoList -Page $PageId
-            $PageId++
-            if($r -eq $Null){ 
-                $Succeeded=$False 
-            }else{
-                $AllResults += $r
-            }
-        }
-
-        $AllResults
-
-        ForEach ($info in $AllResults.Keys) {
-            $PersonName = $info
-            $WebSite = $($AllResults["$info"])
-            if($PersonName -match "$Name"){
-                Write-Host "Found!"
-                Write-Host "$Name"
-                Write-Host "$WebSite"
-                &(Get-ChromePath) "$WebSite"
-                continue;
-            }
-        }
-      }catch{
-        throw $_
-      }
-    }
-}
-
-
-
-function Test-SearchMasso{
-    [CmdletBinding(SupportsShouldProcess)]
-    param()
-
-    # Lets find the masso who left me a message on voice mail: Adrianna Duquette
-    Search-Masso -Name "Duquette"
-}
