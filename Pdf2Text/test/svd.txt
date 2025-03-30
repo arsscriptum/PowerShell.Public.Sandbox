@@ -1,0 +1,2120 @@
+  
+ 
+ 
+ 
+C525 – Berlin BVG 2020 
+Electroacoustic Loudspeaker System 
+ 
+ 
+System Functional Description (SFD) 
+ 
+ 
+ 
+ 
+LUMINATOR TECHNOLOGY GROUP 
+ 
+ 
+    
+Prepared by: Daniel Hall 
+    
+  Signature  Date 
+Systems Engineer 
+   
+    
+Verified by: Éric Lévesque  
+    
+  Signature  Date 
+Software Engineer 
+   
+    
+Approved by: Alejandro Florez Perez 
+    
+  Signature  Date 
+Electrical Eng. Supervisor 
+   
+ 
+ 
+Document No.: 3044286 Revision: G 
+Project No: 1190 CDRL: 036 Date: 2024-05-07 
+NOTICE 
+Information contained in this document and submitted herewith or which may be submitted remain the property of 
+Luminator Technology Group, and shall not be reproduced or altered or used in whole or in part except by express 
+consent of Luminator Technology Group. 
+LTGRail Canada  
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+REVISION HISTORY 
+Revision Date Author Description 
+A 2022-12-14 Daniel Hall First Official Release 
+B 2023-01-12 Daniel Hall • Formatting Corrections 
+• 4.2.1.7.1: Added turn of ‘Station’ rotary switch to 
+‘Speak’ to accept PCU call 
+• 4.2.1.7.1: Figure 27 updated 
+• 4.2.1.7.1: Added operation modes 
+• 2.2.1.3: Corrected Block diagram 
+• 4.2.1 Added VoIP format 
+• 4.2.3 Updated Fallback mode description to include 
+UIC description 
+• 4.2.4 Updated Tow mode to clarify operation. 
+• 4.2.5 Removed audio priority configuration 
+• 4.2.8 Removed audio priority configuration 
+• Added Test Mode Section (4.2.5) 
+• 4.3.2 Added Diagnostic event table 
+• Added Section 5 Software Configuration Item Summary 
+• 4.2.1.9 Departure tone section updated to include 2 
+tones. 
+• All Component Descriptions updated 
+C 2023-01-25 Daniel Hall 
+• Figure 26 PCU locations corrected 
+• Figure 3,4 and 5: Added FBU to WGT1 car 
+• Section 3.2.8 TRSPK section corrected 
+• Grammatical corrections 
+• Section 1.1 corrected transit authority 
+• Section 2.2.1.1: Corrected departure tone to 2 types of 
+tone 
+• Section 4.2.1.9 Added information to departure tones 
+• Section 2.2.1.2: Corrected FEU count in BOM 
+• Section 3.2.4: Update HS dimensions 
+• Section 3.2.5: Updated FEU Weight, Dimensions and 
+3D drawing 
+• Section 3.2.6: Updated PCU Weight, Drawing and IP 
+rating 
+• Section 3.2.7: Updated CSPK Drawing and weight. 
+• Section 3.2.8: Updated TRSPK Weight, IP rating and 
+drawing. 
+• Section 3.2.9: Updated IP rating. 
+• Section 3.2.10: EXT-SPK-V3 updated interface 
+• Section 3.2.11 EXT-SPK V4 updated electrical and 
+audio characteristics, material and operating 
+temperature. 
+• Section 3.2.12 LICH: Updated weight. 
+• Added New section: 4.2.5 Multiple Unit Operation 
+• Updated Figures 3, 4, 7 and 8 for multiple unit 
+operation 
+D 2023-05-15 Daniel Hall 
+• Section 2.2.1.1: Added Special Announcements 
+• Section 4.2.1.2 Added PA-INT/EXT is not to be played 
+over EXT-SPK-V4 
+• Section 3.2.11: Added EXT-SPK-V4 only for Special 
+Announcements 
+• New Section 4.2.6 Special Announcements  
+ 
+1190 CDRL 036 SFD 2 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+• Figures 4, 5 and 7 Ethernet backbone updated 
+• New Section 2.3.1.1 IP Address List 
+• New Section 4.3.1.3 Ports and Sockets 
+• Section 3.2.1: CCU+ added change to eMMc memory 
+size 
+• CCU+ Table 6: Added Aluminum Cover Finish 
+• AAC Table 9: Added Aluminum Cover Finish 
+• GM Table 12: Added Harness Length 600mm 
+• GM Table 13: Added NC3MXX Connector 
+• CSPK Table 22: Amended width 135.25mm and depth 
+40.6mm 
+• TRSPK Table 24: Amended Width 135.25 and depth 
+36.25 
+• SSPK Table 27: Added Gasket 0.8mm 
+• EXT-SPK-V4 Table 30: Added depth 49.3mm 
+• Section 4.2.1.6 and Figure 26 IC Function modified 
+• Section 4.2.1.7.1 and Figure 28 PCU Call request 
+modified 
+• Section 4.2.8 Audio Priorities modified 
+• Section 4.2.1.8 Automated announcements updated 
+• Section 3.2.6 PCU: Added passenger facing LED color 
+description to function 
+E 2023/06/01 Daniel Hall • Section 4.3.1.1 Updated IP List 
+• Section 2.3.1.1 Updated IP List 
+• Section 4.2.1.2 Correction to Information 
+• Section 4.2.1.4 Corrected section title  
+• Section 4.2.1.6Corrected IC operation and flow diagram 
+• Section 4.2.1.71. Added SIP 
+F 2024/01/05 Daniel Hall • Table 6 CCU+: Audio Amplifier: Electrical 
+characteristics updated 
+G 2024/05/07 Daniel Hall 
+• Table 31 EXT-SPK-V4 Interfaces updated to reflect 
+new connector for CO#1 
+• Figure 19 EXT-SPK-V4 Image updated to reflect new 
+connector for CO#1 
+• Section 2.2.1.1  Electroacoustic Audio System 
+Overview updated to match CO#5 
+• Section 4.2.6 Special Announcement updated to match 
+CO#5 
+• Section 4.2.1.7.2 Updated to include CO#3 TCMS 
+activation of Emergency alarm 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 3 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+TABLE OF CONTENTS 
+1 Introduction ................................................................................................................................................ 7 
+1.1 Purpose ............................................................................................................................................... 7 
+1.2 Scope .................................................................................................................................................. 7 
+1.3 Definitions, Acronyms, and Abbreviations ........................................................................................... 7 
+1.4 References .......................................................................................................................................... 9 
+2 General..................................................................................................................................................... 10 
+2.1 Train Configuration Overview ............................................................................................................ 10 
+2.1.1 MZ 5 Car BVG2020 .................................................................................................................... 10 
+2.1.2 XLZ 9 Car BVG2020 ................................................................................................................... 10 
+2.1.3 MZ 5 Car – Coupled ................................................................................................................... 10 
+2.2 System Functionality Overview ......................................................................................................... 10 
+2.2.1 Electroacoustic Audio System (ELA) .......................................................................................... 11 
+2.3 Information and Communication Technology (ICT) Block Diagram .................................................. 17 
+2.3.1 Ethernet Messaging .................................................................................................................... 17 
+2.3.2 UIC Trainline ............................................................................................................................... 18 
+2.4 Interfaces ........................................................................................................................................... 20 
+3 Equipment Description ............................................................................................................................. 21 
+3.1 List of LRUs ....................................................................................................................................... 21 
+3.2 PIS Equipment Description ............................................................................................................... 21 
+3.2.1 Cab Control Unit + (CCU+) ......................................................................................................... 21 
+3.2.2 Audio Coach Controller (ACC).................................................................................................... 23 
+3.2.3 Gooseneck Microphone (GM)..................................................................................................... 25 
+3.2.4 Driver Handset (HS) ................................................................................................................... 26 
+3.2.5 Front End Unit (FEU) .................................................................................................................. 27 
+3.2.6 Passenger Communication Unit (PCU) ...................................................................................... 29 
+3.2.7 Cab Loudspeaker (CSPK) .......................................................................................................... 31 
+3.2.8 Train Radio Loudspeaker (TRSPK) ............................................................................................ 33 
+3.2.9 Saloon Loudspeaker (SSPK) ...................................................................................................... 34 
+3.2.10 External Loudspeaker V3 (EXT-SPK-V3) ................................................................................. 35 
+3.2.11 External Loudspeaker V4 (EXT-SPK-V4) ................................................................................. 37 
+3.2.12 Line In Connector Harness (LICH) ........................................................................................... 38 
+4 Functional Description .............................................................................................................................. 40 
+4.1 Cab Controls ...................................................................................................................................... 40 
+4.2 ELA Functional Description ............................................................................................................... 40 
+4.2.1 Normal Mode .............................................................................................................................. 40 
+4.2.2 Train Radio Panic Mode ............................................................................................................. 49 
+4.2.3 Fallback Mode............................................................................................................................. 49 
+4.2.4 Tow mode ................................................................................................................................... 50 
+4.2.5 Multiple Unit Operation (Coupled) .............................................................................................. 50 
+4.2.6 Special Announcements ............................................................................................................. 50 
+4.2.7 Test Mode ................................................................................................................................... 51 
+4.2.8 Audio Priorities ............................................................................................................................ 51 
+4.2.9 TCMS Communication for the reporting of ELA error and status information. ........................... 52 
+4.2.10 Ambient noise dependent automatic volume adjustment. ........................................................ 52 
+4.2.11 Adjustable System Variables .................................................................................................... 52 
+4.3 Interface Specifications ..................................................................................................................... 53 
+4.3.1 IP Network Specifications ........................................................................................................... 53 
+4.3.2 Maintenance and Diagnostics..................................................................................................... 55 
+5 Software Configuration Item Summary .................................................................................................... 55 
+ 
+  
+ 
+1190 CDRL 036 SFD 4 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+LIST OF FIGURES 
+Figure 1 MZ 5 BVG2020 Car Configuration ................................................................................................ 10 
+Figure 2 XLZ 9 BVG2020 Car Configuration .............................................................................................. 10 
+Figure 3 MZ 5 Car Coupled......................................................................................................................... 10 
+Figure 4 MZ 5 Car Block Diagram .............................................................................................................. 14 
+Figure 5 XLZ 9 Car Block Diagram ............................................................................................................. 15 
+Figure 6 Train Radio Block Diagram ........................................................................................................... 16 
+Figure 7 Ethernet Block Diagram ................................................................................................................ 17 
+Figure 8 UIC Trainline Block diagram ......................................................................................................... 19 
+Figure 9 Cab Control Unit + (CCU+) ........................................................................................................... 21 
+Figure 10 Audio Coach Controller (ACC) .................................................................................................... 23 
+Figure 11 Gooseneck Microphone (GM) ..................................................................................................... 25 
+Figure 12 Driver Handset (HS) ................................................................................................................... 26 
+Figure 13 Front End Unit (FEU) .................................................................................................................. 27 
+Figure 14 Passenger Communication Unit (PCU) ...................................................................................... 29 
+Figure 15 Cab Loudspeaker (CSPK) .......................................................................................................... 31 
+Figure 16 Train Radio Loudspeaker (TRSPK) ............................................................................................ 33 
+Figure 17 Saloon Loudspeaker (SSPK) ...................................................................................................... 34 
+Figure 18 External Loudspeaker (EXT-SPK-V3) ........................................................................................ 35 
+Figure 19 External Loudspeaker V4 (EXT-SPK-V4) ................................................................................... 37 
+Figure 20 Line In Connector Harness(LICH) .............................................................................................. 38 
+Figure 21 PA-INT flow diagram ................................................................................................................... 41 
+Figure 22 PA-INT/EXT Flow diagram ......................................................................................................... 42 
+Figure 23 PA-CREW Mode Flow Diagram .................................................................................................. 42 
+Figure 24 OCC_PA Flow diagram .............................................................................................................. 43 
+Figure 25 OCC-TR Flow diagram ............................................................................................................... 44 
+Figure 26 IC Flow Diagram ......................................................................................................................... 45 
+Figure 27 PCU/DPCU locations .................................................................................................................. 46 
+Figure 28 Passenger Call Request Flow Diagram ...................................................................................... 47 
+Figure 29 PCU Emergency Call Flow Diagra .......................................................................................... 48 
+Figure 30 OBU AA Interface to FEU ........................................................................................................... 49 
+ 
+  
+ 
+1190 CDRL 036 SFD 5 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+LIST OF TABLES 
+Table 1.1: Abbreviations & Acronyms ........................................................................................................... 7 
+Table 2 MZ 5 Car BOM ............................................................................................................................... 12 
+Table 3 XLZ 9 Car BOM .............................................................................................................................. 13 
+Table 4 IP Address, Switch and Port Details .............................................................................................. 17 
+Table 5 ELA Sub System Interfaces ........................................................................................................... 20 
+Table 6 CCU+ Technical Data  ................................................................................................................... 21 
+Table 7 CCU+ Interfaces ............................................................................................................................ 22 
+Table 8 CCU+ LED Status Indicators ......................................................................................................... 22 
+Table 9 ACC Technical Data....................................................................................................................... 23 
+Table 10 ACC Interfaces ............................................................................................................................. 24 
+Table 11 ACC LED Status Indicators .......................................................................................................... 25 
+Table 12 GM Technical Data ...................................................................................................................... 25 
+Table 13 GM Interfaces ............................................................................................................................... 26 
+Table 14 HS Technical Data ....................................................................................................................... 26 
+Table 15 HS Interfaces ............................................................................................................................... 27 
+Table 16 FEU Technical Data ..................................................................................................................... 28 
+Table 17 FEU Interfaces ............................................................................................................................. 28 
+Table 18 FEU LED Status Indicators .......................................................................................................... 29 
+Table 19 PCU Technical Data  ................................................................................................................... 30 
+Table 20 PCU Interfaces ............................................................................................................................. 30 
+Table 21 PCU LED Status Indicators .......................................................................................................... 30 
+Table 22 CSPK Technical Data .................................................................................................................. 31 
+Table 23 CSPK Interfaces........................................................................................................................... 32 
+Table 24 TRSPK Technical Data ................................................................................................................ 33 
+Table 25 TRSPK Interfaces ........................................................................................................................ 34 
+Table 26 SSPK Technical Data .................................................................................................................. 34 
+Table 27 SSPK Interfaces ........................................................................................................................... 35 
+Table 28 EXT-SPK-V3 Technical Data ....................................................................................................... 36 
+Table 29 EXT-SPK-V3 Interfaces ............................................................................................................... 36 
+Table 30 EXT-SPK-V4 Technical Data ....................................................................................................... 37 
+Table 31 EXT-SPK-V4 Interfaces ............................................................................................................... 38 
+Table 32 LICH Technical Data .................................................................................................................... 38 
+Table 33 LICH Interfaces ............................................................................................................................ 39 
+Table 34 VOIP Format ................................................................................................................................ 40 
+Table 35 UIC Train Lines ............................................................................................................................ 49 
+Table 36 Tow Mode Function ..................................................................................................................... 50 
+Table 37 Gooseneck Microphone Audio Priority Table .............................................................................. 51 
+Table 38 Interior Speaker Audio Priority Table ........................................................................................... 51 
+Table 39 Cab Loudspeaker Audio Priority Table ........................................................................................ 52 
+Table 40 Train Radio Audio Priority Table .................................................................................................. 52 
+Table 41 IP Address List ............................................................................................................................. 53 
+Table 42 SCI List ......................................................................................................................................... 56 
+ 
+  
+ 
+1190 CDRL 036 SFD 6 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+1 Introduction 
+1.1 Purpose 
+This document presents the system technical description of the Electroacoustic Loudspeaker System for 
+the C525 Berlin BVG2020 project. 
+It is submitted to fulfil the following requirements: 
+• Transit Authority: Berliner Verkehrsbetriebe (BVG) 
+• Car Builder: Alstom 
+• Alstom: Requirements CbC RevD 2022/10/17 
+• Standards: 
+• IEEE,1558-2004, Standard for Software Documentation for Rail Equipment and Systems 
+• EN50657:2017, Railways Applications - Rolling stock applications - Software on Board 
+Rolling Stock, ref. 
+• EN50125-1 Railway applications – Environmental conditions for equipment – Part1: Rolling 
+stock and on-board equipment. 
+• EN50121-3-2:2016+A1:2019 Railway Applications – Electromagnetic Compatibility 
+• EN50155:2017 Railway Applications – Rolling Stock – Electronic Equipment 
+• EN 45545 Railway Applications – Fire Protection on Railway Vehicles 
+• EN 60849 Sound Systems for Emergency Purposes 
+• VDV 160:2002 Basic Requirements to Electrical Equipment of Light Vehicles in Metro 
+Vehicles 
+• VDV 166-3 Requirements for the Vehicle Control in Light Rail Vehicles and Metro Vehicles – 
+Part 3 System Diagnostic Messages 
+1.2 Scope 
+The System Functional Description presented in the following pages provides a technical description of 
+the following systems of the Passenger Information Systems: 
+• Electroacoustic Audio System 
+The current project does not implement any safety-related, safety-critical or vital functions. The scope of 
+the current system design is limited to what is described in this document. 
+1.3 Definitions, Acronyms, and Abbreviations 
+Table 1.1: Abbreviations & Acronyms 
+Acronym/Abbreviation Description 
+ACC Audio Coach Controller 
+CCU+ Cab Control Unit + 
+CDRL Contractual Documentation Requirement List 
+CSPK Cab Loudspeaker 
+dB Decibel 
+DPCU Disabled Passenger Communication Unit 
+ 
+1190 CDRL 036 SFD 7 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+ELA Electroacoustic Audio System 
+FBU Radio Control Switch 
+FEU Front End Unit 
+IC Intercom 
+ICT Information & Communication Technology 
+LICH Line In Connector Harness 
+MST Maintenance and Service Tool 
+OBU On Board Unit 
+OCC Operation Control Centre 
+OCC-PA Operation Control Centre Public Announcement 
+PA  Public Announcement 
+PA-INT Public Address Interior 
+PA-INT/EXT Public Address Interior/Exterior 
+PCM Pulse Code Modulation 
+PCU Passenger Communication Unit 
+POST Power-On Self-Test 
+PRA Pre-Recorded Announcement 
+PTE Portable Test Equipment 
+PTT Push-To-Talk 
+SCI Software Component Item 
+SFD System Functional Description 
+SIP Session Initiation Protocol 
+SPL Sound Pressure Level 
+SSPK Saloon Loudspeaker 
+TCMS Train Control Management System 
+TR Train Radio 
+TRDP Train Real time Data Protocol 
+TRSPK Train Radio Loudspeaker 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 8 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+1.4 References 
+The following documents are referenced within this document. 
+1. CDRL 048 3044287 Electrical Interfaces 
+2. CDRL 037-01 3044274 Cab Control Unit+ (CCU+) Datasheet 
+3. CDRL 037-02 3044275 Audio Coach Controller (ACC) Datasheet 
+4. CDRL 037-04 3044283 Driver Handset (HS) Datasheet 
+5. CDRL 037-05 3044276 Passenger Communication Unit (PCU) Datasheet 
+6. CDRL 037-06 3044278 Cab Loudspeaker (CSPK) Datasheet 
+7. CDRL 037-07 3044279 Train Radio Loudspeaker (TRSPK) Datasheet 
+8. CDRL 037-08 3044280 Saloon Loudspeaker (SSPK) Datasheet 
+9. CDRL 037-09 3044281 Ext Loudspeaker (EXT-LSPK-V3) Datasheet 
+10. CDRL 037-10 3044282 Ext Loudspeaker (EXT-LSPK-V4) Datasheet 
+11. CDRL 037-12 3044284 Line In Conn Harness(LICH) Datasheet 
+12. IEC 61375-2-3 2015 Edition 1.0 
+ 
+  
+ 
+1190 CDRL 036 SFD 9 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+2 General 
+2.1 Train Configuration Overview 
+The project is to supply Electroacoustic Audio System for the 5 car MZ and 9 car XLZ BVG2020 tram 
+types. 
+2.1.1 MZ 5 Car BVG2020 
+The below figure details the MZ 5 Car BVG2020 configuration 
+ 
+Figure 1 MZ 5 BVG2020 Car Configuration 
+2.1.2 XLZ 9 Car BVG2020 
+The below figure details the XLZ 9 Car BVG2020 configuration 
+ 
+Figure 2 XLZ 9 BVG2020 Car Configuration 
+2.1.3 MZ 5 Car – Coupled 
+The MZ 5 Car units may operate in a coupled consist. The consist may contain a maximum of 2 MZ 5 car 
+units. 
+ 
+Figure 3 MZ 5 Car Coupled 
+2.2 System Functionality Overview 
+The Electroacoustic Loudspeaker System (ELA) provides an integrated solution for audio information 
+broadcast over the train. This system does not implement safety related functionality and/or vital 
+functions. 
+ 
+1190 CDRL 036 SFD 10 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+2.2.1 Electroacoustic Audio System (ELA) 
+2.2.1.1 Electroacoustic Audio System Overview 
+The ELA provides the following functionalities: 
+• Driver Public Announcement to Internal Loudspeakers (PA-INT). 
+• Driver Public Announcement to Internal and External loudspeakers (PA-INT/EXT). 
+• Crew Public Announcement to Internal loudspeakers (PA-CREW), through Line In Connector 
+Harness. 
+• Operational Control Centre Public Announcement to Internal Loudspeakers (PA-OCC). 
+• Half Duplex communication between Driver and Operational Control Centre (OCC-TR). 
+• Half Duplex communication between Drivers (IC). 
+• Half Duplex communication between Driver and Passenger Communication Units (PCU-CCU) in 
+the following modes: 
+o Passenger Call Request  
+o Passenger Emergency Call. 
+• Broadcast of Digital Voice Announcements received from the On Board Unit (OBU) to the Interior, 
+exterior and cab loudspeaker. 
+• Train Radio Panic mode, allowing for remote monitoring of the cab Gooseneck Microphone audio 
+output through the Train Radio  
+• Fall-Back mode operation. In the event of software failure or network error the ELA system 
+provides for a PA fallback mode, utilizing the UIC train lines. 
+• Support of coupling for Towing/Pushing of a coupled unit through providing Public Address 
+announcement functionality to Internal and External speakers. 
+• Departure tone playback. Provision for the playback of 2 different departure tones as selected via 
+TCMS.  
+1. Continuous 330Hz departure tone. 
+2. Alternating 1900HZ 60 ms on/ 60 ms off 
+• TCMS diagnostic message reporting 
+• Ambient noise automatic volume adjustment. 
+• Multiple Unit operation: The ELA system supports the coupling of 2 MZ 5 Car units. 
+• Special Announcements: The ELA system supports audio play back of special announcements 
+message over EXT-SPK=V4.  
+ 
+ 
+1190 CDRL 036 SFD 11 of 57 Doc No.3044286 Rev G 
+ 
+C525 - Berlin BVG 2020 
+Electroacoustic Audio System  
+ 
+  
+2.2.1.2 PIS Bill of Material 
+The below tables provide the Bill of Materials for both MZ 5 Car and XLZ 9 Car Trams. 
+Table 2 MZ 5 Car BOM 
+Alstom Car Number 
+LTG 
+No Description 
+Part Number Part Number WGT9 WGT8 WGT5 WGT2 WGT1 
+1 9020060-01-01 500639759 Cab Control Unit + (CCU+) 1 0 0 0 1 
+2 9020020-02-02 500639760 Audio Coach Controller (ACC) 0 1 0 1 0 
+3 9020031-01-02 500639761 Passenger Communication Unit (PCU) 2 4 0 4 2 
+4 9003104 500639766 Gooseneck Microphone (GM) 1 0 0 0 1 
+5 9003102 500639767 Cab Loudspeaker (CSPK) 1 0 0 0 1 
+6 9003103 500639824 Train Radio Speaker (TRSPK) 1 0 0 0 1 
+7 9003101 500639765 Saloon Loudspeaker (SSPK) 3 2 2 2 3 
+8 9003105 500639763 External Loudspeaker V3 (EXT-SPK-V3) 2 2 0 2 2 
+9 9003106 500639764 External Loudspeaker V4 (EXT-SPK-V4) 2 0 0 0 2 
+10 9002058-002 500639752 Driver Handset (HS) 1 0 0 0 1 
+11 9002219 500655260 Line In Connector Harness (LICH) 1 0 1 0 1 
+12 9002220 500651822 Front End Unit (FEU) 1 0 0 0 1 
+ 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 12 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Table 3 XLZ 9 Car BOM 
+No LTG Alstom Description Car Number 
+Part Number Part Number 
+WGT9 WGT8 WGT7 WGT6 WGT5 WGT4 WGT3 WGT2 WGT1 
+1 9020060-01-01 500639759 Cab Control Unit + (CCU+) 1 0 0 0 0 0 0 0 1 
+2 9020020-02-02 500639760 Audio Coach Controller (ACC) 0 1 0 0 0 0 0 1 0 
+3 9020031-01-02 500639761 Passenger Communication Unit (PCU) 2 4 0 2 0 2 0 4 2 
+4 9003104 500639766 Gooseneck Microphone (GM) 1 0 0 0 0 0 0 0 1 
+5 9003102 500639767 Cab Loudspeaker (CSPK) 1 0 0 0 0 0 0 0 1 
+6 9003103 500639824 Train Radio Speaker (TRSPK) 1 0 0 0 0 0 0 0 1 
+7 9003101 500639765 Saloon Loudspeaker (SSPK) 3 2 2 2 2 2 2 2 3 
+8 9003105 500639763 External Loudspeaker V3 (EXT-SPK-V3) 2 2 0 2 0 2 0 2 2 
+9 9003106 500639764 External Loudspeaker V4 (EXT-SPK-V4) 2 0 0 0 0 0 0 0 2 
+10 9002058-002 500639752 Driver Handset (HS) 1 0 0 0 0 0 0 0 1 
+11 9002219 500655260 Line In Connector Harness (LICH) 1 0 0 0 1 0 0 0 1 
+12 9002220 500651822 Front End Unit (FEU) 1 0 0 0 0 0 0 0 1 
+ 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 13 of 57 Doc No.3044286 Rev G  
+ 
+C525 - Berlin BVG 2020 
+Electroacoustic Audio System  
+ 
+  
+2.2.1.3 ELA Block Diagram 
+The below figures provide a block diagram of both the MZ 5 Car and XLZ 9 Car Trams. 
+ 
+  
+Figure 4 MZ 5 Car Block Diagram 
+1190 CDRL 036 SFD 14 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+  
+Figure 5 XLZ 9 Car Block Diagram 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 15 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+2.2.1.4 Train Radio Block Diagram 
+The below block diagram illustrates the distribution of the audio and control information from the Train Radio to the ELA system. The train is installed with a single Train Radio located in WGT1 car and integrated into the On Board 
+Unit (OBU) (Not LTG Supply). The OBU utilizes an audio and control bus to forward Train Radio audio and control information between the ELA system via the FBU modules located in the WGT1 and WGT 9 cars. Thus the train 
+radio interface directly to the ELA is the FBU modules. 
+ 
+Figure 6 Train Radio Block Diagram 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 16 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+2.3 Information and Communication Technology (ICT) Block Diagram 
+2.3.1 Ethernet Messaging  
+The below diagram provides the ELA block diagram for Ethernet messaging. The ELA system will utilize the train network (Not LTG Supply) to implement Train Real time Data Protocol messaging (TRDP) for the distribution of audio 
+through Voice over Internet Protocol (VoIP). Status and control messaging between modules will also be sent over TRDP. The central point of communication between the ELA and the Train Control Management System (TCMS) will be 
+the CCU+ in the active cab (Master CCU+). If no cab is active then the master CCU+ will default to the WGT 9 car.  
+ 
+ 
+Figure 7 Ethernet Block Diagram 
+2.3.1.1 IP Addressing  
+The following table contains the IP address, switch and port details for all equipment  
+Table 4 IP Address, Switch and Port Details 
+Car Device IP Switch Port 
+CCU+ 192.168.10.110 L3-m-Gbit X5 
+PCU B6 192.168.10.103 L2-m-PoE-Gbit X7 
+WGT1 
+PCU A1 192.168.10.92 L2-m-PoE-Gbit X8 
+CCUO1 10.0.0.16  TBC  TBC 
+CCUO2 10.0.0.18  TBC  TBC 
+ 
+1190 CDRL 036 SFD 17 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Coupler  N/A L3-m-Gbit X9 
+L2-m-PoE-Gbit 
+ACC 192.168.10.90 X10 
+L2-m-PoE-Gbit 
+PCU A2 192.168.10.93 X7 
+L2-m-PoE-Gbit 
+WGT2 
+PCU B5 192.168.10.102 X8 
+L2-m-PoE-Gbit 
+DPCU A2 192.168.10.104 X1 
+L2-m-PoE-Gbit 
+DPCU B5 192.168.10.108 X2 
+L2-m-PoE-Gbit 
+PCU B4 192.168.10.101 X7 
+WGT4 
+L2-m-PoE-Gbit 
+PCU A3 192.168.10.94 X8 
+L2-m-PoE-Gbit 
+PCU A4 192.168.10.95 X7 
+WGT6 
+L2-m-PoE-Gbit 
+PCU B3 192.168.10.100 X8 
+L2-m-PoE-Gbit 
+ACC 192.168.10.91 X10 
+L2-m-PoE-Gbit 
+PCU B2 192.168.10.99 X7 
+L2-m-PoE-Gbit 
+WGT8 
+PCU A5 192.168.10.96 X8 
+L2-m-PoE-Gbit 
+DPCU B2 192.168.10.106 X1 
+L2-m-PoE-Gbit 
+DPCU A4 192.168.10.105 X2 
+L3-m-Gbit 
+CCU+ 192.168.10.111 X5 
+L2-m-PoE-Gbit 
+PCU A6 192.168.10.97 X7 
+WGT9 
+L2-m-PoE-Gbit 
+PCU B1 192.168.10.98 X8 
+L3-m-Gbit 
+Coupler  N/A X9 
+ 
+ 
+ 
+ 
+2.3.2 UIC Trainline 
+The below block diagram details the ELA system connectivity using the UIC trainlines. The UIC train lines are utilized in the event of a fallback mode activation. 
+ 
+1190 CDRL 036 SFD 18 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+ 
+Figure 8 UIC Trainline Block diagram 
+ 
+ 
+1190 CDRL 036 SFD 19 of 57 Doc No.3044286 Rev G 
+ 
+C525 - Berlin BVG 2020 
+Electroacoustic Audio System  
+ 
+  
+2.4 Interfaces 
+The below table details all ELA interfaces with external sub systems. For further details in each instance 
+please refer to the device and connector ID in referenced document CDRL 048 3044287 Electrical 
+Interfaces. 
+ 
+Table 5 ELA Sub System Interfaces 
+No ELA Device Sub System ID Description 
+1 FEU OBU and Cab X6 Digital and Analogue inputs from the On Board Unit (OBU) 
+Controls to the Front End Unit (FEU). Provides automatic digital 
+announcement distribution from the OBU to the ELA  
+2 FEU Train Radio X7 Digital and Analogue Input and Output between Front End 
+Unit (FEU) and Train Radio. 
+Line in Connector Harness input for ancillary microphone 
+3 FEU Legacy Trainlines X2 Digital and Analogue Input and Output between FEU and 
+coupled legacy Tram. Provides necessary signaling to 
+provide internal and external speaker Public Address 
+announcements when in Tow mode 
+4 FEU UIC Train Lines X3 100Vpp Max FEU interface to UIC train lines for audio 
+functionality in the event of ethernet failure 
+5 CCU+ UIC Train Lines X2 CCU+ interface to UIC train lines for audio functionality in 
+the event of ethernet failure 
+6 CCU+ 100Mbs Ethernet X7 See Section 4.11.3 Supported Protocols.  
+7 ACC UIC Train Lines X4 ACC interface to UIC train lines for audio functionality in 
+the event of ethernet failure 
+8 ACC 100Mbs Ethernet X7 See Section 4.11.3 Supported Protocols.  
+9 PCU 100Mbs Ethernet X2 See Section 4.11.3 Supported Protocols.  
+10 PCU Ancillary Device input X1 Provides digital Input for secondary PCU alarm activation 
+device. i.e. emergency handle. 
+11 PCU Activation Output X3 Digital output to TCMS for PCU activation 
+ 
+  
+1190 CDRL 036 SFD 20 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+3 Equipment Description 
+3.1 List of LRUs 
+Refer to Appendix A 
+3.2 PIS Equipment Description 
+3.2.1 Cab Control Unit + (CCU+) 
+ 
+Figure 9 Cab Control Unit + (CCU+) 
+ 
+ 
+A CCU+ is fitted into each cab, where the device interfaces to the Front End Unit (FEU), UIC train lines,  
+Cab loudspeaker and 100Mbps comfort train network. The CCU+ is the central control for all audio 
+functionalities. The device is powered from 24Vdc, finished in a black powder coating the CCU+ has an 
+Ingress protection rating of IP54. Several external LEDS provide status diagnosis. For further details 
+please refer to reference 2 CDRL 037-01 3044274 Cab Control Unit+ (CCU+) Datasheet. 
+Table 6 CCU+ Technical Data 
+ 
+Parameter / feature Description 
+Processing Processor  IMX6 core, Arm cortex A9, 1Ghz  
+RAM memory 4 GB of DDR3L-1866 
+Storage 4GB MLC/2GB SLC eMMC for OS, APP and Critical data 
+Electrical EMC Compliant to EN50121-3-2:2016 (Complies to EN50155:2017) 
+Input Voltage Nominal Voltages: 24V, Voltage range as per EN50155 :2017 
+ 
+1190 CDRL 036 SFD 21 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Insulation and voltage Compliant to EN50155:2017: 
+withstand • Voltage withstand 500VAC or 750VDC 
+• Insulation: >20MΩ at 500VDC  
+Reverse polarity protection Yes (Complies to EN50155:2017). 
+Voltage interruptions Class S2 as per EN50155:2017 
+Supply changeover class C1 as per EN50155:2017 
+Inrush current Limited to 5x the nominal current 
+Power consumption  Typical 20 W 
+Environmental Operating Temperature Class OT4 as per EN50155 :2017, equivalent to Class TX as per 50125-1 :2014 
+inside a vehicle compartment: 
+-40°C to +70°C 
+Storage temperature -40°C to +85°C. 
+Shock and vibration Compliant to EN 61373:2010 performance for Category 1 body mounted equipment. 
+Class B. (Therefore, complies to EN50155:2017) 
+Fire Fire behavior Compliant to NFPA 130 
+Compliant to EN45545-2 HL2 
+Mechanical Ingress Protection IP54 
+Dimensions 
+• Width: 225 mm 
+• Height: 85 mm 
+• Depth: 170 mm 
+Finish 
+• Black powder coated steel 
+• Aluminium Cover 
+Weight 2,2 kg ± 10% 
+Other features Hardwired PA Bypass A software independent backup Manual PA and radio to PA functionality mode is 
+available. This will provide a high integrity level for the PA functionality. In this mode 
+PA performances are limited (No AGC available for Microphone input) 
+Audio amplifier • Maximum RMS power: 15W 
+• Harmonic distortion: less than 1% 
+• Minimum impedance: 4Ω 
+ 
+Table 7 CCU+ Interfaces 
+Parameter Connector Description 
+Label 
+Power X1 One 3-Pin Male Phoenix connector for input power.24V 
+Analog UIC 568 X2 One 9-Pin Male D-sub connector for UIC 568. 
+Handset interface X3 One 9-Pin Female D-Sub connector, Interface to FEU (Handset Interface) 
+Gooseneck X4 One 15-Pin Female D-Sub connector Interface to FEU (Gooseneck Interface) 
+Microphone 
+Radio Interface X5 One 25-Pin Male D-Sub connector Interface to FEU (Train Radio and Cab Loudspeaker)) 
+USB X6 One Female USB A connector 
+Ethernet X7 One 4-Pin Female M12 D-coded connectors for Ethernet 10/100Mbps 
+Pushbuttons and X8 One 25-Pin Female D-Sub connector, Digital IO and IO power supply (24V) 
+Indicators 
+ 
+ 
+Table 8 CCU+ LED Status Indicators 
+ 
+1190 CDRL 036 SFD 22 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Indicator Description 
+Power 
+• LED lights up Green when power is connected 
+• LED is OFF otherwise 
+X7 Status  
+• LED lights up Yellow when it is a 100Mbps link and there is no activity. 
+• LED flashes Yellow when it is a 100Mbps link and there is activity. 
+• LED lights up Green when it is a 10Mbps link and there is no activity. 
+• LED flashes Green when it is a 10Mbps link and there is activity. 
+• LED is OFF when link is down 
+Status 
+• LED lights Green when there is a system fault (e.g. configuration fault) 
+• LED flashes Green when software application is running and there is no fault 
+detected on the system. 
+• LED is OFF when software application is not running. 
+ 
+3.2.2 Audio Coach Controller (ACC) 
+ 
+Figure 10 Audio Coach Controller (ACC) 
+ 
+ 
+The Audio Coach Controller (ACC) provides amplification of audio information before distribution to the 
+External and Internal Loudspeakers. The ACC features 4 independent audio amplifiers powered from 2 
+power supplies, providing increased redundancy and control. The device is powered from 24Vdc, finished 
+in a black powder coating. Several external LEDS provide status diagnosis. For further details please 
+refer to reference 3 CDRL 037-02 3044275 Audio Coach Controller (ACC) Datasheet 
+. 
+Table 9 ACC Technical Data 
+Parameter / feature Description 
+Processing Processor  IMX6 core, Arm cortex A9, 1Ghz  
+RAM memory 2 GB of DDR3L-1866 
+Storage 4 GB MLC/2GB SLC eMMC for OS, APP and Critical data 
+Electrical EMC Compliant to EN50121-3-2:2016 (Complies to EN50155:2017) 
+Input Voltage Nominal Voltages: 24V, Voltage range as per EN50155 :2017 
+ 
+1190 CDRL 036 SFD 23 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Insulation and voltage Compliant to EN50155:2017: 
+withstand • Voltage withstand 500VAC or 750VDC 
+• Insulation: >20MΩ at 500VDC  
+Reverse polarity protection Yes (Complies to EN50155:2017). 
+Voltage interruptions Class S2 as per EN50155:2017 
+Supply changeover class C1 as per EN50155:2017 
+Inrush current Limited to 5x the nominal current 
+Power consumption  Typical 40 W 
+Environmental Operating Temperature Class OT4 as per EN50155 :2017, equivalent to Class TX as per 50125-1 :2014 
+inside a vehicle compartment: 
+-40°C to +70°C 
+Storage temperature -40°C to +85°C. 
+Shock and vibration Compliant to EN 61373:2010 performance for Category 1 body mounted equipment. 
+Class B. (Therefore, complies to EN50155:2017) 
+Fire Fire behavior Compliant to NFPA 130 
+Compliant to EN45545-2 HL2 
+Mechanical Ingress Protection IP54 
+Dimensions 
+• Width: 225 mm 
+• Height: 116.5 mm 
+• Depth: 170 mm 
+Finish 
+• Black powder coated steel 
+• Aluminium Cover 
+Weight 2.5 kg ± 10% 
+Other features Hardwired PA Bypass A software independent backup Manual PA and radio to PA functionality mode is 
+available. This will provide a high integrity level for the PA functionality. In this mode 
+PA performances are limited (No AGC available for Microphone input) 
+Audio amplifier • Maximum RMS power: 30W 
+• Harmonic distortion: less than 0.5% 
+• Minimum impedance: 4Ω 
+ 
+Table 10 ACC Interfaces 
+Parameter Connector Description 
+Label 
+Power X1 One 3-Pin Male Phoenix connector for input 
+Analog Interface X2 One 15-Pin Female D-Sub connector for analog interface 
+RS485 X3 One 9-Pin Female D-Sub connector for RS485 
+Analog UIC 568 X4 One 9-Pin Male D-sub connector for UIC 568 
+External Microphone X5 One 15-Pin Male D-Sub connector for an external microphone 
+USB X6 One Female USB A Connector 
+Ethernet X7 One 4-Pin Female M12 D-coded connectors for Ethernet 10/100Mbps 
+Audio Amplifiers X8 One 12-Pin Male Deutsch DT connector for four amplifier outputs 
+outputs 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 24 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Table 11 ACC LED Status Indicators 
+Indicator Description 
+Power 1 
+• LED lights up Green when power is connected 
+• LED is OFF otherwise 
+Power 2 
+• LED lights up Green when power is connected 
+• LED is OFF otherwise 
+X7 Status 
+• LED lights up Yellow when it is a 100Mbps link and there is no activity. 
+• LED flashes Yellow when it is a 100Mbps link and there is activity. 
+• LED lights up Green when it is a 10Mbps link and there is no activity. 
+• LED flashes Green when it is a 10Mbps link and there is activity. 
+• LED is OFF when link is down 
+AMP Fault 1 
+• LED lights up Red when there is a fault with Amplifier 1 
+• LED is OFF otherwise 
+AMP Fault 2 • LED lights up Red when there is a fault with Amplifier 2 
+• LED is OFF otherwise 
+AMP Fault 3 
+• LED lights up Red when there is a fault with Amplifier 3 
+• LED is OFF otherwise 
+AMP Fault 4 • LED lights up Red when there is a fault with Amplifier 4 
+• LED is OFF otherwise 
+Status 
+• LED lights Green when there is a system fault (e.g. configuration fault) 
+• LED flashes Green when software application is running and there is no fault 
+detected on the system. 
+• LED is OFF when software application is not running. 
+ 
+3.2.3 Gooseneck Microphone (GM) 
+ 
+Figure 11 Gooseneck Microphone (GM) 
+ 
+The Gooseneck microphone (GM) is interfaced with the Front End Unit (FEU) and is the primary communication interface for the 
+driver. The GM allows the driver to carry out IC, OCC-TR, PA and PCU audio functions  
+ 
+. 
+Table 12 GM Technical Data 
+Parameter / feature Description 
+Electrical EMC Compliant to EN50121-3-2 
+Environmental Operating Temperature -25°C to +70°C 
+ 
+1190 CDRL 036 SFD 25 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Storage Temperature -45°C to +80°C 
+Shock and vibration Compliant to EN 61373 
+Fire Fire behavior Compliant to NFPA 130 
+EN45545-2 HL2 
+Mechanical Dimensions • Length: 950.4 mm 
+• Harness Length: 600mm 
+• Base Diameter 64 mm 
+Finish Black powder coating 
+Weight 1.2 Kg +/- 10% 
+ 
+Table 13 GM Interfaces 
+Parameter Connector Description 
+Label 
+Audio GNM NC3MXX connector audio input to FEU 
+ 
+3.2.4 Driver Handset (HS) 
+ 
+Figure 12 Driver Handset (HS) 
+ 
+The Driver Handset (HS) is provided for train radio communication. Interfaced to the Front End Unit 
+(FEU), it acts secondary to the Gooseneck Microphone (GM) during train radio communication. During an 
+ongoing Train radio call if the HS is removed then the call is automatically transferred from the GM and 
+Train Radio Speaker (TRSPK) to the HS. For further details please refer to reference 4 CDRL 037-04 
+3044283 Driver Handset (HS) Datasheet. 
+. 
+Table 14 HS Technical Data 
+Parameter / feature Description 
+Electrical EMC Compliant to EN50121-2-3 
+ 
+1190 CDRL 036 SFD 26 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Environmental Operating Temperature -25°C to +55°C 
+Storage Temperature -40°C to +55°C 
+Shock and vibration Compliant to EN 61373:2010 Class A Cat 1 
+Ingress Protection IP54 Back Enclosure (When Connector Mated) 
+IP30 Handset 
+Fire Fire behavior Compliant to NFPA 130 
+Compliant to EN45545-2 HL2 
+Mechanical Dimensions Base Length: 211.2 mm 
+Base Width 68.58 mm 
+Depth 98.31 mm 
+Face Plate: Aluminium Black powder coated 
+Finish 
+Handset casing and Cradle: Lexan 940 Black 
+Weight 0.59Kg +/- 10% 
+ 
+Table 15 HS Interfaces 
+Parameter Connector Description 
+Label 
+Audio and PTT HAS1 9-Pin Female D-Sub - Interface to the Front End Unit (FEU) 
+ 
+3.2.5 Front End Unit (FEU) 
+ 
+Figure 13 Front End Unit (FEU) 
+ 
+ 
+ 
+1190 CDRL 036 SFD 27 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+The Front End Unit (FEU) Interfaces the Train Radio, Legacy train lines, On Board Unit (OBU), Driver 
+Handset, Gooseneck Microphone and Cab desk buttons to the (CCU+). The FEU interfaces directly to the 
+Train Radio Loudspeaker (TRSPK) where OCC radio communication is output prior to the HS been lifted. 
+For interoperability of legacy trams the FEU also interfaces directly with the legacy train lines, for PA 
+audio distribution in Tow mode. The FEU also interfaces with the LTG supplied Line In Connector 
+Harness, allowing for the connection of a periphery microphone for use by tram crew. 
+ 
+Table 16 FEU Technical Data 
+Parameter / feature Description 
+Electrical EMC Compliant to EN50121-3-2:2016 (Complies to EN50155:2017) 
+Input Voltage Nominal Voltages: 24V, Voltage range as per EN50155 :2017 
+Insulation and voltage Compliant to EN50155:2017: 
+withstand • Voltage withstand 500VAC or 750VDC 
+• Insulation: >20MΩ at 500VDC  
+Reverse polarity protection Yes (Complies to EN50155:2017). 
+Voltage interruptions Class S2 as per EN50155:2017 
+Supply changeover class C1 as per EN50155:2017 
+Inrush current Limited to 5x the nominal current 
+Typical 20 W 
+Power consumption  
+Environmental Operating Temperature Class OT4 as per EN50155 :2017, equivalent to Class TX as per 50125-1 :2014 
+inside a vehicle compartment: 
+-40°C to +70°C 
+Storage temperature -40°C to +85°C. 
+Shock and vibration Compliant to EN 61373:2010 performance for Category 1 body mounted equipment. 
+Class B. (Therefore, complies to EN50155:2017) 
+Fire Fire behavior Compliant to NFPA 130 
+Compliant to EN45545-2 HL2 
+Mechanical Ingress Protection IP40 
+Dimensions • Width: 194.31 mm 
+• Height: 60.58 mm 
+• Length: 368.3 mm 
+Finish Galvanised Steel 
+Weight 2.8Kg +/- 10% 
+ 
+Table 17 FEU Interfaces 
+Parameter Connector Description 
+Label 
+Power X1 One 3-Pin Male Phoenix connector for input power.24V 
+Legacy Train Lines X2 9-Pin Female D-Sub, TE Connectivity, Legacy Train line interface 
+9-Pin Male D-Sub, TE Connectivity. UIC Train line interface 
+UIC Train Lines X3 
+CCU+ Interface X4 37-Pin Female D-Sub, TE Connectivity, CCU+ Inputs and Outputs 
+Handset interface X5 25-Pin Female D-Sub, TE Connectivity. HS, TRSPK and GM connection 
+ 
+1190 CDRL 036 SFD 28 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+OBU and Cab Buttons X6 25-Pin Male D-Sub, TE Connectivity, OBU and Cab buttons 
+Radio Interface X7 15-Pin Male D-Sub, TE Connectivity. Train radio interface and Line in connector harness 
+ 
+Table 18 FEU LED Status Indicators 
+Indicator Description 
+Power 
+• LED lights up Green when power is connected 
+• LED is OFF otherwise 
+ 
+3.2.6 Passenger Communication Unit (PCU) 
+ 
+Figure 14 Passenger Communication Unit (PCU) 
+ 
+The Passenger Communication Unit (PCU) features a microphone, speaker, three status LED (Ready 
+(Orange), Talk (Green), Wait/Listen(Red)) and talk request button. On activation the PCU provides half 
+duplex communication between Driver and Passenger. On PCU activation a secondary contact informs 
+ 
+1190 CDRL 036 SFD 29 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+the TCMS of the activation. The PCU is powered using Power over Ethernet (PoE). For automatic volume 
+adjustment of the audio system the microphone of the PCU is used to monitor the ambient saloon sound 
+pressure level. 
+Each PCU can be activated through directly pressing the activation button or through secondary means of 
+a digital input connected to an ancillary device such as Emergency handle. Where a PCU is used in areas 
+with access for people with reduced mobility (PCUs 11, 12, 5 and 6), this input is not used. For further 
+details please refer to reference 5 CDRL 037-05 3044276 Passenger Communication Unit (PCU) 
+Datasheet. 
+ 
+Table 19 PCU Technical Data 
+ 
+Parameter / feature Description 
+Processing Processor  IMX6 core, Arm cortex A7, 528Mhz  
+RAM memory 512MBytes of DDR3L-1866 
+Storage 4GB MLC/2GB SLC eMMC for OS, APP and Critical data 
+Electrical EMC Compliant to EN50121-3-2:2016 (Complies to EN50155:2017) 
+Input Voltage IEEE 802.3af and IEEE 802.3at PoE/PoE+ standard 
+Insulation and voltage Compliant to EN50155:2017: 
+withstand 
+• Voltage withstand 500VAC or 750VDC 
+• Insulation: >20MΩ at 500VDC  
+Environmental Operating Temperature Class OT4 as per EN50155 :2017, equivalent to Class TX as per 50125-1 :2014 
+inside a vehicle compartment: 
+-40°C to +70°C 
+Storage temperature -40°C to +85°C. 
+Shock and vibration Compliant to EN 61373:2010 performance for Category 1 body mounted equipment. 
+Class B. (Therefore, complies to EN50155:2017) 
+Fire Fire behavior Compliant to NFPA 130 
+Compliant to EN45545-2 HL2 
+Mechanical Ingress Protection IP53 
+Dimensions 
+• Width: 95 mm 
+• Height: 230 mm 
+• Depth: 53.3 mm 
+Finish • Faceplate: Stainless steel brushed 
+• Enclosure: Black powder coating 
+Weight 1.4 Kg +/- 10% 
+ 
+Table 20 PCU Interfaces 
+Parameter Connector Description 
+Label 
+External pushbutton X1 One 5-pin Female M12 B-Coded connector for external buttons. Provides input for external 
+interface  activation device 
+Ethernet X2 One 4-pin Female M12 D-Coded connector for Ethernet 10/100Mbps with PoE 
+TCMS X3 3-pin male Phoenix Combicon. Informs TCMS of PCU Activation 
+ 
+Table 21 PCU LED Status Indicators 
+ 
+1190 CDRL 036 SFD 30 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Indicator Description 
+Power 
+• LED lights up Green when power is connected 
+• LED is OFF otherwise 
+Ethernet 
+• LED lights up Yellow when it is a 100Mbps link and there is no activity. 
+• LED flashes Yellow when it is a 100Mbps link and there is activity. 
+• LED lights up Green when it is a 10Mbps link and there is no activity. 
+• LED flashes Green when it is a 10Mbps link and there is activity. 
+• LED is OFF when link is down 
+Status 
+• LED lights Green when there is a system fault (e.g configuration fault) 
+• LED flashes Green when software application is running and there is no fault 
+detected on the system. 
+• LED is OFF when software application is not running. 
+ 
+3.2.7 Cab Loudspeaker (CSPK) 
+ 
+Figure 15 Cab Loudspeaker (CSPK) 
+ 
+The Cab Loudspeaker (CSPK) is a compact loudspeaker which features integrated volume control. 
+Installed in the Cab areas the CSPK is interfaced to the CCU+. It is responsible for transmission of audio 
+signals from PA, IC and PCU functions into the cab area. For further details please refer to reference 7 
+CDRL 037-06 3044278 Cab Loudspeaker (CSPK) Datasheet. 
+. 
+Table 22 CSPK Technical Data 
+Parameter / feature Description 
+Electrical Continuous Power Handling 8W 
+Maximum Power 15W 
+ 
+1190 CDRL 036 SFD 31 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Impedance 4Ohm/8Ohm 
+Frequency Response 200Hz – 20KHz, -10dB 
+Average SPL 88dB @ 1W, 1m distance 
+Environmental Operating Temperature OT3 -25°C to +70°C 
+Storage Temperature -40°C to +100°C 
+Ingress Protection IP54 (Front) 
+ Shock and Vibration Compliant to EN61373:2010 Cat1 Class B 
+Fire Fire behavior Compliant to EN45545 HL2 
+Mechanical Dimensions Width 135.25mm 
+Height 130 mm 
+Depth 40.6mm 
+Finish Stainless Steel Brushed 
+Weight 0.9Kg +/- 10% 
+ 
+ 
+Table 23 CSPK Interfaces 
+Parameter Connector Description 
+Label 
+Interface to CCU+  SPK WAGO 6-pin male. Interface connection to CCU+ 
+ 
+ 
+1190 CDRL 036 SFD 32 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+3.2.8 Train Radio Loudspeaker (TRSPK) 
+ 
+Figure 16 Train Radio Loudspeaker (TRSPK) 
+ 
+Located in the cab area the Train Radio Loudspeaker (TRSPK) interfaces with the Front End Unit (FEU). 
+The TRSPK is responsible for playing audio information received via the train radio while in OCC-TR 
+mode. The TRSPK is only operational in this mode while the handset remains in the cradle. For further 
+details please refer to reference 8 CDRL 037-07 3044279 Train Radio Loudspeaker (TRSPK) Datasheet. 
+. 
+Table 24 TRSPK Technical Data 
+Parameter / feature Description 
+Electrical Continuous Power Handling 8W 
+Maximum Power 15W 
+Impedance 4Ohm/8Ohm 
+Frequency Response 200Hz – 20KHz, -10dB 
+Average SPL 88dB @ 1W, 1m distance 
+Environmental Operating Temperature OT3 -25°C to +70°C 
+Storage Temperature -40°C to +100°C 
+Ingress Protection IP64 (Front) 
+ Shock and Vibration Compliant to EN61373:2010 Cat1 Class B 
+Fire Fire behavior Compliant to EN45545 HL2 
+Mechanical Dimensions Width 135.25mm 
+Height 130 mm 
+Depth 36.2mm 
+ 
+1190 CDRL 036 SFD 33 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Finish Stainless Steel Brushed 
+Weight 0.8Kg +/- 10% 
+ 
+Table 25 TRSPK Interfaces 
+Parameter Connector Description 
+Label 
+Interface to FEU  SPK WAGO 2-Pin Male, Audio interface to FEU 
+ 
+3.2.9 Saloon Loudspeaker (SSPK) 
+ 
+Figure 17 Saloon Loudspeaker (SSPK) 
+ 
+The Saloon Loudspeaker (SSPK) is a compact design. Located in the saloon areas the SSPK interfaces 
+directly with the ACC modules. Providing audio signal distribution.to the Saloon areas. For further details 
+please refer to reference 9 CDRL 037-08 3044280 Saloon Loudspeaker (SSPK) Datasheet 
+ 
+Table 26 SSPK Technical Data 
+Parameter / feature Description 
+Continuous Power 
+Electrical 20W 
+Handling 
+Maximum Power 30W 
+Impedance 4Ohm/8Ohm 
+Frequency Response 100Hz – 13KHz, -10dB 
+ 
+1190 CDRL 036 SFD 34 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Average SPL 90dB @ 1W, 1m distance 
+Environmental Operating Temperature -25°C to +70°C 
+Storage Temperature -40°C to +70°C 
+Ingress Protection IP53 
+ Shock and Vibration Compliant to EN61373:2010 Cat1 Class B 
+Fire Fire behavior Compliant to EN45545 HL2 
+Mechanical Dimensions Width 102mm 
+Height 102 mm 
+Depth 36mm (36.8mm with Gasket) 
+Finish Steel 
+Weight 0.16Kg +/-10% 
+ 
+Table 27 SSPK Interfaces 
+Parameter Connector Description 
+Label 
+Interface to ACC  SPK Speaker terminals: 4.8 x 0.8 mm (+) and 2.8 x 0.8 mm (−) . Audio connection to ACC+ 
+ 
+3.2.10 External Loudspeaker V3 (EXT-SPK-V3) 
+ 
+Figure 18 External Loudspeaker (EXT-SPK-V3) 
+ 
+The external loudspeaker V3 (SPK-EXT V3) is a compact loudspeaker used for external audio 
+announcements to passengers. It is prepared to be mounted outside the train cars. For further details 
+please refer to reference 10 CDRL 037-09 3044281 Ext Loudspeaker (EXT-LSPK-V3) Datasheet. 
+ 
+ 
+1190 CDRL 036 SFD 35 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Table 28 EXT-SPK-V3 Technical Data 
+Parameter / feature Description 
+Electrical Continuous Power 6W 
+Handling 
+Maximum Power 10W 
+Impedance 8Ohm 
+Frequency Response 380Hz – 20KHz, -10dB 
+Average SPL 100dB @ 1W, 1m distance 
+Environmental Operating Temperature -40°C to +100°C 
+Storage Temperature -40°C to +100°C 
+Ingress Protection IP67 
+ Shock and Vibration Compliant to EN61373 Cat1 Class B 
+Fire Fire behavior Compliant to NFPA 130 
+Mechanical Dimensions Diameter: 97 mm 
+Width (with bracket) 101mm 
+Depth 66.5mm 
+Height 137.5mm 
+Finish Black  
+Weight 0.35Kg +/- 10% 
+ 
+Table 29 EXT-SPK-V3 Interfaces 
+Parameter Connector Description 
+Label 
+Interface to ACC  SPK 500mm meter cable from speaker (Alstom to supply connector) 
+ 
+ 
+1190 CDRL 036 SFD 36 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+3.2.11 External Loudspeaker V4 (EXT-SPK-V4) 
+ 
+Figure 19 External Loudspeaker V4 (EXT-SPK-V4) 
+ 
+The external loudspeaker (SPK-EXT V4) is a compact 8 cm (3.3“) full-range speaker with waterproof 
+polypropylene cone, good bass reproduction and balanced frequency response. Especially suitable as 
+built-in speaker for music reproduction and as driver for 100 V network column speakers. It can be used 
+for audio announcements to passengers. It is prepared to be mounted outside the train cars. For further 
+details please refer to reference 11 CDRL 037-10 3044282 Ext Loudspeaker (EXT-LSPK-V4) Datasheet. 
+The EXT-SPK-V4 speakers are located on the exterior of the lead vehicles (WGT 1 and 9), for 
+announcement of special messages to disabled passengers. The EXT-SPK-V4 are only used for the 
+playback of special announcements. 
+ 
+ 
+Table 30 EXT-SPK-V4 Technical Data 
+Parameter / feature Description 
+Electrical Continuous Power 15W 
+Handling 
+Maximum Power 25W 
+Impedance 8Ohm 
+Frequency Response 100Hz – 20KHz, 10dB 
+Average SPL 84dB @ 1W, 1m distance 
+Environmental Operating Temperature -40°C to +80°C 
+Storage Temperature -40°C to +80°C 
+Ingress Protection IP65 
+Fire Fire behavior EN45545-2 Compliant 
+ 
+1190 CDRL 036 SFD 37 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Mechanical Dimensions 
+• Diameter: 90 mm 
+• Depth 49.3mm 
+Finish White Plastic ASA 
+Weight 0.2Kg +/- 10% 
+ 
+Table 31 EXT-SPK-V4 Interfaces 
+Parameter Connector Description 
+Label 
+Interface to ACC  SPK 2 pin Receptacle Faston Type connector 
+ 
+3.2.12 Line In Connector Harness (LICH) 
+ 
+Figure 20 Line In Connector Harness(LICH) 
+The Line In Connector Harness (LICH) allows the connection of an external Microphone (Not LTG 
+Supply) to the audio bus. For further details refer to reference 12 CDRL 037-12 3044284 Line In Conn 
+Harness(LICH) Datasheet. 
+ 
+Table 32 LICH Technical Data 
+Parameter / feature Description 
+Electrical EMC Compliant to EN50121-3-2 
+Environmental Operating Temperature -25°C to +70°C 
+Storage Temperature -45°C to +80°C 
+Fire Fire behavior Compliant to NFPA 130 
+EN45545-2 HL2 
+Mechanical Dimensions Length: 500 mm 
+Width 32.54 mm 
+Finish Metal 
+ 
+1190 CDRL 036 SFD 38 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Weight 0.09 Kg +/- 10% 
+ 
+Table 33 LICH Interfaces 
+Connector 
+Parameter Description 
+Label 
+Microphone Input X1 TE CONNECTIVITY CIRCULAR CONNECTOR 211401-3 7 CONTACTS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 39 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+4 Functional Description 
+4.1 Cab Controls 
+The ELA system interfaces with 3 (Non-LTG supply) cab control consisting of: 
+• ‘Station’ Non Latching Rotary Switch. The Station rotary switch has 3 positions: 
+o Clear: Cancels PCU talk request, and IC modes 
+o Speak: Controls driver talk privilege for PCU talk request, IC and PCU Emergency Call 
+o 0: Default position of the switch which the switch returns to on release. 
+• ‘Speakers’ Non Latching Rotary Switch. The Speakers rotary switch has 3 positions: 
+o Internal: PA-INT activation 
+o Internal/External: PA-INT/EXT activation 
+o 0: Default position of the switch which the switch returns to on release. 
+• Gooseneck Microphone PTT: The GM PTT is only used for Driver talk privilege through the GM 
+during OCC-TR 
+All controls are interfaced to the ELA system through the FEU 
+4.2 ELA Functional Description 
+4.2.1 Normal Mode 
+While in normal mode all audio signal distribution between End devices (CCU+, ACC and PCU) is 
+completed through Voice Over Internet Protocol (VOIP) 
+Table 34 VOIP Format 
+Format Sampling Rate Sampling Size 
+PCM 16Khz 16bit 
+ 
+4.2.1.1 Driver Public Announcement to Internal Loudspeakers (PA-INT). 
+The ELA system has a specific mode for Internal Public announcements (PA-INT). To enter the PA-INT 
+mode the driver rotates and holds the Cab desk Speaker rotary switch to the Internal position.  
+Once active audio from the Gooseneck Microphone is routed to the local CCU+ via the FEU. The CCU+ 
+will then distribute the audio through VoIP to the ACC modules and non-active cab CCU+ for playback 
+over the internal and non-active cab loudspeaker 
+The driver may exit PA-INT mode by releasing the Speaker rotary switch, which returns to the 0 position.  
+It is not possible to make a PA-INT announcement from an inactive cab. 
+ 
+1190 CDRL 036 SFD 40 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+ 
+Figure 21 PA-INT flow diagram 
+4.2.1.2 Driver Public Announcement to Internal and External loudspeakers (PA-INT/EXT). 
+The ELA system has a specific mode for Internal and External Public announcements (PA-INT/EXT). To 
+enter the PA-INT/EXT mode the driver rotates and holds the Cab desk Speaker rotary switch to the 
+External position.  
+Once active audio from the Gooseneck Microphone is routed to the local CCU+ via the FEU. The CCU+ 
+will then distribute the audio through VoIP to the ACC modules and non-active cab CCU+ for playback 
+over the internal, external and non-active cab loudspeaker 
+The driver may exit PA-INT/EXT mode by releasing the Speaker rotary switch, which returns to the 0 
+position.  
+The PA-INT/EXT is not played over the EXT-SPK-V4 speakers 
+It is not possible to make a PA-INT/EXT announcement from an inactive cab. 
+ 
+1190 CDRL 036 SFD 41 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+ 
+Figure 22 PA-INT/EXT Flow diagram 
+4.2.1.3 Crew Public Announcement to Internal loudspeakers (PA-CREW). 
+The ELA system allows for the connection of an ancillary microphone (Not LTG Supply) through a Line In 
+Connector Harness (LICH) to the Front End Unit (FEU) via the FEU X7 connector. The harnesses are 
+located in both cabs and the middle car, in both 5 car MZ and 9 car ELZ formations. The Microphone is 
+intended for use by the train crew, enabling Public announcements through Interior speakers. 
+Once a microphone is connected Train Crew can make Public Announcements through the internal 
+speakers to passengers through pressing a PTT button on the ancillary microphone. 
+ 
+Figure 23 PA-CREW Mode Flow Diagram 
+4.2.1.4 OCC-PA to Internal speakers (PA-OCC). 
+The ELA system has a specific mode for Public Announcements from the Operational Control Centre 
+(PA-OCC). PA-OCC mode is active when the On-Board Unit (OBU) input to the Front End Unit (X6, pin 
+10, FAW) is pulled low. At this point the analogue audio signal sent from the OBU to the FEU (X6, pins 20 
+& 8) is routed to the CCU+. The CCU+ digitizes the information for distribution over the comfort ethernet 
+ 
+1190 CDRL 036 SFD 42 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+network using VoIP. On receipt of the audio data the ACC will play the announcement over the Internal 
+speakers.. 
+ 
+Figure 24 OCC_PA Flow diagram 
+4.2.1.5 Half Duplex communication between Driver and OCC (OCC-TR). 
+The ELA system provides functionality for Half-Duplex communication between the Operational Control 
+Centre (OCC) and the Driver. By default the ELA system is in Train Radio mode. With no other mode 
+selected pressing the Cab desk PTT button will route audio from the Gooseneck Microphone (GM) 
+directly to the Train Radio interface, through the FEU. Any audio received from the train radio is played 
+over the Train Radio Loudspeaker. 
+The driver can switch to using the Driver Handset (HS) at any time through lifting the HS from the 
+console. When this occurs incoming audio is switched from the TRSPK to the HS Earpiece and the 
+Gooseneck Microphone (GM) input to the CCU+ closes as the HS microphone input opens. Talk privilege 
+is gained by the driver through pressing the HS PTT button. This is reversable through placing the 
+handset back onto the cradle. 
+ 
+1190 CDRL 036 SFD 43 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+ 
+Figure 25 OCC-TR Flow diagram 
+ 
+ 
+ 
+ 
+ 
+1190 CDRL 036 SFD 44 of 57 Doc No.3044286 Rev G 
+ 
+C525 - Berlin BVG 2020 
+Electroacoustic Audio System  
+ 
+  
+ 
+4.2.1.6 Half Duplex Communication between Drivers (IC). 
+The ELA system provides Half Duplex communication between cabs (IC). The system is to handle IC call initiation with the following logic: 
+• IC call initiated from active cab will be sent to all non-active cabs. 
+• IC call initiated from a non-active cab will only be sent to the active cab 
+Both Non-active and active cabs can initiate an IC call through rotating the ‘Station’ rotary switch to the ‘Speak’ position. Once initiated the non-initiating cab will play an alert message through the CSPK. The non-initiating cab may accept 
+the call through rotating the ‘Station’ rotary switch to the ‘Speak’ position. At which point the alert tone played through the CSPK is stopped 
+While the non-initiating cab holds the ‘station’ rotary switch in the ‘speak’ position, the non-initiating cab has talk privilege and audio is routed from the non-initiating cab GM to the initiating cab CSPK. When the non-initiating cab releases 
+the  ‘station’ rotary switch to the ‘0’ position, talk privilege is passed to the initiating cab and audio is routed from the initiating cab GM to the non-initiating cab CSPK. 
+Operators in the non-initiating cabs control talk back privilege through rotating the ‘Station’ rotary switch to the ‘Speak’ position. While rotated and held in this position the non-initiating cab has talk back privilege, with audio routed from the 
+non-active cab GM to the active cab CSPK. When the non-initiating cab ‘Station’ rotary switch is released to the ‘0’ position. Talk back privilege is returned back to the initialing cab.  
+Either cab can terminate the IC call  through turning the ‘Station’ rotary switch to the ‘Clear’ position. 
+The IC call enters ‘Parked’ mode if an ELA function with higher priority is activated. When the IC call is parked the Intercom indicator will flash. Once the higher priority function is ended the, IC function will exit parked mode, indicated by 
+the intercom indicators (Non LTG supplied) turning on in both cabs. 
+  
+Figure 26 IC Flow Diagram 
+ 
+1190 CDRL 036 SFD  45 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+4.2.1.7 Half Duplex communication between Driver and PCU(PCU). 
+The PCU alarms are arranged in the following order within the 5 car MZ and 9 car XLZ 
+ 
+Figure 27 PCU/DPCU locations 
+The ELA system provides Half-Duplex communication between PCU alarm stations and the Driver. The PCU modules provide 2 specific modes of operation.  
+4.2.1.7.1 Passenger Call Request 
+A Passenger call Request can be made through both PCU and alarms for people with reduced Mobility DPCU. The request is made through pressing the PCU button. On activation the PCU alarm notifies the master CCU+ of its activation 
+via TRDP and SIP, The CCU+ in turn notifies the TCMS of the PCU activation and location via TRDP. 
+After activation the PCU ‘Wait’ LED will illuminates for 0.5 seconds. After 0.5 seconds the PCU ‘Wait’ LED will then start to flash. By default the system will play no alarm tone through the active cab CSPK. The system supports a 
+configurable item which when active causes an audible alarm to play in the active cab on PCU talk request activation. The alarm tone will be stored in the CCU+. 
+The driver can accept the PCU call and enter Driver to Passenger Talkback mode through moving the ‘Station’ rotary switch to the ‘speak’ position. At this point the PCU Wait LED will turn on and any audible alarm will be cancelled. 
+When the ‘Station’ rotary switch is released back to the ‘0’ position by the driver, the ELA system enters PCU Driver Listen mode. On the PCU the ‘Wait/Listen’ LED turns off and the ‘Speak’ LED illuminates. Audio received by the PCU 
+microphone is then transferred to the active cab CSPK. 
+The driver can regain talk priority through turning and holding the ‘Station’ rotary switch in the ‘Speak’ position. While the rotary switch is held in this position the ELA enters PCU-Driver Speak Mode.  
+The Driver can cancel the PCU talk request by turning the ‘’Station’ Rotary switch to the ‘Clear’ position. This can only be done after the driver has first accepted the PCU call. Once this is done the talk request is effectively cancelled. 
+Audio is no longer distributed between the PCU and cab, and the PCU status LED returns to having the ‘Ready’ LED illuminated. 
+In the event of multiple PCU Passenger Call request activations the active PCU’s become parked and enter a queue of first in first out order. Once the first PCU in the queue has been addressed and the call cleared by the driver the next 
+PCU in the que becomes active, starting in the PCU talk request wait mode. While parked the PCU ‘Wait’ LED flashes. In the event of an Emergency Call function the active PCU will become parked and is placed into the first position in 
+the que if a PCU alarm que is present. 
+The below Figure 27 details a Flow diagram of the Passenger Call Request. It highlights 4 specific modes: 
+• PCU Talk Request Wait 
+o Mode activated on the initiation of the Passenger Call Request. 
+o On the PCU the ‘Wait’ LED illuminates for 0.5 seconds, after which the LED will start to flash. 
+o In the active cab the Intercom request indicator will flash (Alstom Control) 
+o Alarm tone plays through the CSPK if configurable parameter is set.  
+• PCU Talk Request Driver Listen 
+o When the ‘Station’ rotary switch is moved to the ‘0’ position the Passenger talk request enters PCU Talk Request Driver Listen mode. 
+o The PCU ‘Wait’ LED turns off and the PCU ‘Speak’ LED turns on. 
+o Audio is now transmitted from the PCU microphone to the active Cab Loudspeaker. 
+• PCU Talk Request Driver Speak 
+o When the ‘Station’ rotary switch is held in the ‘Speak’ position the Passenger talk request enters PCU Talk Request Driver Speak mode. 
+o The PCU ‘Speak’ LED turns off and the PCU ‘Wait’ LED turns on. 
+o Audio is now transmitted from the Gooseneck Microphone to the active PCU speaker. 
+• PCU Talk Request Parked  
+o The PCU Talk Request Parked mode occurs when either: 
+▪ A higher priority audio request is received 
+▪ An Emergency PCU call is received. 
+▪ Multiple PCU alarms active. 
+o The PCU ‘Wait’ LED starts to flash. 
+o On completion of the higher priority audio function or PCU Emergency call the PCU Talk request enters PCU talk request wait mode, where the driver will need to accept the call to continue. 
+ 
+1190 CDRL 036 SFD 46 of 57 Doc No.3044286 Rev G  
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+ 
+Figure 28 Passenger Call Request Flow Diagram 
+4.2.1.7.2 Passenger Emergency Call 
+Passenger Emergency Calls are activated through 2 means: 
+• PCU external emergency signal (PCU X1 Pins 2 (+24V) and 3(0V)).  
+o If activated via the PCU external emergency signal the PCU alarm notifies the master CCU+ of its activation via TRDP, The CCU+ in turn notifies the TCMS of the PCU activation and location via TRDP. The TCMS is also 
+notified of the PCU Emergency call activation through an auxiliary output (X3 Pins 1 (+24V) and 2 (0V)) on the PCU module. 
+• TCMS to master CCU+ request via TRDP, through activation of the Emergency Door Release signal. 
+o On TCMS activation request the CCU+ will activate the  doors associated PCU device. Once activated the CCU+ will inform the TCMS of the PCU activation. 
+PCU’s located in areas for people with reduced mobility (DPCU) do not have this function (PCUs 11, 12, 5 and 6). On activation the PCU ‘Wait’ LED illuminates briefly before the ‘Speak’ LED illuminates. The ELA system enters ‘PCU-
+EMER Driver listen mode’. The audio signal from the PCU microphone is then routed to the active cab CSPK without further input from the driver. 
+On activation audio from the PCU microphone will be played through the CSPK. Similar to the Passenger Call request the system features a configurable parameter that when set activates an audible tone to be played through the Active 
+cab loud speaker on PCU Emergency call activation. By default this parameter will be set to off so as no tone is played. The alarm audio tone will be merged with audio received from the active PCU. 
+ 
+1190 CDRL 036 SFD 47 of 57 Doc No.3044286 Rev G  
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+The driver can control the speak privilege through turning the ‘Station’ rotary switch to the ‘Speak’ position, when operated the ELA system enters ‘PCU-EMER Driver speak mode’. When rotated to this position audio from the GM is 
+played through the active PCU loudspeaker, the PCU microphone is turned off, the PCU ‘Wait’ LED illuminates and the PCU ‘Speak’ LED is turned off. If the parameter for an audio alarm tone is set to play an alarm tone then the alarm 
+tone will be canceled on the first occurrence of the driver moving the ‘Speak’ rotary switch to the ‘Speak’ position. 
+In the event of alarm activation from PCU external emergency signal, the alarm may only be cancelled through resetting of the emergency activation input to the PCU. This task is to be performed by the train crew. If the alarm is activated 
+via TCMS request the PCU alarm will remain active until the TCMS activation request is removed 
+In the event of multiple PCU Emergency call activation the active PCU’s become queued in a first in first out order. Once the first PCU in the queue has been addressed and the call cleared by the train crew resetting the active PCU, the 
+next PCU in the stack becomes active. PCU’s waiting in the stack have their respective ‘Wait’ LED’s illuminated.  
+The below Figure 28 details a flow diagram of PCU Emergency call operation which identifies 3 modes 
+1. PCU Emergency Driver Listen Mode 
+o First mode following activation of a PCU Emergency call, mode also accessed through driver releasing ‘Speak’ rotary switch to the ‘0’ position. 
+o PCU ‘Wait’ LED illuminates briefly before turning off and the PCU ‘Speak’ LED illuminates. 
+o Audio from the PCU microphone is routed to the active cab Cab Loudspeaker. 
+o If parameter is set audible tone is merged with PCU audio and played through active cab CLS. 
+1. PCU Emergency Driver Speak Mode 
+o Mode activated through driver rotating the ‘Speak’ rotary switch to the ‘0’ position. 
+o PCU ‘Speak’ LED turns off. PCU ‘Wait’ LED turns on 
+o Audio is routed from the Gooseneck Microphone to the active PCU speaker. 
+o In the first instance of this mode being entered if the configurable PCU Emergency alarm tone is active it will be silenced. 
+1. PCU Emergency Parked Mode 
+o Mode entered only for PCU call that are queued (Not detailed in flow diagram) 
+o PCU ‘Wait’ LED flashes 
+ 
+  
+Figure 29 PCU Emergency Call Flow Diagram 
+ 
+1190 CDRL 036 SFD 48 of 57 Doc No.3044286 Rev G  
+ 
+C525 - Berlin BVG 2020 
+Electroacoustic Audio System  
+ 
+  
+ 
+4.2.1.8 Automated Announcements (AA) 
+The ELA system provides audio distribution of automated announcements received from the On-
+Board Unit (OBU) located in WGT1. Automatic Announcement audio signals are received in analogue 
+format from the OBU through FEU Connector X6 pins 5 and 18. The OBU interfaces the below inputs 
+to the Front End Unit (FEU) X6 connector in WGT1, with regard to where the automated 
+announcements are to be played. 
+Pin Pin Function to Input State 
+ID 
+FEU OBU No Action 
+DVA Internal DVA External No Action 
+1 DAG 1 
+20b 0 1 0 
+ON 
+4 DAG 0 
+14b 0 1 1 
+LSA 
+Figure 30 OBU AA Interface to FEU 
+4.2.1.9 Departure Tone 
+The ELA supports playback of 2 different departure tones over the External loudspeakers. Selection 
+of tone to be played as well as start and stop of the tone will be completed through TCMS TRDP 
+communication to the master CCU+. The following departure tones will be supplied by Alstom. 
+1. Continuous 330Hz departure tone. 
+2. Alternating 1900HZ 60 ms on/ 60 ms off 
+The departure tones will be stored as .wav file type on both CCU+. The system will allow the tones to 
+be changed through upload of a new tone through the MST tool. 
+4.2.2 Train Radio Panic Mode 
+The ELA system features a Panic Mode. Panic Mode is entered through the receipt of TCMS request 
+to the CCU+. Once Panic Mode is entered the Gooseneck Microphone (GM) input to the CCU+ opens 
+and all audio received from the GM by the CCU+ is sent to the train radio. 
+4.2.3 Fallback Mode 
+In the event of failure to the train network or Software failure of the CCU+ the ELA system will enter 
+Fallback mode. While in fallback mode the following audio functions remain available: 
+• OCC-TR 
+• OCC-PA 
+• PA-INT/EXT 
+While in fallback mode the ELA will utilize the UIC train lines for audio signal control and distribution. 
+The UIC train lines consist of 3 pairs, with further details of their use provided in the below table. 
+Table 35 UIC Train Lines 
+UIC Pair Description 
+PA AF PA Analogue audio signal 
+PA EN PA Enable signal (+24v) 
+PA PR PA Priority signal (+24V) 
+ 
+1190 CDRL 036 SFD 49  of 57 Doc No.3044286 Rev H 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+In the event that the failure causing fallback mode clears during operation the system will revert back 
+to normal operation. 
+4.2.4 Tow mode  
+The ELA System supports the coupling of 2 Tram sets for Towing/Pushing operation. The ELA 
+system is designed to support this formation on the premise that a coupling Tram set may utilize an 
+older audio system with requiring output/input of a 100Vpp audio signal. 
+Electrical coupling between the 2 vehicles is made through the use of a ‘Suppression Cable’. The 
+suppression cable consists of 2 pairs, 1 control pair and 1 audio signal pair. The suppression cable 
+input to the ELA system is through the FEU X2 connector and denoted as Legacy Trainlines. 
+Through the use of the Suppression cable the ELA system allows for 2 intervehicle functions. These 
+functions and corresponding control characteristics are detailed below in Table 33 
+Table 36 Tow Mode Function 
+Control Line Signal 
+Function 
+Control Inside Control Outside 
+PA Interior (PA-INT) +24V 0V 
+PA Interior/Exterior (PA-INT/EXT) 0V +24V 
+ 
+Control of these functions from the modified unit is the same as within normal mode (Rotation of the 
+‘Speaker’ rotary switch to either the internal or external position).  
+When the modified unit receives audio input via the suppression cable, the audio function requested 
+is played respective to its position in the Audio priority tables detailed in 4.2.8 Audio Priorities. Such 
+that if a higher priority function is in progress or appears during input stream, the audio input will not 
+be played. 
+4.2.5 Multiple Unit Operation (Coupled) 
+The ELA system supports the operation of 2 MZ 5 Car units coupled. When operated in this mode the 
+ethernet and UIC train lines of both vehicle are connected.  
+While in Multiple unit operation all functionality is available as previously described in Normal Mode. 
+4.2.6 Special Announcements 
+The ELA system provides a Special announcement feature. Upon door release the CCU+ will stream 
+a announcement for playback over all EXT-SPK-V4 speakers. 
+The announcement to be played is stored on the CCU+ with the following characteristics: 
+• File Type: .wav 
+• Maximum size is 10Mb 
+The audio file will be played over the EXT-SPK-V4 speakers upon master CCU+ receipt of Door 
+Released signal from the TCMS. 
+The audio file shall be configurable, allowing the end user to change the audio file through the MST. 
+  
+1190 CDRL 036 SFD 50 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+4.2.7 Test Mode 
+Through the Maintenance and Service Tool (MST) the ELA system can be set to Test Mode. The 
+below table details the ELA actions when entering test mode and any subsequent response from 
+system stimulus/action. 
+Action ELA Response 
+Test Mode Activated from MST 
+• Test tone is played over all SSPK 
+• Test tone is played through all PCU speakers 
+• Test tone is played through all CSPK 
+• Status LED’s on all PCU illuminate 
+‘Speaker’ rotary switch to ‘Internal’ position • Test tone stops playing through SSPK. 
+• Test tone is played through all CSPK 
+• GM audio transmitted to SSPK 
+‘Speaker rotary switch to ‘0’ position • GM audio is no longer streamed to SSPK 
+• Test tone resumes play through all SSPK 
+PCU push button pressed • Test tone stops playing on the PCU 
+• Audio from the PCU microphone is looped to the PCU speaker 
+• PCU status LED’s turn off 
+PCU push button released 
+• PCU microphone is deactivated. 
+• Test tone resumes on the PCU speaker 
+• PCU status LED’s illuminate 
+Test Mode deactivated • All test functions clear 
+• ELA resumes Normal Mode operation 
+4.2.8 Audio Priorities 
+The below tables detail the default audio priorities of the ELA system, with item 1 indicating the 
+highest priority: 
+Driver Gooseneck Microphone 
+Item Mode Description 
+1 Panic Mode Panic Mode 
+2 OCC-TR Speech connection between Driver and train Radio 
+3 PA-INT/EXT Public Announcement to either Interior or Interior and Exterior speakers  
+4 IC Speech connection between the Driver and non-active cab 
+5 PCU Speech connection between driver and passenger intercom 
+Table 37 Gooseneck Microphone Audio Priority Table 
+Interior Loudspeaker 
+Item Mode Description 
+1 OCC-PA PA announcement to Internal speakers 
+2 PA Driver Announcement to Passengers 
+3 DVA Automatic Announcement 
+4 PA-CREW Tram Crew PA via the Line in Connector Harness 
+Table 38 Interior Speaker Audio Priority Table 
+Cab Loudspeaker 
+  
+1190 CDRL 036 SFD 51 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Item Mode Description 
+1 IC Intercom between cabs 
+2 PCU-Driver Listen PCU Emergency call to the Driver 
+3 DVA Automatic Announcements 
+Table 39 Cab Loudspeaker Audio Priority Table 
+Train Radio 
+Item Mode Description 
+1 Panic Mode GM audio to Train Radio 
+2 OCC-PA OCC-PA announcement to Internal 
+3 OCC-TR Voice communication between Driver and OC 
+Table 40 Train Radio Audio Priority Table 
+4.2.9 TCMS Communication for the reporting of ELA error and status information. 
+The master CCU+ Master will report the following status information to the TCMS via TRDP: 
+• Passenger Call Request Activation 
+• PCU Communication mode status 
+• PCU failure event 
+o Loss of communication 
+o Configuration file error 
+• ACC failure event 
+o Loss of communication 
+o Configuration file error 
+• CCU+ failure event  
+o Loss of communication 
+o Configuration file error 
+In the event of failure of the master CCU+ the remaining CCU+ will take over as the Master CCU+ . If 
+the failure is cleared the process will reverse with the original CCU+ resuming as Master. 
+4.2.10 Ambient noise dependent automatic volume adjustment. 
+The ELA system features automatic ambient noise volume adjustment in the saloon areas. Each PCU 
+microphone samples the ambient Sound Pressure Level (SPL) in the saloon area. This measurement 
+is communicated to the Master CCU+ via Ethernet communication. The CCU+ will calculate the 
+required change to SPL and communicate this to the ACC.  The ACC can then adjust the playback 
+volume of any announcements in the saloon by at least +6dB to a basic 75dB 
+If a failure occurs preventing automatic volume adjustment, such as Ethernet connectivity or Software 
+failure of the ACC. The volume level defaults to a fixed hardware dependent value. 
+4.2.11 Adjustable System Variables 
+The ELA system allows for the adjustment of several system variables through Web Browser 
+connection to the CCU+. These parameter include: 
+• Volume adjustment of the minimum volume for the Cab Loudspeaker  
+• PCU activation Cab Speaker Alert tone parameter On/Off 
+• Gooseneck Microphone input level for the following modes: 
+o PCU Talk 
+o PA 
+  
+1190 CDRL 036 SFD 52 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+o IC 
+o OCC-TR 
+• Volume adjustment parameter for Interior, Exterior and PCU speakers 
+• Saloon automatic ambient noise level adjustment slope. 
+• Departure audio tone file 
+• PCU Alarm tone audio file 
+4.3 Interface Specifications 
+4.3.1 IP Network Specifications 
+This section provides specifications for IP Network. 
+• ELA networked devices have their own unique MAC address. 
+• ELA networked devices have a unique host-name (unique on a consist basis). 
+• Ethernet port specifications: 
+• IEEE 802.3 
+• 100Base-TX 
+• Supports 10 Mbits/sec full duplex 
+• Supports 100 Mbits/sec full duplex 
+• Supports auto-negotiation 
+• Supports auto-sensing 
+• Supports auto-crossing 
+• Supports Ethernet frame size between 64 and 1518 byte; 
+• IEEE 802.3 flow control is disabled. 
+• IEEE 802.3af and IEEE 802.3at PoE/PoE+ (PCU Only). 
+4.3.1.1 IP Address List 
+Table 41 IP Address List 
+Car Device IP Switch Port 
+CCU+ 192.168.10.110 L3-m-Gbit X5 
+PCU B6 192.168.10.103 L2-m-PoE-Gbit X7 
+WGT1 
+PCU A1 192.168.10.92 L2-m-PoE-Gbit X8 
+TCMS 192.168.10.200 L3-m-Gbit X8 
+Coupler TBC L3-m-Gbit X9 
+ACC 192.168.10.90 L2-m-PoE-Gbit X10 
+PCU A2 192.168.10.93 L2-m-PoE-Gbit X7 
+WGT2 
+PCU B5 192.168.10.102 L2-m-PoE-Gbit X8 
+DPCU A2 192.168.10.104 L2-m-PoE-Gbit X1 
+DPCU B5 192.168.10.108 L2-m-PoE-Gbit X2 
+PCU B4 192.168.10.101 L2-m-PoE-Gbit X7 
+WGT4 
+PCU A3 192.168.10.94 L2-m-PoE-Gbit X8 
+PCU A4 192.168.10.95 L2-m-PoE-Gbit X7 
+WGT6 
+PCU B3 192.168.10.100 L2-m-PoE-Gbit X8 
+ACC 192.168.10.91 L2-m-PoE-Gbit X10 
+PCU B2 192.168.10.99 L2-m-PoE-Gbit X7 
+WGT8 
+PCU A5 192.168.10.96 L2-m-PoE-Gbit X8 
+DPCU B2 192.168.10.106 L2-m-PoE-Gbit X1 
+  
+1190 CDRL 036 SFD 53 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+DPCU A5 192.168.10.105 L2-m-PoE-Gbit X2 
+CCU+ 192.168.10.111 L3-m-Gbit X5 
+PCU A6 192.168.10.97 L2-m-PoE-Gbit X7 
+WGT9 
+PCU B1 192.168.10.98 L2-m-PoE-Gbit X8 
+Coupler TBC L3-m-Gbit X9 
+ 
+4.3.1.2 Supported Protocols 
+Link Layer: 
+• IEEE 802.3. 
+Network Layer Protocols: 
+• IPv4 
+• ARP 
+• ICMP 
+• IGMP v3. 
+Internet Layer Protocols: 
+• Echo. 
+Transport Layer Protocols: 
+• TCP 
+• UDP 
+• RTP. 
+• TRDP 
+• SIP 
+Application Layer Protocols: 
+• SFTP server 
+• SFTP client 
+• SSH server 
+• SNTP client 
+• DHCP client 
+• IPTDir Client. 
+ 
+4.3.1.3 Required Ports/Sockets 
+The following section details the Ports/Sockets the ELA system requires to be open on the Train 
+Ethernet network: 
+• 443 (HTTPS) 
+• 80 (HTTP) 
+• 22 (SSH) 
+• 123 (NTP) 
+• 53 (DNS) 
+• 5060 (SIP) 
+• 17224 (TRDP UDP PD) 
+• 17225 (TRDP UDP/TCP MD) 
+• 10000 – 20000 (RTP Dynamic Range) 
+  
+1190 CDRL 036 SFD 54 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+4.3.2 Maintenance and Diagnostics 
+The ELA system provides a Maintenance and Service Tool (MST) through web browser connection to 
+the CCU+. The MST tool allows for the following functions: 
+• Software update of: 
+o CCU+ 
+o ACC 
+o PCU 
+• Diagnostic logfile download from both ACC, PCU and CCU+ modules 
+• Setting and adjustment of system variables through configuration file upload. 
+• Live diagnostic information 
+• Upload of sound files for departure tone and PCU cab speaker alarm tone. 
+• Viewing of current software version deployment on all CCU+, ACC and PCU modules 
+• Stop/Start of System test mode 
+The ELA system from start-up continually self-monitors operational aspects of the system. In the 
+event of a failure occurring the event is recorded by the CCU+. If the event clears during operation the 
+clearing of the failure is also recorded within the CCU+ logfiles. The ELA system is able to detect the 
+event information for the following items detailed in the below table. 
+Fault Name Fault Description System Limitation Corrective Action 
+CCU+ Configuration File Configuration file corrupted or If CCU+ is master, master Update Configuration file 
+Failure invalid responsibility moved to 
+second CCU+. If not 
+possible system enters 
+fallback mode 
+CCU+ Network Timeout Network Error If CCU+ is master, master Validate Network 
+responsibility moved to 
+second CCU+. If not 
+possible system enters 
+fallback mode 
+ACC Configuration File Configuration file corrupted or Automatic volume Update Configuration file 
+Failure invalid adjustment no longer 
+possible through effected 
+ACC 
+ACC Network Timeout Network Error System to enter fallback Validate Network 
+mode 
+PCU Configuration File Configuration file corrupted or Automatic volume Update Configuration file 
+Failure invalid adjustment no longer 
+possible through effected 
+ACC 
+PCU Network Timeout Network Error PCU operation for Validate Network 
+Emergency and Passenger 
+talk request no possible 
+5 Software Configuration Item Summary 
+This section presents the list of Software Component Items (SCI) for the ELA System. The software 
+packages described below are single files with the following elements: 
+• Software Applications 
+• Operating Software 
+• Configuration File 
+• Bootloader 
+  
+1190 CDRL 036 SFD 55 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Table 42 SCI List 
+No SCI ID PN OS Item Host Upload Method 
+1 CCU+ SOFT PCK 8606080 Linux CCU+ MST, SFTP 
+2 CCU+ Config 8603176 Linux CCU+ MST, SFTP 
+3 ACC SOFT PCK 8606081 Linux ACC MST, SFTP 
+4 ACC Config 8603177 Linux ACC MST, SFTP 
+5 PCU SOFT PCK 8606082 Linux PCU MST, SFTP 
+6 PCU Config 8603178 Linux PCU MST, SFTP 
+ 
+  
+  
+1190 CDRL 036 SFD 56 of 57 Doc No.3044286 Rev G 
+ 
+C525 – Berlin – BVG 2020 
+Electroacoustic Audio System 
+ 
+ 
+ 
+Appendix A 
+List of LRUs and LLRUs 
+Appendix A - Table 1: LRU List 
+Luminator Part No. LRU Description 
+9020060-01-01 1190 Cab Control Unit + (CCU+) 
+9020020-02-02 1190 Audio Coach Controller (ACC) 
+9020031-01-02 1190 Passenger Communication Unit (PCU) 
+9003104 1190 Gooseneck Microphone (GM) 
+9003102 1190 Cab Loudspeaker (CSPK) 
+9003103 1190 Train Radio Speaker (TRSPK) 
+9003101 1190 Saloon Loudspeaker (SSPK) 
+9003105 1190 External Loudspeaker V3 (EXT-SPK-V3) 
+9003106 1190 External Loudspeaker V4 (EXT-SPK-V4) 
+9002058-002 1190 Driver Handset (HS) 
+9002219 1190 Line In Connector Harness (LICH) 
+9002220 1190 Front End Unit (FEU) 
+ 
+ 
+ 
+ 
+  
+1190 CDRL 036 SFD 57 of 57 Doc No.3044286 Rev G 
+ 

