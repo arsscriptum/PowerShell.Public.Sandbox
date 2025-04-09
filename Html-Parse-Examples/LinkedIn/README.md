@@ -1,3 +1,3 @@
 # Basic Html Parsing using HtmlAgilityPack
 
-Small Example of how to parse Html using [HtmlAgilityPack](https://html-agility-pack.net/) in PowerShell
+Download a web page, stream the news feed, parse the content for images and scrape all the images in the feed.
