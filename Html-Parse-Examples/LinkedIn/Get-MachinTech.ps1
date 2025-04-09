@@ -164,20 +164,25 @@ function Resolve-AnyPath {
 function Get-MachinTechImages {
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        [Parameter(Mandatory = $false, Position = 0)]
-        [string]$Path = "$PWD\MachinTech.html",
+        [Parameter(Mandatory = $True, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string]$HtmlFilePath,
         [Parameter(Mandatory = $False, HelpMessage = 'Recursive')]
         [int]$MaxImages = 150
     )
 
     try {
+        if (!(Test-Path -Path "$HtmlFilePath" -PathType Leaf)) {
+            Write-Error "Html File path `"$HtmlFilePath`"  doesn't exists"
+            return
+        }
 
         Add-Type -AssemblyName System.Web
 
         $Null = Register-HtmlAgilityPack
 
         $Ret = $False
-        $HtmlContent = Get-Content -Path "$PWD\MachinTech.html" -Raw
+        $HtmlContent = Get-Content -Path "$HtmlFilePath" -Raw
 
 
         [HtmlAgilityPack.HtmlDocument]$HtmlDoc = @{}
@@ -247,6 +252,11 @@ function Save-BrowseLinkedInPage {
     )
     try {
 
+        [string]$LogFilePath = Join-Path "$PSScriptRoot" " SaveBrowseLinkedInPage.log"
+        [string]$datestr = ((Get-Date).GetDateTimeFormats()[19]) -as [string]
+        [string]$logstr = "test started on $datestr"
+        New-Item -Path "$LogFilePath" -ItemType File -Value  "$logstr" -Force | Out-Null
+
 
         $CredsCmd = Get-Command 'Get-AppCredentials'
         if (!$CredsCmd) { throw "no Get-AppCredentials command (core mod)" }
@@ -265,7 +275,7 @@ function Save-BrowseLinkedInPage {
         # Start a Firefox browser and go to the LinkedIn page
         $Url = "https://www.linkedin.com/company/{0}/posts/?feedView=all" -f $CompanyName
         
-        $Driver = Start-SeFirefox -StartURL "$Url"
+        $Driver = Start-SeFirefox -StartURL "$Url" -SuppressLogging
         Show-MessageWithDelay "Opening $Url..." -Delay 5
         Write-Host -n "Get Username Input Element..." -f DarkYellow
         $UsernameElement = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathUsername
@@ -332,8 +342,10 @@ function Save-BrowseLinkedInPage {
         $TotalSize = $Html.Length
         $TotalSizeStr = if($DoConvertBytes){ $TotalSize | Convert-Bytes }else{ "$TotalSize bytes" }
         Write-Host "Downloaded page source, total $TotalSizeStr"
+        Add-Content -Path "$LogFilePath" -Value "Downloaded page source, total $TotalSizeStr"
         $OutFilePath = "$env:TEMP\linkedin_full.html"
         Write-Host "Saving to `"$OutFilePath bytes`""
+        Add-Content -Path "$LogFilePath" -Value "Saving to `"$OutFilePath bytes`""
 
         # Save to file or parse it directly
         $Html | Out-File "$OutFilePath"
@@ -342,12 +354,15 @@ function Save-BrowseLinkedInPage {
         Write-Host "Closing Webpage...." -f DarkMagenta
         $Driver.Close()
         $Driver.Dispose()
+        Remove-Item -Path "$LogFilePath" -Recurse -Force | Out-Null
 
         return "$OutFilePath"
 
 
     } catch {
-        Write-Error "$_"
+        Add-Content -Path "$LogFilePath" -Value "$_"
+        $logs = Get-Content -Path "$LogFilePath" -Raw
+        throw " $logs"
     }
 
 }
@@ -382,7 +397,11 @@ function Save-LinkedInImage {
 
         
         $OutFilePath = Join-Path "$DestinationPath" "$(Get-Random).jfif"
-
+        $LogFilePath = $OutFilePath + ".log"
+        
+        New-Item -Path "$LogFilePath" -ItemType File -Value  "downloading file to `"$OutFilePath`"" -Force | Out-Null
+        $RelLogPath = Resolve-Path -Path $LogFilePath -Relative
+        $RelImgPath = $RelLogPath.TrimEnd('.log')
         $Headers = @{
             "authority" = "media.licdn.com"
             "method" = "GET"
@@ -405,17 +424,20 @@ function Save-LinkedInImage {
             "sec-gpc" = "1"
             "upgrade-insecure-requests" = "1"
         }
+        
+
         $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
         $session.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
-        Write-Host "`tdownloading file to `"$OutFilePath`"" -f DarkYellow
+        Write-Host " [i] downloading file to `"$RelImgPath`"" -f DarkCyan
         try{
-           Invoke-WebRequest -UseBasicParsing -Uri "$Url" -WebSession $session -Headers $Headers -OutFile "$OutFilePath" -ErrorAction Stop    
+           Invoke-WebRequest -UseBasicParsing -Uri "$Url" -WebSession $session -Headers $Headers -OutFile "$OutFilePath" -ErrorAction Stop -Verbose *> "$LogFilePath"
            $RetSize = (Get-Item "$OutFilePath").Length
            $RetSizeStr = if($DoConvertBytes){ $RetSize | Convert-Bytes }else{ "$RetSize bytes" }
-           Write-Host "`ttransfered $RetSizeStr" -f DarkGreen
+           Write-Host " [i] transfered $RetSizeStr" -f DarkGreen
+           Remove-Item -Path "$LogFilePath" -Recurse -Force | Out-Null
         }catch{
             $RetSize = 0
-            Write-Host "`ttransfered zero bytes!" -f DarkRed
+            Write-Host " [!] transfered zero bytes!" -f DarkRed
         }
         
         return $RetSize
@@ -433,30 +455,50 @@ function Start-LinkedInScrapeTest {
     [CmdletBinding(SupportsShouldProcess)]
     param()
     try {
-        Register-HtmlAgilityPack
 
- 
-        $FilePath = Save-BrowseLinkedInPage 
-        $MachinTechImages = Get-MachinTechImages "$FilePath"
-        $MachinTechImagesCount = $MachinTechImages.Count
-        Write-Host "Found $MachinTechImagesCount image!"
+        try{
+            Write-Host "Register HtmlAgilityPack Libraries..." -f DarkCyan
+            Register-HtmlAgilityPack
+        }catch{
+            Write-Host "Error registering HtmlAgilityPack!" -f DarkRed
+            return;
+        }
+        try{
+            Write-Host "Save page source for parsing..." -f DarkCyan
+            $FilePath = Save-BrowseLinkedInPage 
+        }catch{
+            Write-Host "Error loading webpage" -f DarkRed
+            return;
+        }
+        try{
+            Write-Host "Parse web page source for image links..." -f DarkCyan
+            $MachinTechImages = Get-MachinTechImages -HtmlFilePath "$FilePath"
+            $MachinTechImagesCount = $MachinTechImages.Count
+            Write-Host "Found $MachinTechImagesCount image!" -f DarkCyan
+        }catch{
+            Write-Host "Error parsing page for images links" -f DarkRed
+            return;
+        }
+        
         $OutFileDir = Join-Path "$PWD" "downloaded_images"
         Remove-Item -Path "$OutFileDir" -Recurse -Force | Out-Null
         New-Item -Path "$OutFileDir" -ItemType Directory -Force | Out-Null
 
         $GitIgnore = Join-Path "$PWD" ".gitignore"
         Add-Content -Path "$GitIgnore" -Value "downloaded_images" -Force
-        [int]$count=0
+        [int]$linkcount=1
+        [int]$imgcount=0
         foreach ($img in $MachinTechImages) {
-            $log = "Processing Image Link {0}/{1}..." -f $count, $MachinTechImagesCount
+            $log = "`nProcessing Image Link {0}/{1}..." -f $linkcount, $MachinTechImagesCount
             Write-Host "$log" -f DarkYellow
             $RetSize = Save-LinkedInImage -Url "$img" -DestinationPath "$OutFileDir"
             if($RetSize -eq 0){
-                Write-Host "`tdownload failed!" -f DarkRed
+                Write-Host " [!] download failed!" -f DarkRed
             }else{
-                Write-Host "`tdownload image $RetSize bytes" -f DarkGreen
+                $imgcount++
+                Write-Host " [i] downloaded image no $imgcount / $MachinTechImagesCount" -f DarkGreen
             }
-            $count++
+            $linkcount++
         }
 
         $ExplorerExe = (Get-Command 'explorer.exe').Source
@@ -468,3 +510,4 @@ function Start-LinkedInScrapeTest {
     }
 
 }
+
