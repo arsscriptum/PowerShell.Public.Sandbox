@@ -279,6 +279,13 @@ function Save-BrowseLinkedInPage {
         [int]$MaxBytes=[int]::MaxValue
     )
     try {
+        Write-Host -n "Detecting Selenium Module..." -f Blue
+        $IsSeleniumPresent = (Get-Command 'Start-SeFirefox' -ErrorAction Ignore) -ne $Null
+        if(!$IsSeleniumPresent){
+            throw "You need the selenium module! `"Install-Module Selenium`""
+        }else{
+            Write-Host "Ok!" -f DarkGreen
+        }
         [bool]$RetVal = $True
         $DoConvertBytes =  (Get-Command 'Convert-Bytes' -ErrorAction Ignore) -ne $Null
         $MaxBytesLimitStr = if($DoConvertBytes){ $MaxBytes | Convert-Bytes }else{ "$MaxBytes bytes" }
@@ -493,18 +500,38 @@ function Start-LinkedInScrapeTest {
         [int]$MaxBytes=[int]::MaxValue        
     )
     try {
+        $DoConvertBytes =  (Get-Command 'Convert-Bytes' -ErrorAction Ignore) -ne $Null
+
+        Write-Host -n "`nDetecting Selenium Module..." -f Blue
+        $IsSeleniumLoaded = (Get-Module -Name Selenium -ErrorAction Ignore) -ne $Null
+        if(!$IsSeleniumLoaded){
+            $IsSeleniumLoaded = (Import-Module -Name Selenium -Force -PassThru) -ne $Null
+        }else{
+            Write-Host "Ok!" -f DarkGreen
+        }
+        Write-Host -n "Detecting Selenium Commands..." -f Blue
+        $IsSeleniumPresent = $IsSeleniumLoaded -And ((Get-Command 'Start-SeFirefox' -ErrorAction Ignore) -ne $Null)
+        if(!$IsSeleniumPresent){
+            throw "You need the selenium module! `"Install-Module Selenium`""
+        }else{
+            Write-Host "Ok!" -f DarkGreen
+        }
+
         try{
-            Write-Host "Register HtmlAgilityPack Libraries..." -f DarkCyan
+            Write-Host -n "Register HtmlAgilityPack Libraries..." -f DarkCyan
             Register-HtmlAgilityPack
+            Write-Host "Ok!" -f DarkGreen
         }catch{
             throw "Error registering HtmlAgilityPack!"
         }
 
         try{
             $OutFilePath = New-TemporaryFile | Select -ExpandProperty Fullname
-            Write-Host "Saving to `"$OutFilePath`""
  
-            Write-Host "Save page source for parsing..." -f DarkCyan
+            $MaxBytesLimitStr = if($DoConvertBytes){ $MaxBytes | Convert-Bytes }else{ "$MaxBytes bytes" }
+            
+            Write-Host "`nSave page source for parsing to `"$OutFilePath`"" -f DarkCyan
+            Write-Host "Web page data stream limited to $MaxBytesLimitStr" -f DarkCyan
             # TEST ONLY:  Limit Downloaded Page to 2MB
             #$Ret = Save-BrowseLinkedInPage -HtmlFilePath "$OutFilePath" -MaxBytes 2Mb 
             $Ret = Save-BrowseLinkedInPage -HtmlFilePath "$OutFilePath" -MaxBytes $MaxBytes
@@ -518,14 +545,14 @@ function Start-LinkedInScrapeTest {
             
         }
         try{
-            Write-Host "Parse web page source $OutFilePath for image links..." -f DarkCyan
+            Write-Host -n "`nParse web page source $OutFilePath for image links..." -f DarkCyan
             $ParsedImageLinks = Get-MachinTechImages -HtmlFilePath "$OutFilePath"
             $ParsedLinksCount = $ParsedImageLinks.Count
-            Write-Host "Found $ParsedLinksCount image!" -f DarkCyan
+            Write-Host "Ok! Found $ParsedLinksCount image!" -f DarkGreen
         }catch{
             throw "Error parsing page"
         }
-        $DoConvertBytes =  (Get-Command 'Convert-Bytes' -ErrorAction Ignore) -ne $Null
+        
         
         $OutFileDir = Join-Path "$PWD" "downloaded_images"
         Remove-Item -Path "$OutFileDir" -Recurse -Force | Out-Null
