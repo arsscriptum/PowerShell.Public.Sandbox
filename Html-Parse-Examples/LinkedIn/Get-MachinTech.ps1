@@ -31,6 +31,108 @@ function Register-HtmlAgilityPack {
     }
 }
 
+function Register-LinkedInCreds {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory = $false, HelpMessage = "Gui")]
+        [switch]$Gui
+    )
+
+    Write-Host "`n==============================="
+    Write-Host "   ENTER LINKEDIN CREDENTIALS"
+    Write-Host "===============================`n"
+
+    if ($Gui) {
+        Add-Type -AssemblyName System.Windows.Forms
+
+        $form = New-Object System.Windows.Forms.Form
+        $form.Text = "LinkedIn Credentials"
+        $form.Size = New-Object System.Drawing.Size (300, 220)
+        $form.StartPosition = "CenterScreen"
+
+        $usernameLabel = New-Object System.Windows.Forms.Label
+        $usernameLabel.Text = "Username:"
+        $usernameLabel.Location = New-Object System.Drawing.Point (10, 20)
+        $usernameLabel.Size = New-Object System.Drawing.Size (280, 20)
+        $form.Controls.Add($usernameLabel)
+
+        $usernameBox = New-Object System.Windows.Forms.TextBox
+        $usernameBox.Location = New-Object System.Drawing.Point (10, 40)
+        $usernameBox.Size = New-Object System.Drawing.Size (260, 20)
+        $form.Controls.Add($usernameBox)
+
+        $passwordLabel = New-Object System.Windows.Forms.Label
+        $passwordLabel.Text = "Password:"
+        $passwordLabel.Location = New-Object System.Drawing.Point (10, 70)
+        $passwordLabel.Size = New-Object System.Drawing.Size (280, 20)
+        $form.Controls.Add($passwordLabel)
+
+        $passwordBox = New-Object System.Windows.Forms.TextBox
+        $passwordBox.Location = New-Object System.Drawing.Point (10, 90)
+        $passwordBox.Size = New-Object System.Drawing.Size (260, 20)
+        $passwordBox.UseSystemPasswordChar = $true
+        $form.Controls.Add($passwordBox)
+
+        $confirmLabel = New-Object System.Windows.Forms.Label
+        $confirmLabel.Text = "Confirm Password:"
+        $confirmLabel.Location = New-Object System.Drawing.Point (10, 120)
+        $confirmLabel.Size = New-Object System.Drawing.Size (280, 20)
+        $form.Controls.Add($confirmLabel)
+
+        $confirmBox = New-Object System.Windows.Forms.TextBox
+        $confirmBox.Location = New-Object System.Drawing.Point (10, 140)
+        $confirmBox.Size = New-Object System.Drawing.Size (260, 20)
+        $confirmBox.UseSystemPasswordChar = $true
+        $form.Controls.Add($confirmBox)
+
+        $okButton = New-Object System.Windows.Forms.Button
+        $okButton.Text = "OK"
+        $okButton.Location = New-Object System.Drawing.Point (100, 170)
+        $okButton.Add_Click({
+                if ($passwordBox.Text -ne $confirmBox.Text) {
+                    [System.Windows.Forms.MessageBox]::Show("Passwords do not match.", "Error", 'OK', 'Error')
+                } elseif (-not $usernameBox.Text -or -not $passwordBox.Text) {
+                    [System.Windows.Forms.MessageBox]::Show("Username or Password cannot be empty.", "Error", 'OK', 'Error')
+                } else {
+                    $form.Tag = $true
+                    $form.Close()
+                }
+            })
+        $form.Controls.Add($okButton)
+
+        $form.ShowDialog() | Out-Null
+
+        if (-not $form.Tag) {
+            Write-Error "User cancelled or error occurred."
+            return
+        }
+
+        $UsernameInputted = $usernameBox.Text
+        $PasswordInputted = $passwordBox.Text
+    }
+    else {
+        $UsernameInputted = Read-Host "Enter your LinkedIn username"
+        $pass1 = Read-Host "Enter password" -AsSecureString
+        $pass2 = Read-Host "Confirm password" -AsSecureString
+
+        if (([Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($pass1))) -ne
+            ([Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($pass2)))) {
+            Write-Error "Passwords do not match."
+            return
+        }
+
+        $PasswordInputted = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+            [Runtime.InteropServices.Marshal]::SecureStringToBSTR($pass1))
+    }
+
+    $Success = Register-AppCredentials -Id "LinkedInWebPage" -Username $UsernameInputted -Password $PasswordInputted
+}
+
+
+
+
+
+
 function Resolve-AnyPath {
     [CmdletBinding(SupportsShouldProcess)]
     param(
@@ -118,7 +220,24 @@ function Get-MachinTechImages {
     return $Null
 }
 
+function Show-MessageWithDelay {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0, HelpMessage = 'Message')]
+        [string]$Message,
+        [Parameter(Mandatory = $false, Position = 1, HelpMessage = 'Delay')]
+        [int]$Delay=10
+    )
 
+    Write-Host -n "$Message  " -f DarkRed
+
+    for ($i = $Delay; $i -gt 0; $i--) {
+        Write-Host -n "$i " -f DarkYellow
+        Start-Sleep -Seconds 1
+    }
+
+    Write-Host  # Move to the next line after delay
+}
 
 function Save-BrowseLinkedInPage {
     [CmdletBinding(SupportsShouldProcess)]
@@ -129,26 +248,67 @@ function Save-BrowseLinkedInPage {
     try {
 
 
+        $CredsCmd = Get-Command 'Get-AppCredentials'
+        if (!$CredsCmd) { throw "no Get-AppCredentials command (core mod)" }
+        Write-Host "Get-AppCredentials for LinkedInWebPage..." -f DarkYellow
+        $Credz = Get-AppCredentials -Id "LinkedInWebPage"
+        if (!$Credz) { throw "no LinkedInWebPage credentials registered, use Register-LinkedInCreds " }
+        $LinkedInUsername = $Credz.UserName
+        $LinkedInPassword = $Credz.GetNetworkCredential().Password
+
+        $XPathUsername = '/html/body/div/main/div[3]/div[1]/form/div[1]/input'
+
+        $XPathPassword = '/html/body/div/main/div[3]/div[1]/form/div[2]/input'
+
+        $XPathLoginButton = '/html/body/div/main/div[3]/div[1]/form/div[4]/button'
+
         # Start a Firefox browser and go to the LinkedIn page
         $Url = "https://www.linkedin.com/company/{0}/posts/?feedView=all" -f $CompanyName
+        
         $Driver = Start-SeFirefox -StartURL "$Url"
+        Show-MessageWithDelay "Opening $Url..."
+        Write-Host "Get Username Input Element..." -f DarkYellow
+        $UsernameElement = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathUsername
+        if (!$UsernameElement) { throw "cannot find login input" }
+        Write-Host "Get Password Input Element..." -f DarkYellow
+        $PasswordElement = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathPassword
+        if (!$PasswordElement) { throw "cannot find password input" }
+        Write-Host "Get Login Button Element..." -f DarkYellow
+        $LoginButtonElem = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathLoginButton
+        if (!$LoginButtonElem) { throw "cannot find login btn" }
 
-        # Optional: give time to login manually (or use saved profile with cookies)
-        Read-Host "Log in manually and press Enter to continue scrolling..."
+        Write-Host "Inputting Username..." -f DarkYellow
+
+        Send-SeKeys -Element $UsernameElement -Text "$LinkedInUsername"
+        Start-Sleep 3
+
+        Write-Host "Inputting Password..." -f DarkYellow
+        Send-SeKeys -Element $PasswordElement -Text "$LinkedInPassword"
+        Start-Sleep 2
+
+        Write-Host "Login In...." -f DarkYellow
+        Invoke-SeClick -Element $LoginButtonElem
+
+        Show-MessageWithDelay "Page Loading..." -Delay 5
 
         # Scroll loop: simulate user scrolling down multiple times
         for ($i = 0; $i -lt 20; $i++) {
             $Driver.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);")
-            Start-Sleep -Seconds 2
+            Show-MessageWithDelay "Auto Scroll User feed..." -Delay 2
         }
 
         # Once done, extract full HTML
         $Html = $Driver.PageSource
 
-        # Save to file or parse it directly
-        $Html | Out-File "$env:TEMP\linkedin_full.html"
+        $DownloadedPageSourceLen = $Html.Length
+        Write-Host "Downloaded page source, total $DownloadedPageSourceLen bytes"
+        $OutFilePath = "$env:TEMP\linkedin_full.html"
+        Write-Host "Saving to `"$OutFilePath bytes`""
 
-        return "$env:TEMP\linkedin_full.html"
+        # Save to file or parse it directly
+        $Html | Out-File "$OutFilePath"
+
+        return "$OutFilePath"
 
 
     } catch {
@@ -156,26 +316,36 @@ function Save-BrowseLinkedInPage {
     }
 
 }
+
+
 function Save-LinkedInImage {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory = $True, Position = 0)]
+        [ValidateNotNullOrEmpty()]
         [string]$Url,
-        [Parameter(Mandatory = $false, Position = 1)]
-        [string]$DestinationPath = "newpics"
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [string]$DestinationPath
     )
     try {
 
         $FilePath = $Url.Replace('https://media.licdn.com', '')
 
-
+        if (!(Test-Path -Path "$DestinationPath" -PathType Container)) {
+            Write-Error "Download path `"$DestinationPath`"  doesn't exists. Create it before."
+            return
+        }
+            
+        
         if (!$FilePath.StartsWith('/dms')) {
             Write-Error "bad url `"$Url`" $FilePath"
         }
 
-        $OutFileDir = Join-Path "$PSSCriptRoot" "$DestinationPath"
-        New-Item -Path "$OutFileDir" -ItemType Directory -Force | Out-Null
-        $OutFilePath = Join-Path "$OutFileDir" "$(Get-Random).jfif"
+        [int]$RetSize = 0
+
+        
+        $OutFilePath = Join-Path "$DestinationPath" "$(Get-Random).jfif"
 
         $Headers = @{
             "authority" = "media.licdn.com"
@@ -202,7 +372,15 @@ function Save-LinkedInImage {
         $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
         $session.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
         Write-Host "downloading file to `"$OutFilePath`""
-        Invoke-WebRequest -UseBasicParsing -Uri "$Url" -WebSession $session -Headers $Headers -OutFile "$OutFilePath"
+        try{
+           Invoke-WebRequest -UseBasicParsing -Uri "$Url" -WebSession $session -Headers $Headers -OutFile "$OutFilePath" -ErrorAction Stop    
+           $RetSize = (Get-Item "$OutFilePath").Length
+        }catch{
+            $RetSize = 0
+        }
+        
+        return $RetSize
+        
 
     } catch {
         Write-Error "$_"
@@ -210,10 +388,44 @@ function Save-LinkedInImage {
 
 }
 
-$FilePath = Save-BrowseLinkedInPage
-$MachinTechImages = Get-MachinTechImages "$FilePath"
-$MachinTechImagesCount = $MachinTechImages.Count
-Write-Host "Found $MachinTechImagesCount image!"
-foreach ($img in $MachinTechImages) {
-    Save-LinkedInImage "$img"
+
+
+function Start-LinkedInScrapeTest {
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+    try {
+        Register-HtmlAgilityPack
+
+ 
+        $FilePath = Save-BrowseLinkedInPage
+        $MachinTechImages = Get-MachinTechImages "$FilePath"
+        $MachinTechImagesCount = $MachinTechImages.Count
+        Write-Host "Found $MachinTechImagesCount image!"
+        $OutFileDir = Join-Path "$PWD" "downloaded_images"
+        Remove-Item -Path "$OutFileDir" -Recurse -Force | Out-Null
+        New-Item -Path "$OutFileDir" -ItemType Directory -Force | Out-Null
+
+        $GitIgnore = Join-Path "$PWD" ".gitignore"
+        Add-Content -Path "$GitIgnore" -Value "downloaded_images" -Force
+        [int]$count=0
+        foreach ($img in $MachinTechImages) {
+            $log = "Downloading {0}/{1}..." -f $count, $MachinTechImagesCount
+            Write-Host -n "$log" -f DarkYellow
+            $RetSize = Save-LinkedInImage -Url "$img" -DestinationPath "$OutFileDir"
+            if($RetSize -eq 0){
+                Write-Host "download failed!" -f DarkRed
+            }else{
+                Write-Host "download image $RetSize bytes" -f DarkGreen
+            }
+            $count++
+        }
+
+        $ExplorerExe = (Get-Command 'explorer.exe').Source
+        & "$ExplorerExe" "$OutFileDir"
+
+
+    } catch {
+        Write-Error "$_"
+    }
+
 }
