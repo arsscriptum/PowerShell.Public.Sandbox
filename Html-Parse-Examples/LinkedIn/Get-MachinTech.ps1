@@ -360,6 +360,11 @@ function Save-BrowseLinkedInPage {
 
 
     } catch {
+        if($Driver){
+          $Driver.Close()
+          $Driver.Dispose()    
+        }
+        
         Add-Content -Path "$LogFilePath" -Value "$_"
         $logs = Get-Content -Path "$LogFilePath" -Raw
         throw " $logs"
