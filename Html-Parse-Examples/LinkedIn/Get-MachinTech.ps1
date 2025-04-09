@@ -266,24 +266,27 @@ function Save-BrowseLinkedInPage {
         $Url = "https://www.linkedin.com/company/{0}/posts/?feedView=all" -f $CompanyName
         
         $Driver = Start-SeFirefox -StartURL "$Url"
-        Show-MessageWithDelay "Opening $Url..."
-        Write-Host "Get Username Input Element..." -f DarkYellow
+        Show-MessageWithDelay "Opening $Url..." -Delay 5
+        Write-Host -n "Get Username Input Element..." -f DarkYellow
         $UsernameElement = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathUsername
         if (!$UsernameElement) { throw "cannot find login input" }
-        Write-Host "Get Password Input Element..." -f DarkYellow
+        Write-Host "Ok!" -f DarkGreen
+        Write-Host -n "Get Password Input Element..." -f DarkYellow
         $PasswordElement = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathPassword
         if (!$PasswordElement) { throw "cannot find password input" }
-        Write-Host "Get Login Button Element..." -f DarkYellow
+        Write-Host "Ok!" -f DarkGreen
+        Write-Host -n "Get Login Button Element..." -f DarkYellow
         $LoginButtonElem = Find-SeElement -Driver $Driver -Wait -Timeout 10 -XPath $XPathLoginButton
         if (!$LoginButtonElem) { throw "cannot find login btn" }
+        Write-Host "Ok!" -f DarkGreen
 
         Write-Host "Inputting Username..." -f DarkYellow
 
-        Send-SeKeys -Element $UsernameElement -Text "$LinkedInUsername"
+        Send-SeKeys -Element $UsernameElement -Keys "$LinkedInUsername"
         Start-Sleep 3
 
         Write-Host "Inputting Password..." -f DarkYellow
-        Send-SeKeys -Element $PasswordElement -Text "$LinkedInPassword"
+        Send-SeKeys -Element $PasswordElement -Keys "$LinkedInPassword"
         Start-Sleep 2
 
         Write-Host "Login In...." -f DarkYellow
@@ -291,22 +294,54 @@ function Save-BrowseLinkedInPage {
 
         Show-MessageWithDelay "Page Loading..." -Delay 5
 
+        $DoConvertBytes =  (Get-Command 'Convert-Bytes' -ErrorAction Ignore) -ne $Null
+
+        [int]$TotalSize = 0
+        [int]$NumReloads = 0
+        [int]$MaxReloads = 20
+        [int]$ZeroSizeCount = 0
+        [bool]$NomoreData = $false
+
         # Scroll loop: simulate user scrolling down multiple times
-        for ($i = 0; $i -lt 20; $i++) {
+        while( ($NomoreData -eq $False) -And ($NumReloads -lt $MaxReloads)){
             $Driver.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);")
-            Show-MessageWithDelay "Auto Scroll User feed..." -Delay 2
+            $NumReloads++
+            Show-MessageWithDelay "[$NumReloads / $MaxReloads] Auto Scroll User feed..." -Delay 2
+            $HtmlBuffer = $Driver.PageSource
+            $DownloadedSize = $HtmlBuffer.Length - $TotalSize
+            
+            $TotalSize += $DownloadedSize
+            if($DownloadedSize -eq 0){
+                Write-Host "no data streamed ($ZeroSizeCount)" -f DarkRed
+                if($ZeroSizeCount -ge 3){
+                    $NomoreData = $True
+                    Write-Host "NO MORE DATA" -f DarkRed
+                }else{
+                    $ZeroSizeCount++    
+                }
+            }else{
+                $TotalSizeStr = if($DoConvertBytes){ $TotalSize | Convert-Bytes }else{ "$TotalSize bytes" }
+                $DownloadedSizeStr = if($DoConvertBytes){ $DownloadedSize | Convert-Bytes }else{ "$DownloadedSize bytes" }
+                Write-Host "streamed $DownloadedSizeStr. Total so far $TotalSizeStr" -f DarkGreen
+            }
         }
 
         # Once done, extract full HTML
         $Html = $Driver.PageSource
 
-        $DownloadedPageSourceLen = $Html.Length
-        Write-Host "Downloaded page source, total $DownloadedPageSourceLen bytes"
+        $TotalSize = $Html.Length
+        $TotalSizeStr = if($DoConvertBytes){ $TotalSize | Convert-Bytes }else{ "$TotalSize bytes" }
+        Write-Host "Downloaded page source, total $TotalSizeStr"
         $OutFilePath = "$env:TEMP\linkedin_full.html"
         Write-Host "Saving to `"$OutFilePath bytes`""
 
         # Save to file or parse it directly
         $Html | Out-File "$OutFilePath"
+
+
+        Write-Host "Closing Webpage...." -f DarkMagenta
+        $Driver.Close()
+        $Driver.Dispose()
 
         return "$OutFilePath"
 
@@ -341,6 +376,7 @@ function Save-LinkedInImage {
         if (!$FilePath.StartsWith('/dms')) {
             Write-Error "bad url `"$Url`" $FilePath"
         }
+        $DoConvertBytes =  (Get-Command 'Convert-Bytes' -ErrorAction Ignore) -ne $Null
 
         [int]$RetSize = 0
 
@@ -371,12 +407,15 @@ function Save-LinkedInImage {
         }
         $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
         $session.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
-        Write-Host "downloading file to `"$OutFilePath`""
+        Write-Host "`tdownloading file to `"$OutFilePath`"" -f DarkYellow
         try{
            Invoke-WebRequest -UseBasicParsing -Uri "$Url" -WebSession $session -Headers $Headers -OutFile "$OutFilePath" -ErrorAction Stop    
            $RetSize = (Get-Item "$OutFilePath").Length
+           $RetSizeStr = if($DoConvertBytes){ $RetSize | Convert-Bytes }else{ "$RetSize bytes" }
+           Write-Host "`ttransfered $RetSizeStr" -f DarkGreen
         }catch{
             $RetSize = 0
+            Write-Host "`ttransfered zero bytes!" -f DarkRed
         }
         
         return $RetSize
@@ -397,7 +436,7 @@ function Start-LinkedInScrapeTest {
         Register-HtmlAgilityPack
 
  
-        $FilePath = Save-BrowseLinkedInPage
+        $FilePath = Save-BrowseLinkedInPage 
         $MachinTechImages = Get-MachinTechImages "$FilePath"
         $MachinTechImagesCount = $MachinTechImages.Count
         Write-Host "Found $MachinTechImagesCount image!"
@@ -409,13 +448,13 @@ function Start-LinkedInScrapeTest {
         Add-Content -Path "$GitIgnore" -Value "downloaded_images" -Force
         [int]$count=0
         foreach ($img in $MachinTechImages) {
-            $log = "Downloading {0}/{1}..." -f $count, $MachinTechImagesCount
-            Write-Host -n "$log" -f DarkYellow
+            $log = "Processing Image Link {0}/{1}..." -f $count, $MachinTechImagesCount
+            Write-Host "$log" -f DarkYellow
             $RetSize = Save-LinkedInImage -Url "$img" -DestinationPath "$OutFileDir"
             if($RetSize -eq 0){
-                Write-Host "download failed!" -f DarkRed
+                Write-Host "`tdownload failed!" -f DarkRed
             }else{
-                Write-Host "download image $RetSize bytes" -f DarkGreen
+                Write-Host "`tdownload image $RetSize bytes" -f DarkGreen
             }
             $count++
         }
